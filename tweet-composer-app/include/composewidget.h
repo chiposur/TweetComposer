@@ -5,7 +5,8 @@
 #include <QObject>
 #include <QWidget>
 #include <QVBoxLayout>
-#include <QTextEdit>
+#include <QPlainTextEdit>
+#include <QTextCharFormat>
 #include <QToolButton>
 
 class ComposeWidget : public QWidget
@@ -22,6 +23,8 @@ public slots:
     void underlineTriggered();
 
 private:
+    void setCharFormat(QTextCharFormat &format);
+
     QHBoxLayout *toolButtonsLayout;
     QVBoxLayout *mainLayout;
 
@@ -29,7 +32,11 @@ private:
     QToolButton *italicToolButton;
     QToolButton *underlineToolButton;
 
-    QTextEdit *tweetTextEdit;
+    QPlainTextEdit *tweetTextEdit;
+
+    bool isBold = false;
+    bool isItalic = false;
+    bool isUnderline = false;
 };
 
 #endif // COMPOSEWIDGET_H

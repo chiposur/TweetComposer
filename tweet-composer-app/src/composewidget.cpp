@@ -35,22 +35,44 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     toolButtonsLayout->addStretch();
 
-    tweetTextEdit = new QTextEdit();
+    tweetTextEdit = new QPlainTextEdit();
     tweetTextEdit->setPlaceholderText("Compose tweet...");
     mainLayout->addWidget(tweetTextEdit);
 }
 
 void ComposeWidget::boldTriggered()
 {
-    tweetTextEdit->setFontWeight(tweetTextEdit->fontWeight() == QFont::Bold ? QFont::Normal : QFont::Bold);
+    isBold = !isBold;
+    QTextCursor cursor = tweetTextEdit->textCursor();
+    QTextCharFormat format;
+    setCharFormat(format);
+    cursor.setCharFormat(format);
+    tweetTextEdit->setTextCursor(cursor);
 }
 
 void ComposeWidget::italicTriggered()
 {
-    tweetTextEdit->setFontItalic(!tweetTextEdit->fontItalic());
+    isItalic = !isItalic;
+    QTextCursor cursor = tweetTextEdit->textCursor();
+    QTextCharFormat format;
+    setCharFormat(format);
+    cursor.setCharFormat(format);
+    tweetTextEdit->setTextCursor(cursor);
 }
 
 void ComposeWidget::underlineTriggered()
 {
-    tweetTextEdit->setFontUnderline(!tweetTextEdit->fontUnderline());
+    isUnderline = !isUnderline;
+    QTextCursor cursor = tweetTextEdit->textCursor();
+    QTextCharFormat format;
+    setCharFormat(format);
+    cursor.setCharFormat(format);
+    tweetTextEdit->setTextCursor(cursor);
+}
+
+void ComposeWidget::setCharFormat(QTextCharFormat &format)
+{
+    format.setFontWeight(isBold ? QFont::Bold : QFont::Normal);
+    format.setFontItalic(isItalic);
+    format.setFontUnderline(isUnderline);
 }
