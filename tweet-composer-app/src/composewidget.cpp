@@ -15,6 +15,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     boldToolButton = new QToolButton();
     boldToolButton->setText("B");
     boldToolButton->setCheckable(true);
+    boldToolButton->setStyleSheet("QToolButton { font-weight: bold; }");
     toolButtonsLayout->addWidget(boldToolButton);
 
     connect(boldToolButton, SIGNAL(clicked()), this, SLOT(boldTriggered()));
@@ -22,6 +23,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     italicToolButton = new QToolButton();
     italicToolButton->setText("I");
     italicToolButton->setCheckable(true);
+    italicToolButton->setStyleSheet("QToolButton { font-style: italic; }");
     toolButtonsLayout->addWidget(italicToolButton);
 
     connect(italicToolButton, SIGNAL(clicked()), this, SLOT(italicTriggered()));
@@ -29,6 +31,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     underlineToolButton = new QToolButton();
     underlineToolButton->setText("U");
     underlineToolButton->setCheckable(true);
+    underlineToolButton->setStyleSheet("QToolButton { text-decoration: underline; }");
     toolButtonsLayout->addWidget(underlineToolButton);
 
     connect(underlineToolButton, SIGNAL(clicked()), this, SLOT(underlineTriggered()));
