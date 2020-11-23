@@ -1,4 +1,9 @@
 #include <QAction>
+#include <QClipboard>
+#include <QFont>
+#include <QGuiApplication>
+#include <QPushButton>
+#include <QSpacerItem>
 
 #include "composewidget.h"
 
@@ -36,46 +41,101 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     connect(underlineToolButton, SIGNAL(clicked()), this, SLOT(underlineTriggered()));
 
+    toolButtonsLayout->addSpacerItem(new QSpacerItem(8, 0));
+
+    fontFamiliesComboBox = new QComboBox();
+    QStringList fontFamilies;
+    fontFamilies << "Times";
+    fontFamilies << "Helvetica";
+    fontFamiliesComboBox->addItems(fontFamilies);
+    toolButtonsLayout->addWidget(fontFamiliesComboBox);
+
+    connect(fontFamiliesComboBox, SIGNAL(currentTextChanged(const QString &)), this, SLOT(onCurrentTextChanged(const QString &)));
+
+    fontFamily = fontFamilies.first();
+
     toolButtonsLayout->addStretch();
 
     tweetTextEdit = new QPlainTextEdit();
     tweetTextEdit->setPlaceholderText("Compose tweet...");
     mainLayout->addWidget(tweetTextEdit);
+
+    connect(tweetTextEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
+
+    QHBoxLayout *editorBottomLayout = new QHBoxLayout();
+    toolButtonsLayout->setSpacing(0);
+    toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->addLayout(editorBottomLayout);
+
+    QPushButton *copyButton = new QPushButton("Copy");
+    editorBottomLayout->addWidget(copyButton);
+
+    connect(copyButton, SIGNAL(clicked()), this, SLOT(onCopyClicked()));
+
+    editorBottomLayout->addStretch();
+
+    charsRemainingLabel = new QLabel();
+    editorBottomLayout->addWidget(charsRemainingLabel);
+
+    setFont();
+}
+
+void ComposeWidget::setFont()
+{
+    QFont font(
+        fontFamily == "Times" ? "Times New Roman" : "Helvetica [Cronyx]",
+        tweetTextEdit->font().pointSize(),
+        isBold ? QFont::Bold : QFont::Normal,
+        isItalic);
+    font.setUnderline(isUnderline);
+
+    QTextCursor textCursor = tweetTextEdit->textCursor();
+    QTextCharFormat charFormat = textCursor.charFormat();
+    charFormat.setFont(font);
+    textCursor.setCharFormat(charFormat);
+
+    tweetTextEdit->setTextCursor(textCursor);
 }
 
 void ComposeWidget::boldTriggered()
 {
     isBold = !isBold;
-    QTextCursor cursor = tweetTextEdit->textCursor();
-    QTextCharFormat format;
-    setCharFormat(format);
-    cursor.setCharFormat(format);
-    tweetTextEdit->setTextCursor(cursor);
+    setFont();
 }
 
 void ComposeWidget::italicTriggered()
 {
     isItalic = !isItalic;
-    QTextCursor cursor = tweetTextEdit->textCursor();
-    QTextCharFormat format;
-    setCharFormat(format);
-    cursor.setCharFormat(format);
-    tweetTextEdit->setTextCursor(cursor);
+    setFont();
 }
 
 void ComposeWidget::underlineTriggered()
 {
     isUnderline = !isUnderline;
-    QTextCursor cursor = tweetTextEdit->textCursor();
-    QTextCharFormat format;
-    setCharFormat(format);
-    cursor.setCharFormat(format);
-    tweetTextEdit->setTextCursor(cursor);
+    setFont();
 }
 
-void ComposeWidget::setCharFormat(QTextCharFormat &format)
+void ComposeWidget::onTextChanged()
 {
-    format.setFontWeight(isBold ? QFont::Bold : QFont::Normal);
-    format.setFontItalic(isItalic);
-    format.setFontUnderline(isUnderline);
+    // Set chars remaining label
+    QString charsRemainingText;
+    int charsRemaining = MAX_TWEET_LENGTH - tweetTextEdit->toPlainText().length();
+    if (charsRemaining <=  CHARS_REMAINING_LIMIT)
+    {
+        charsRemainingText = QString::number(charsRemaining);
+        charsRemainingLabel->setStyleSheet(QString("QLabel { color: %1; }").arg(charsRemaining >= 0 ? "black" : "red"));
+    }
+
+    charsRemainingLabel->setText(charsRemainingText);
+}
+
+void ComposeWidget::onCopyClicked()
+{
+    QGuiApplication::clipboard()->setText(tweetTextEdit->toPlainText());
+}
+
+void ComposeWidget::onCurrentTextChanged(const QString &text)
+{
+    fontFamily = text;
+    setFont();
 }
