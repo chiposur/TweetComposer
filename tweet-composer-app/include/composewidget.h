@@ -6,10 +6,23 @@
 #include <QLabel>
 #include <QObject>
 #include <QPlainTextEdit>
+#include <QPushButton>
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QTextCharFormat>
 #include <QToolButton>
+
+#include <tweetdraft.h>
+#include <tweettemplate.h>
+
+class PlainTextEdit : public QPlainTextEdit
+{
+    Q_OBJECT
+
+public:
+    PlainTextEdit(QWidget *parent = nullptr) : QPlainTextEdit(parent) {}
+    void keyPressEvent(QKeyEvent *e);
+};
 
 class ComposeWidget : public QWidget
 {
@@ -23,11 +36,21 @@ public slots:
     void italicTriggered();
     void underlineTriggered();
     void onTextChanged();
-    void onCopyClicked();
     void onCurrentTextChanged(const QString &text);
+    void saveAsDraftBtnClicked();
+    void saveAsTemplateBtnClicked();
+    void saveBtnClicked();
+    void deleteBtnClicked();
+
+signals:
+    void tweetDraftAdded(const TweetDraft &tweetDraft);
+    void tweetTemplateAdded(const TweetTemplate &tweetTemplate);
+    void showTweetDrafts();
+    void showTweetTemplates();
 
 private:
     void setFont();
+    void updateBtnStates();
 
     QHBoxLayout *toolButtonsLayout;
     QVBoxLayout *mainLayout;
@@ -36,11 +59,16 @@ private:
     QToolButton *italicToolButton;
     QToolButton *underlineToolButton;
 
-    QPlainTextEdit *tweetTextEdit;
+    PlainTextEdit *tweetTextEdit;
 
     QLabel *charsRemainingLabel;
 
     QComboBox *fontFamiliesComboBox;
+
+    QPushButton *saveAsDraftBtn;
+    QPushButton *saveAsTemplateBtn;
+    QPushButton *saveBtn;
+    QPushButton *deleteBtn;
 
     static const int MAX_TWEET_LENGTH = 280;
     static const int CHARS_REMAINING_LIMIT = 20;
@@ -49,7 +77,16 @@ private:
     bool isItalic = false;
     bool isUnderline = false;
 
+    int draftId = -1;
+    int templateId = -1;
+
+    bool isDraft() { return draftId > -1; }
+    bool isTemplate() { return templateId > -1; }
+
     QString fontFamily;
+
+    QList<TweetDraft *> *tweetDrafts;
+    QList<TweetTemplate *> *tweetTemplates;
 };
 
 #endif // COMPOSEWIDGET_H

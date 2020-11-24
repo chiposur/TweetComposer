@@ -2,13 +2,17 @@
 #include <QClipboard>
 #include <QFont>
 #include <QGuiApplication>
-#include <QPushButton>
 #include <QSpacerItem>
 
 #include "composewidget.h"
+#include "settingsmanager.h"
 
 ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 {
+    SettingsManager *settingsMgr = SettingsManager::getInstance();
+    tweetDrafts = settingsMgr->getTweetDrafts();
+    tweetTemplates = settingsMgr->getTweetTemplates();
+
     mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
 
@@ -45,6 +49,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     fontFamiliesComboBox = new QComboBox();
     QStringList fontFamilies;
+    fontFamilies << "Default font";
     fontFamilies << "Times";
     fontFamilies << "Helvetica";
     fontFamiliesComboBox->addItems(fontFamilies);
@@ -56,7 +61,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     toolButtonsLayout->addStretch();
 
-    tweetTextEdit = new QPlainTextEdit();
+    tweetTextEdit = new PlainTextEdit();
     tweetTextEdit->setPlaceholderText("Compose tweet...");
     mainLayout->addWidget(tweetTextEdit);
 
@@ -67,10 +72,20 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(editorBottomLayout);
 
-    QPushButton *copyButton = new QPushButton("Copy");
-    editorBottomLayout->addWidget(copyButton);
+    saveAsDraftBtn = new QPushButton("Save as Draft");
+    saveAsTemplateBtn = new QPushButton("Save as Template");
+    saveBtn = new QPushButton();
+    deleteBtn = new QPushButton();
 
-    connect(copyButton, SIGNAL(clicked()), this, SLOT(onCopyClicked()));
+    editorBottomLayout->addWidget(saveAsDraftBtn);
+    editorBottomLayout->addWidget(saveAsTemplateBtn);
+    editorBottomLayout->addWidget(saveBtn);
+    editorBottomLayout->addWidget(deleteBtn);
+
+    connect(saveAsDraftBtn, SIGNAL(clicked()), this, SLOT(saveAsDraftBtnClicked()));
+    connect(saveAsTemplateBtn, SIGNAL(clicked()), this, SLOT(saveAsTemplateBtnClicked()));
+    connect(saveBtn, SIGNAL(clicked()), this, SLOT(saveBtnClicked()));
+    connect(deleteBtn, SIGNAL(clicked()), this, SLOT(deleteBtnClicked()));
 
     editorBottomLayout->addStretch();
 
@@ -78,12 +93,19 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     editorBottomLayout->addWidget(charsRemainingLabel);
 
     setFont();
+    updateBtnStates();
 }
 
 void ComposeWidget::setFont()
 {
+    QString fontFamilyStr;
+
+    if (fontFamily == "Times") fontFamilyStr = "Times New Roman";
+    else if (fontFamily == "Helvetica") fontFamilyStr = "Helvetica [Cronyx]";
+    else fontFamilyStr = QGuiApplication::font().family();
+
     QFont font(
-        fontFamily == "Times" ? "Times New Roman" : "Helvetica [Cronyx]",
+        fontFamilyStr,
         tweetTextEdit->font().pointSize(),
         isBold ? QFont::Bold : QFont::Normal,
         isItalic);
@@ -127,15 +149,100 @@ void ComposeWidget::onTextChanged()
     }
 
     charsRemainingLabel->setText(charsRemainingText);
-}
 
-void ComposeWidget::onCopyClicked()
-{
-    QGuiApplication::clipboard()->setText(tweetTextEdit->toPlainText());
+    updateBtnStates();
 }
 
 void ComposeWidget::onCurrentTextChanged(const QString &text)
 {
     fontFamily = text;
     setFont();
+}
+
+void ComposeWidget::updateBtnStates()
+{
+    if (isTemplate() || isDraft())
+    {
+        saveAsDraftBtn->setVisible(false);
+        saveAsTemplateBtn->setVisible(false);
+        saveBtn->setVisible(true);
+        deleteBtn->setVisible(true);
+
+        saveBtn->setText(isDraft() ? "Save Draft" : "Save Template");
+        saveBtn->setEnabled(tweetTextEdit->toPlainText().length() > 0);
+        deleteBtn->setText(isDraft() ? "Delete Draft" : "Delete Template");
+    }
+    else
+    {
+        saveAsDraftBtn->setVisible(true);
+        saveAsDraftBtn->setEnabled(tweetTextEdit->toPlainText().length() > 0);
+        saveAsTemplateBtn->setVisible(true);
+        saveAsTemplateBtn->setEnabled(tweetTextEdit->toPlainText().length() > 0);
+        saveBtn->setVisible(false);
+        deleteBtn->setVisible(false);
+    }
+}
+
+void ComposeWidget::saveAsDraftBtnClicked()
+{
+    TweetDraft *tweetDraft = new TweetDraft();
+    tweetDraft->setText(tweetTextEdit->toPlainText());
+    tweetDrafts->append(tweetDraft);
+    tweetTextEdit->setPlainText("");
+
+    emit tweetDraftAdded(*tweetDraft);
+}
+
+void ComposeWidget::saveAsTemplateBtnClicked()
+{
+    TweetTemplate *tweetTemplate = new TweetTemplate();
+    tweetTemplate->setText(tweetTextEdit->toPlainText());
+    tweetTemplates->append(tweetTemplate);
+    tweetTextEdit->setPlainText("");
+
+    emit tweetTemplateAdded(*tweetTemplate);
+}
+
+void ComposeWidget::saveBtnClicked()
+{
+    // TODO: save tweet draft or template by modifying its text member
+    // then clear compose widget and reset its state
+
+    // Perist changes
+    if (isDraft())
+    {
+        SettingsManager::getInstance()->saveTweetDrafts();
+    }
+    else
+    {
+        SettingsManager::getInstance()->saveTweetTemplates();
+    }
+}
+
+void ComposeWidget::deleteBtnClicked()
+{
+    // TODO: delete tweet draft or template from the appropriate QList
+
+    // Perist changes
+    if (isDraft())
+    {
+        SettingsManager::getInstance()->saveTweetDrafts();
+    }
+    else
+    {
+        SettingsManager::getInstance()->saveTweetTemplates();
+    }
+}
+
+void PlainTextEdit::keyPressEvent(QKeyEvent *e)
+{
+    if (toPlainText().length() >= 500 && e->key() != Qt::Key_Backspace && e->key() != Qt::Key_Delete)
+    {
+        // Prevent text longer than 500 characters
+        e->accept();
+    }
+    else
+    {
+        QPlainTextEdit::keyPressEvent(e);
+    }
 }

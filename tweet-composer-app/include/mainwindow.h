@@ -6,6 +6,8 @@
 #include <QVBoxLayout>
 
 #include "composewidget.h"
+#include "tweetdraftswidget.h"
+#include "tweettemplateswidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -15,12 +17,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void showComposeWidget();
+    void showTweetDraftsWidget();
+    void showTweetTemplatesWidget();
+
 private:
     void createMenuBar();
     void createMainLayout();
 
     QVBoxLayout *mainLayout;
     ComposeWidget *composeWidget;
+    TweetDraftsWidget *tweetDraftsWidget;
+    TweetTemplatesWidget *tweetTemplatesWidget;
 
     const QIcon APP_ICON = QIcon(QPixmap(":/images/green-twitter-logo.ico"));
 };
