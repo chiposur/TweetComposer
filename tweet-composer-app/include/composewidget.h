@@ -6,7 +6,6 @@
 #include <QLabel>
 #include <QObject>
 #include <QPlainTextEdit>
-#include <QPushButton>
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QTextCharFormat>
@@ -14,6 +13,7 @@
 
 #include <tweetdraft.h>
 #include <tweettemplate.h>
+#include <customcontrols.h>
 
 class PlainTextEdit : public QPlainTextEdit
 {
@@ -65,10 +65,10 @@ private:
 
     QComboBox *fontFamiliesComboBox;
 
-    QPushButton *saveAsDraftBtn;
-    QPushButton *saveAsTemplateBtn;
-    QPushButton *saveBtn;
-    QPushButton *deleteBtn;
+    StandardButton *saveAsDraftBtn;
+    StandardButton *saveAsTemplateBtn;
+    StandardButton *saveBtn;
+    StandardButton *deleteBtn;
 
     static const int MAX_TWEET_LENGTH = 280;
     static const int CHARS_REMAINING_LIMIT = 20;

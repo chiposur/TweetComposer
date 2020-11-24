@@ -72,10 +72,10 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(editorBottomLayout);
 
-    saveAsDraftBtn = new QPushButton("Save as Draft");
-    saveAsTemplateBtn = new QPushButton("Save as Template");
-    saveBtn = new QPushButton();
-    deleteBtn = new QPushButton();
+    saveAsDraftBtn = new StandardButton("Save as Draft");
+    saveAsTemplateBtn = new StandardButton("Save as Template");
+    saveBtn = new StandardButton();
+    deleteBtn = new StandardButton();
 
     editorBottomLayout->addWidget(saveAsDraftBtn);
     editorBottomLayout->addWidget(saveAsTemplateBtn);
