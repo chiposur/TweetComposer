@@ -8,6 +8,7 @@
 #include "composewidget.h"
 #include "tweetdraftswidget.h"
 #include "tweettemplateswidget.h"
+#include "settingsdialog.h"
 
 class MainWindow : public QMainWindow
 {
@@ -23,6 +24,7 @@ public slots:
     void showTweetTemplatesWidget();
     void exitAppTriggered();
     void showAboutDialogTriggered();
+    void showSettingsDialogTriggered();
 
 private:
     void createMenuBar();

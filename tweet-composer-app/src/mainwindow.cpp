@@ -1,7 +1,11 @@
 #include "mainwindow.h"
+#include "settings.h"
 
 #include <QGuiApplication>
 #include <QMessageBox>
+
+bool Settings::encryptDraftsOnDisk = false;
+bool Settings::encryptTemplatesOnDisk = false;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,6 +37,11 @@ void MainWindow::createMenuBar()
     fileMenu->addAction(exitAction);
 
     connect(exitAction, SIGNAL(triggered()), this, SLOT(exitAppTriggered()));
+
+    QAction *settingsAction = new QAction("Settings");
+    fileMenu->addAction(settingsAction);
+
+    connect(settingsAction, SIGNAL(triggered()), this, SLOT(showSettingsDialogTriggered()));
 
     QMenu *helpMenu = new QMenu("Help");
     menuBar->addMenu(helpMenu);
@@ -133,4 +142,13 @@ void MainWindow::showAboutDialogTriggered()
         this,
         "About TweetComposer",
         "Permission to use the source code according to the MIT License.\n\n© 2020 Chip Osur");
+}
+
+void MainWindow::showSettingsDialogTriggered()
+{
+    SettingsDialog dialog(this);
+    if (dialog.exec())
+    {
+
+    }
 }

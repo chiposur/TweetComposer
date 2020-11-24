@@ -9,7 +9,8 @@ INCLUDEPATH += \
 
 SOURCES += \
     src/main.cpp \
-    src/customcontrols.cpp \
+    src/customcontrols.cpp \   
+    src/settingsdialog.cpp \
     src/mainwindow.cpp \
     src/settingsmanager.cpp \
     src/composewidget.cpp \
@@ -19,7 +20,9 @@ SOURCES += \
     src/tweettemplateswidget.cpp \
 
 HEADERS += \
+    include/settings.h \
     include/customcontrols.h \
+    include/settingsdialog.h \
     include/mainwindow.h \
     include/settingsmanager.h \
     include/composewidget.h \
