@@ -21,6 +21,8 @@ public slots:
     void showComposeWidget();
     void showTweetDraftsWidget();
     void showTweetTemplatesWidget();
+    void exitAppTriggered();
+    void showAboutDialogTriggered();
 
 private:
     void createMenuBar();

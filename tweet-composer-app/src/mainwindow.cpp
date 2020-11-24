@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 
+#include <QGuiApplication>
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -25,8 +28,18 @@ void MainWindow::createMenuBar()
     QMenu *fileMenu = new QMenu("File");
     menuBar->addMenu(fileMenu);
 
+    QAction *exitAction = new QAction("Exit");
+    fileMenu->addAction(exitAction);
+
+    connect(exitAction, SIGNAL(triggered()), this, SLOT(exitAppTriggered()));
+
     QMenu *helpMenu = new QMenu("Help");
     menuBar->addMenu(helpMenu);
+
+    QAction *aboutAction = new QAction("About");
+    helpMenu->addAction(aboutAction);
+
+    connect(aboutAction, SIGNAL(triggered()), this, SLOT(showAboutDialogTriggered()));
 }
 
 void MainWindow::createMainLayout()
@@ -102,4 +115,21 @@ void MainWindow::showTweetTemplatesWidget()
     composeWidget->setEnabled(false);
     tweetDraftsWidget->setVisible(false);
     tweetTemplatesWidget->setVisible(true);
+}
+
+void MainWindow::exitAppTriggered()
+{
+    QMessageBox::StandardButton result = QMessageBox::question(this, "Exit TweetComposer?", "Do you want to exit TweetComposer?");
+    if (result == QMessageBox::Yes)
+    {
+        qApp->quit();
+    }
+}
+
+void MainWindow::showAboutDialogTriggered()
+{
+    QMessageBox::about(
+        this,
+        "About TweetComposer",
+        "Permission to use the source code according to the MIT License.\n\n© 2020 Chip Osur");
 }
