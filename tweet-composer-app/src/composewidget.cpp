@@ -49,9 +49,8 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     fontFamiliesComboBox = new QComboBox();
     QStringList fontFamilies;
-    fontFamilies << "Default font";
+    fontFamilies << "Helvetica"; // Helvetica is default twitter font
     fontFamilies << "Times";
-    fontFamilies << "Helvetica";
     fontFamiliesComboBox->addItems(fontFamilies);
     toolButtonsLayout->addWidget(fontFamiliesComboBox);
 
@@ -64,6 +63,13 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     tweetTextEdit = new PlainTextEdit();
     tweetTextEdit->setPlaceholderText("Compose tweet...");
     mainLayout->addWidget(tweetTextEdit);
+
+    int frameWidth = tweetTextEdit->frameWidth();
+    int editorWidth = EDITOR_WIDTH_PX + frameWidth;
+    int editorHeight = EDITOR_HEIGHT_PX + frameWidth;
+    tweetTextEdit->setFixedWidth(editorWidth);
+    tweetTextEdit->setFixedHeight(editorHeight);
+    tweetTextEdit->setStyleSheet("QPlainTextEdit { whitespace: pre-wrap; overflow-wrap: break-word; }");
 
     connect(tweetTextEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
@@ -92,24 +98,22 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     charsRemainingLabel = new QLabel();
     editorBottomLayout->addWidget(charsRemainingLabel);
 
+    // Add stretch to bottom of main layout to push everything up
+    mainLayout->addStretch();
+
     setFont();
     updateBtnStates();
 }
 
 void ComposeWidget::setFont()
 {
-    QString fontFamilyStr;
-
-    if (fontFamily == "Times") fontFamilyStr = "Times New Roman";
-    else if (fontFamily == "Helvetica") fontFamilyStr = "Helvetica [Cronyx]";
-    else fontFamilyStr = QGuiApplication::font().family();
-
     QFont font(
-        fontFamilyStr,
+        fontFamily == "Helvetica" ? "Helvetica [Cronyx]" : "Times New Roman",
         tweetTextEdit->font().pointSize(),
         isBold ? QFont::Bold : QFont::Normal,
         isItalic);
     font.setUnderline(isUnderline);
+    font.setPointSize(FONT_SIZE);
 
     QTextCursor textCursor = tweetTextEdit->textCursor();
     QTextCharFormat charFormat = textCursor.charFormat();

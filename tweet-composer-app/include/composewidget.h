@@ -72,6 +72,9 @@ private:
 
     static const int MAX_TWEET_LENGTH = 280;
     static const int CHARS_REMAINING_LIMIT = 20;
+    static const int EDITOR_WIDTH_PX = 476;
+    static const int EDITOR_HEIGHT_PX = 160;
+    static const int FONT_SIZE = 15;
 
     bool isBold = false;
     bool isItalic = false;
