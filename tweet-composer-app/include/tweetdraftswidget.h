@@ -18,6 +18,7 @@ signals:
 
 public slots:
     void onTweetDraftAdded(const TweetDraft &tweetDraft);
+    void onBackPressed();
 };
 
 #endif // TWEETDRAFTSWIDGET_H

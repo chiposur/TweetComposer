@@ -18,6 +18,7 @@ signals:
 
 public slots:
     void onTweetTemplateAdded(const TweetTemplate &tweetTemplate);
+    void onBackPressed();
 };
 
 #endif // TWEETTEMPLATESWIDGET_H
