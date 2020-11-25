@@ -1,6 +1,7 @@
 #ifndef DATASTORE_H
 #define DATASTORE_H
 
+#include <QMap>
 #include <QObject>
 #include <QVector>
 
@@ -21,14 +22,23 @@ public:
     QVector<TweetDraft> *getTweetDrafts() { return &tweetDrafts; }
     QVector<TweetTemplate> *getTweetTemplates() { return &tweetTemplates; }
 
-    bool getTweetDraftById(TweetDraft &tweetDraft);
-    bool getTweetTemplateById(TweetTemplate &tweetTemplate);
+    bool getTweetDraftById(int id, TweetDraft &tweetDraft);
+    bool getTweetTemplateById(int id, TweetTemplate &tweetTemplate);
+
+    void addTweetDraft(const TweetDraft &tweetDraft);
+    void addTweetTemplate(const TweetTemplate &tweetTemplate);
+
+    void deleteTweetDraftById(int id);
+    void deleteTweetTemplateById(int id);
 
 signals:
 
 private:
     QVector<TweetDraft> tweetDrafts = QVector<TweetDraft>();
     QVector<TweetTemplate> tweetTemplates = QVector<TweetTemplate>();
+
+    QMap<int, int> draftIdToIndexMap = QMap<int, int>();
+    QMap<int, int> templateIdToIndexMap = QMap<int, int>();
 };
 
 #endif // DATASTORE_H

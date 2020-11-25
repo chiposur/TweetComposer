@@ -190,9 +190,9 @@ void ComposeWidget::updateBtnStates()
 void ComposeWidget::saveAsDraftBtnClicked()
 {
     TweetDraft tweetDraft;
+    tweetDraft.setId(TweetDraft::numDrafts);
     tweetDraft.setText(tweetTextEdit->toPlainText());
-    tweetDrafts->append(tweetDraft);
-    ++TweetDraft::numDrafts;
+    dataStore->addTweetDraft(tweetDraft);
     tweetTextEdit->setPlainText("");
 
     emit tweetDraftAdded(tweetDraft);
@@ -201,9 +201,9 @@ void ComposeWidget::saveAsDraftBtnClicked()
 void ComposeWidget::saveAsTemplateBtnClicked()
 {
     TweetTemplate tweetTemplate;
+    tweetTemplate.setId(TweetTemplate::numTemplates);
     tweetTemplate.setText(tweetTextEdit->toPlainText());
-    tweetTemplates->append(tweetTemplate);
-    ++TweetTemplate::numTemplates;
+    dataStore->addTweetTemplate(tweetTemplate);
     tweetTextEdit->setPlainText("");
 
     emit tweetTemplateAdded(tweetTemplate);
