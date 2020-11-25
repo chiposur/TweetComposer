@@ -16,9 +16,10 @@ public:
 
     static SettingsManager *getInstance();
 
-    QList<TweetDraft *> *getTweetDrafts() { return tweetDrafts; };
-    QList<TweetTemplate *> *getTweetTemplates() { return tweetTemplates; };
+    void loadTweetDrafts();
+    void loadTweetTemplates();
 
+    bool saveSettings();
     bool saveTweetDrafts();
     bool saveTweetTemplates();
 
@@ -27,8 +28,6 @@ public:
 signals:
 
 private:
-    QList<TweetDraft *> *tweetDrafts;
-    QList<TweetTemplate *> *tweetTemplates;
 };
 
 #endif // SETTINGSMANAGER_H

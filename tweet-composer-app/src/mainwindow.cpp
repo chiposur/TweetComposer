@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "settings.h"
+#include "settingsmanager.h"
 
 #include <QGuiApplication>
 #include <QMessageBox>
@@ -18,6 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     createMenuBar();
     createMainLayout();
+
+    // Load entities from disk
+    SettingsManager *settingsMgr = SettingsManager::getInstance();
+    settingsMgr->loadTweetDrafts();
+    settingsMgr->loadTweetTemplates();
 }
 
 MainWindow::~MainWindow()
