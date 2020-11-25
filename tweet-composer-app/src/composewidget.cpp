@@ -245,16 +245,16 @@ void ComposeWidget::deleteBtnClicked()
     {
         if (dataStore->getDraftIdIndex(draftId) > -1)
         {
-            tweetDrafts->remove(dataStore->getDraftIdIndex(draftId));
+            dataStore->deleteTweetDraftById(draftId);
             success = SettingsManager::getInstance()->saveTweetDrafts();
         }
 
     }
     else
     {
-        if (dataStore->getTemplateIdIndex(draftId) > -1)
+        if (dataStore->getTemplateIdIndex(templateId) > -1)
         {
-            tweetTemplates->remove(dataStore->getTemplateIdIndex(draftId));
+            dataStore->deleteTweetTemplateById(templateId);
             success = SettingsManager::getInstance()->saveTweetTemplates();
         }
     }
