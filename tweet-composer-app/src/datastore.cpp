@@ -90,10 +90,10 @@ void DataStore::deleteTweetDraftById(int id)
 
 void DataStore::deleteTweetTemplateById(int id)
 {
-    // Make sure draft is last vector element then delete
+    // Make sure template is last vector element then delete
     if (templateIdToIndexMap[id] != tweetTemplates.count() - 1)
     {
-        // Swap drafts
+        // Swap templates
         TweetTemplate templateToMove = tweetTemplates[tweetDrafts.count() - 1];
         TweetTemplate templateToDelete = tweetTemplates[draftIdToIndexMap[id]];
         tweetTemplates[templateIdToIndexMap[id]] = templateToMove;
