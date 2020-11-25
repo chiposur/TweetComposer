@@ -31,7 +31,7 @@ HEADERS += \
     include/tweettemplate.h \
     include/tweetdraftswidget.h \
     include/tweettemplateswidget.h \
-    include/datastore.h
+    include/datastore.h \
 
 RESOURCES += \
     images.qrc

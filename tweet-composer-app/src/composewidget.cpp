@@ -211,32 +211,58 @@ void ComposeWidget::saveAsTemplateBtnClicked()
 
 void ComposeWidget::saveBtnClicked()
 {
-    // TODO: save tweet draft or template by modifying its text member
-    // then clear compose widget and reset its state
-
     // Perist changes
     if (isDraft())
     {
-        SettingsManager::getInstance()->saveTweetDrafts();
+        if (dataStore->getDraftIdIndex(draftId) > -1)
+        {
+            TweetDraft tweetDraft;
+            if (dataStore->getTweetDraftById(draftId, tweetDraft))
+            {
+                tweetDraft.setText(tweetTextEdit->toPlainText());
+                (*tweetDrafts)[dataStore->getDraftIdIndex(draftId)] = tweetDraft;
+                SettingsManager::getInstance()->saveTweetDrafts();
+            }
+        }
     }
     else
     {
-        SettingsManager::getInstance()->saveTweetTemplates();
+        TweetTemplate tweetTemplate;
+        if (dataStore->getTweetTemplateById(draftId, tweetTemplate))
+        {
+            tweetTemplate.setText(tweetTextEdit->toPlainText());
+            (*tweetTemplates)[dataStore->getTemplateIdIndex(templateId)] = tweetTemplate;
+            SettingsManager::getInstance()->saveTweetDrafts();
+        }
     }
 }
 
 void ComposeWidget::deleteBtnClicked()
 {
-    // TODO: delete tweet draft or template from the appropriate QList
-
     // Perist changes
+    bool success = false;
     if (isDraft())
     {
-        SettingsManager::getInstance()->saveTweetDrafts();
+        if (dataStore->getDraftIdIndex(draftId) > -1)
+        {
+            tweetDrafts->remove(dataStore->getDraftIdIndex(draftId));
+            success = SettingsManager::getInstance()->saveTweetDrafts();
+        }
+
     }
     else
     {
-        SettingsManager::getInstance()->saveTweetTemplates();
+        if (dataStore->getTemplateIdIndex(draftId) > -1)
+        {
+            tweetTemplates->remove(dataStore->getTemplateIdIndex(draftId));
+            success = SettingsManager::getInstance()->saveTweetTemplates();
+        }
+    }
+
+    if (success)
+    {
+        tweetTextEdit->setPlainText("");
+        updateBtnStates();
     }
 }
 

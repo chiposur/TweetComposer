@@ -67,14 +67,44 @@ void DataStore::addTweetTemplate(const TweetTemplate &tweetTemplate)
     tweetTemplates.append(tweetTemplate);
 }
 
-void DataStore::deleteTweetDraftById(int /*id*/)
+void DataStore::deleteTweetDraftById(int id)
 {
-    // TODO: swap draft to delete with last draft in vector, update former last draft in
-    // map and then finally delete draft
+    // Make sure draft is last vector element then delete
+    if (draftIdToIndexMap[id] != tweetDrafts.count() - 1)
+    {
+        // Swap drafts
+        TweetDraft draftToMove = tweetDrafts[tweetDrafts.count() - 1];
+        TweetDraft draftToDelete = tweetDrafts[draftIdToIndexMap[id]];
+        tweetDrafts[draftIdToIndexMap[id]] = draftToMove;
+        tweetDrafts[tweetDrafts.count() - 1] = draftToDelete;
+
+        // Update map
+        draftIdToIndexMap[draftToMove.getId()] = draftIdToIndexMap[id];
+        draftIdToIndexMap[id] = tweetDrafts.count() - 1;
+    }
+
+    int lastTweetId = tweetDrafts[tweetDrafts.count() - 1].getId();
+    draftIdToIndexMap.remove(lastTweetId);
+    tweetDrafts.removeLast();
 }
 
-void DataStore::deleteTweetTemplateById(int /*id*/)
+void DataStore::deleteTweetTemplateById(int id)
 {
-    // TODO: swap template to delete with last template in vector, update former last template in
-    // map and then finally delete template
+    // Make sure draft is last vector element then delete
+    if (templateIdToIndexMap[id] != tweetTemplates.count() - 1)
+    {
+        // Swap drafts
+        TweetTemplate templateToMove = tweetTemplates[tweetDrafts.count() - 1];
+        TweetTemplate templateToDelete = tweetTemplates[draftIdToIndexMap[id]];
+        tweetTemplates[templateIdToIndexMap[id]] = templateToMove;
+        tweetTemplates[tweetTemplates.count() - 1] = templateToDelete;
+
+        // Update map
+        templateIdToIndexMap[templateToMove.getId()] = templateIdToIndexMap[id];
+        templateIdToIndexMap[id] = tweetTemplates.count() - 1;
+    }
+
+    int lastTweetId = tweetDrafts[tweetDrafts.count() - 1].getId();
+    draftIdToIndexMap.remove(lastTweetId);
+    tweetDrafts.removeLast();
 }
