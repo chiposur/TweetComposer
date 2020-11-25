@@ -1,13 +1,12 @@
 #ifndef TWEETDRAFT_H
 #define TWEETDRAFT_H
 
-#include <QObject>
+#include <QString>
 
-class TweetDraft : public QObject
+class TweetDraft
 {
-    Q_OBJECT
 public:
-    explicit TweetDraft(QObject *parent = nullptr);
+    explicit TweetDraft();
 
     int getId() { return id; }
     QString getText() { return text; }
@@ -15,11 +14,9 @@ public:
     void setId(int id) { this->id = id; }
     void setText(QString text) { this->text = text; }
 
-signals:
-
-private:
     static int numDrafts;
 
+private:
     int id;
     QString text;
 };

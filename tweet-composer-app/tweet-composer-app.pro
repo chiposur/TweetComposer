@@ -8,6 +8,7 @@ INCLUDEPATH += \
     include/ \
 
 SOURCES += \
+    src/datastore.cpp \
     src/main.cpp \
     src/customcontrols.cpp \   
     src/settingsdialog.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     include/tweettemplate.h \
     include/tweetdraftswidget.h \
     include/tweettemplateswidget.h \
+    include/datastore.h
 
 RESOURCES += \
     images.qrc

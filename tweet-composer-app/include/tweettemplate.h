@@ -1,13 +1,12 @@
 #ifndef TWEETTEMPLATE_H
 #define TWEETTEMPLATE_H
 
-#include <QObject>
+#include <QString>
 
-class TweetTemplate : public QObject
+class TweetTemplate
 {
-    Q_OBJECT
 public:
-    explicit TweetTemplate(QObject *parent = nullptr);
+    explicit TweetTemplate();
 
     int getId() { return id; }
     QString getText() { return text; }
@@ -15,11 +14,9 @@ public:
     void setId(int id) { this->id = id; }
     void setText(QString text) { this->text = text; }
 
-signals:
-
-private:
     static int numTemplates;
 
+private:
     int id;
     QString text;
 };

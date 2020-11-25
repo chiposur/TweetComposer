@@ -2,8 +2,7 @@
 
 int TweetDraft::numDrafts = 0;
 
-TweetDraft::TweetDraft(QObject *parent) : QObject(parent)
+TweetDraft::TweetDraft()
 {
-    ++numDrafts;
     id = numDrafts;
 }

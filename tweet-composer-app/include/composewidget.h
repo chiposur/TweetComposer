@@ -14,6 +14,7 @@
 #include <tweetdraft.h>
 #include <tweettemplate.h>
 #include <customcontrols.h>
+#include <datastore.h>
 
 class PlainTextEdit : public QPlainTextEdit
 {
@@ -88,8 +89,10 @@ private:
 
     QString fontFamily;
 
-    QList<TweetDraft *> *tweetDrafts;
-    QList<TweetTemplate *> *tweetTemplates;
+    QVector<TweetDraft> *tweetDrafts;
+    QVector<TweetTemplate> *tweetTemplates;
+
+    DataStore *dataStore;
 };
 
 #endif // COMPOSEWIDGET_H

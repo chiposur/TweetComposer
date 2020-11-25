@@ -2,8 +2,7 @@
 
 int TweetTemplate::numTemplates = 0;
 
-TweetTemplate::TweetTemplate(QObject *parent) : QObject(parent)
+TweetTemplate::TweetTemplate()
 {
-    ++numTemplates;
     id = numTemplates;
 }

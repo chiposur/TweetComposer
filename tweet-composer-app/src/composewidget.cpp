@@ -9,9 +9,9 @@
 
 ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 {
-    SettingsManager *settingsMgr = SettingsManager::getInstance();
-    tweetDrafts = settingsMgr->getTweetDrafts();
-    tweetTemplates = settingsMgr->getTweetTemplates();
+    dataStore = DataStore::getInstance();
+    tweetDrafts = dataStore->getTweetDrafts();
+    tweetTemplates = dataStore->getTweetTemplates();
 
     mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
@@ -189,22 +189,24 @@ void ComposeWidget::updateBtnStates()
 
 void ComposeWidget::saveAsDraftBtnClicked()
 {
-    TweetDraft *tweetDraft = new TweetDraft();
-    tweetDraft->setText(tweetTextEdit->toPlainText());
+    TweetDraft tweetDraft;
+    tweetDraft.setText(tweetTextEdit->toPlainText());
     tweetDrafts->append(tweetDraft);
+    ++TweetDraft::numDrafts;
     tweetTextEdit->setPlainText("");
 
-    emit tweetDraftAdded(*tweetDraft);
+    emit tweetDraftAdded(tweetDraft);
 }
 
 void ComposeWidget::saveAsTemplateBtnClicked()
 {
-    TweetTemplate *tweetTemplate = new TweetTemplate();
-    tweetTemplate->setText(tweetTextEdit->toPlainText());
+    TweetTemplate tweetTemplate;
+    tweetTemplate.setText(tweetTextEdit->toPlainText());
     tweetTemplates->append(tweetTemplate);
+    ++TweetTemplate::numTemplates;
     tweetTextEdit->setPlainText("");
 
-    emit tweetTemplateAdded(*tweetTemplate);
+    emit tweetTemplateAdded(tweetTemplate);
 }
 
 void ComposeWidget::saveBtnClicked()
