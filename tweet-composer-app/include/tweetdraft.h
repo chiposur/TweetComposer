@@ -16,6 +16,16 @@ public:
 
     static int numDrafts;
 
+    bool operator==(const TweetDraft &other) { return id == other.getId(); }
+
+    TweetDraft &operator=(const TweetDraft &other)
+    {
+        id = other.getId();
+        text = other.getText();
+
+        return *this;
+    }
+
 private:
     int id;
     QString text;

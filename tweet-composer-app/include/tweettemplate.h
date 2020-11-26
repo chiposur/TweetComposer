@@ -16,6 +16,16 @@ public:
 
     static int numTemplates;
 
+    bool operator==(const TweetTemplate &other) { return id == other.getId(); }
+
+    TweetTemplate &operator=(const TweetTemplate &other)
+    {
+        id = other.getId();
+        text = other.getText();
+
+        return *this;
+    }
+
 private:
     int id;
     QString text;
