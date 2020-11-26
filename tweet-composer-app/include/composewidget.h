@@ -51,6 +51,8 @@ signals:
     void tweetTemplateAdded(const TweetTemplate &tweetTemplate);
     void tweetDraftEdited(const TweetDraft &tweetDraft);
     void tweetTemplateEdited(const TweetTemplate &tweetTemplate);
+    void tweetDraftDeleted(int draftId);
+    void tweetTemplateDeleted(int templateId);
     void showTweetDrafts();
     void showTweetTemplates();
     void toastRequested(const Toast &toast);

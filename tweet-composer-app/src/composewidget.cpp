@@ -249,6 +249,23 @@ void ComposeWidget::saveBtnClicked()
 
     if (success)
     {
+        if (isDraft())
+        {
+            TweetDraft tweetDraft;
+            if (dataStore->getTweetDraftById(draftId, tweetDraft))
+            {
+                emit tweetDraftEdited(tweetDraft);
+            }
+        }
+        else
+        {
+            TweetTemplate tweetTemplate;
+            if (dataStore->getTweetTemplateById(templateId, tweetTemplate))
+            {
+                emit tweetTemplateEdited(tweetTemplate);
+            }
+        }
+
         clearTweetEdit();
     }
 }
@@ -277,6 +294,7 @@ void ComposeWidget::deleteBtnClicked()
 
     if (success)
     {
+        isDraft() ? emit tweetDraftDeleted(draftId) : emit tweetTemplateDeleted(templateId);
         clearTweetEdit();
     }
 

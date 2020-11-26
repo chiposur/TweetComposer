@@ -1,21 +1,30 @@
 #include "tweettemplateswidget.h"
 #include "customcontrols.h"
 
+#include <QScrollArea>
 #include <QVBoxLayout>
 
 TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
 {
-    // TODO: create a scrolling list of tweet templates, similar in appearance to Twitter app drafts
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
 
     StandardButton *backBtn = new StandardButton("Back");
     mainLayout->addWidget(backBtn);
+
+    QScrollArea *scrollArea = new QScrollArea();
+    QWidget *templatesContainerWidget = new QWidget();
+    scrollArea->setWidget(templatesContainerWidget);
+    mainLayout->addWidget(templatesContainerWidget);
+
+    templatesContainerLayout = new QVBoxLayout();
+    templatesContainerWidget->setLayout(templatesContainerLayout);
 }
 
-void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &/*tweetTemplate*/)
+void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTemplate)
 {
-    // TODO: add a new tweet template item to widget
+    TweetTemplatesItemWidget *templateItemWidget = new TweetTemplatesItemWidget(tweetTemplate);
+    templatesContainerLayout->addWidget(templateItemWidget);
 }
 
 void TweetTemplatesWidget::onBackPressed()
@@ -23,7 +32,14 @@ void TweetTemplatesWidget::onBackPressed()
     emit backRequested();
 }
 
-void TweetTemplatesWidget::onTweetTemplateEdited(const TweetTemplate &/*tweetTemplate*/)
+void TweetTemplatesWidget::onTweetTemplateEdited(const TweetTemplate &tweetTemplate)
 {
-    // TODO: implement
+    idToItemMap[tweetTemplate.getId()]->updateText(tweetTemplate.getText());
+}
+
+void TweetTemplatesWidget::onTweetTemplateDeleted(int templateId)
+{
+    TweetTemplatesItemWidget *templateItemWidget = idToItemMap[templateId];
+    idToItemMap.remove(templateId);
+    delete templateItemWidget;
 }

@@ -3,6 +3,7 @@
 
 #include <QMap>
 #include <QObject>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include "tweettemplate.h"
@@ -24,10 +25,12 @@ signals:
 public slots:
     void onTweetTemplateAdded(const TweetTemplate &tweetTemplate);
     void onTweetTemplateEdited(const TweetTemplate &tweetTemplate);
+    void onTweetTemplateDeleted(int templateId);
     void onBackPressed();
 
 private:
     QMap<int, TweetTemplatesItemWidget *> idToItemMap;
+    QVBoxLayout *templatesContainerLayout;
 };
 
 #endif // TWEETTEMPLATESWIDGET_H

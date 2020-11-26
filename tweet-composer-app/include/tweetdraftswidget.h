@@ -3,6 +3,7 @@
 
 #include <QMap>
 #include <QObject>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include "tweetdraft.h"
@@ -24,10 +25,12 @@ signals:
 public slots:
     void onTweetDraftAdded(const TweetDraft &tweetDraft);
     void onTweetDraftEdited(const TweetDraft &tweetDraft);
+    void onTweetDraftDeleted(int draftId);
     void onBackPressed();
 
 private:
     QMap<int, TweetDraftsItemWidget *> idToItemMap;
+    QVBoxLayout *draftsContainerLayout;
 };
 
 #endif // TWEETDRAFTSWIDGET_H
