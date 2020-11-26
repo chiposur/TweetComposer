@@ -9,6 +9,7 @@
 #include "tweetdraftswidget.h"
 #include "tweettemplateswidget.h"
 #include "settingsdialog.h"
+#include "toast.h"
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +26,13 @@ public slots:
     void exitAppTriggered();
     void showAboutDialogTriggered();
     void showSettingsDialogTriggered();
+    void exportDraftsToJsonTriggered();
+    void exportTemplatesToJsonTriggered();
+    void importDraftsFromJsonTriggered();
+    void importTemplatesFromJsonTriggered();
+    void onToastRequested(const Toast &toast);
+    void onEditDraftRequested(int draftId);
+    void onEditTemplateRequested(int templateId);
 
 private:
     void createMenuBar();

@@ -15,6 +15,7 @@
 #include <tweettemplate.h>
 #include <customcontrols.h>
 #include <datastore.h>
+#include <toast.h>
 
 class PlainTextEdit : public QPlainTextEdit
 {
@@ -42,16 +43,21 @@ public slots:
     void saveAsTemplateBtnClicked();
     void saveBtnClicked();
     void deleteBtnClicked();
+    void loadTweetDraft(const TweetDraft &tweetDraft);
+    void loadTweetTemplate(const TweetTemplate &tweetTemplate);
 
 signals:
     void tweetDraftAdded(const TweetDraft &tweetDraft);
     void tweetTemplateAdded(const TweetTemplate &tweetTemplate);
     void showTweetDrafts();
     void showTweetTemplates();
+    void toastRequested(const Toast &toast);
 
 private:
     void setFont();
     void updateBtnStates();
+    void clearTweetEdit();
+    bool checkAndPromptIfDirty();
 
     QHBoxLayout *toolButtonsLayout;
     QVBoxLayout *mainLayout;

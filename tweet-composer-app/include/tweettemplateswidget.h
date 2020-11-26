@@ -5,6 +5,7 @@
 #include <QWidget>
 
 #include "tweettemplate.h"
+#include "toast.h"
 
 class TweetTemplatesWidget : public QWidget
 {
@@ -15,6 +16,8 @@ public:
 
 signals:
     void backRequested();
+    void toastRequested(const Toast &toast);
+    void editTemplateRequested(int templateId);
 
 public slots:
     void onTweetTemplateAdded(const TweetTemplate &tweetTemplate);

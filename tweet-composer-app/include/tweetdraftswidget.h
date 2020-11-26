@@ -5,6 +5,7 @@
 #include <QWidget>
 
 #include "tweetdraft.h"
+#include "toast.h"
 
 class TweetDraftsWidget : public QWidget
 {
@@ -15,6 +16,8 @@ public:
 
 signals:
     void backRequested();
+    void toastRequested(const Toast &toast);
+    void editDraftRequested(int draftId);
 
 public slots:
     void onTweetDraftAdded(const TweetDraft &tweetDraft);

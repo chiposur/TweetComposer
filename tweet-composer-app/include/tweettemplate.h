@@ -8,8 +8,8 @@ class TweetTemplate
 public:
     explicit TweetTemplate();
 
-    int getId() { return id; }
-    QString getText() { return text; }
+    int getId() const { return id; }
+    QString getText() const { return text; }
 
     void setId(int id) { this->id = id; }
     void setText(QString text) { this->text = text; }

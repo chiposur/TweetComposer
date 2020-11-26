@@ -39,15 +39,34 @@ void MainWindow::createMenuBar()
     QMenu *fileMenu = new QMenu("File");
     menuBar->addMenu(fileMenu);
 
-    QAction *exitAction = new QAction("Exit");
-    fileMenu->addAction(exitAction);
-
-    connect(exitAction, SIGNAL(triggered()), this, SLOT(exitAppTriggered()));
-
     QAction *settingsAction = new QAction("Settings");
     fileMenu->addAction(settingsAction);
 
+    fileMenu->addSeparator();
+
+    QAction *importDraftsAction = new QAction("Import drafts from JSON");
+    fileMenu->addAction(importDraftsAction);
+
+    QAction *importTemplatesAction = new QAction("Import templates from JSON");
+    fileMenu->addAction(importTemplatesAction);
+
+    QAction *exportDraftsAction = new QAction("Export drafts to JSON");
+    fileMenu->addAction(exportDraftsAction);
+
+    QAction *exportTemplatesAction = new QAction("Export templates to JSON");
+    fileMenu->addAction(exportTemplatesAction);
+
+    fileMenu->addSeparator();
+
+    QAction *exitAction = new QAction("Exit");
+    fileMenu->addAction(exitAction);
+
+    connect(importDraftsAction, SIGNAL(triggered()), this, SLOT(importDraftsFromJsonTriggered()));
+    connect(importTemplatesAction, SIGNAL(triggered()), this, SLOT(importTemplatesFromJsonTriggered()));
+    connect(exportDraftsAction, SIGNAL(triggered()), this, SLOT(exportDraftsToJsonTriggered()));
+    connect(exportTemplatesAction, SIGNAL(triggered()), this, SLOT(exportTemplatesToJsonTriggered()));
     connect(settingsAction, SIGNAL(triggered()), this, SLOT(showSettingsDialogTriggered()));
+    connect(exitAction, SIGNAL(triggered()), this, SLOT(exitAppTriggered()));
 
     QMenu *helpMenu = new QMenu("Help");
     menuBar->addMenu(helpMenu);
@@ -106,10 +125,61 @@ void MainWindow::createMainLayout()
         SLOT(showComposeWidget()));
 
     connect(
+        tweetDraftsWidget,
+        SIGNAL(editDraftRequested()),
+        this,
+        SLOT(onEditDraftRequested()));
+
+    connect(
+        tweetTemplatesWidget,
+        SIGNAL(editTemplateRequested()),
+        this,
+        SLOT(onEditTemplateRequested()));
+
+    connect(
         tweetTemplatesWidget,
         SIGNAL(backRequested()),
         this,
         SLOT(showComposeWidget()));
+
+    // Hook up toast events
+    connect(
+        composeWidget,
+        SIGNAL(toastRequested(const Toast &)),
+        this,
+        SLOT(onToastRequested(const Toast &)));
+
+    connect(
+        tweetDraftsWidget,
+        SIGNAL(toastRequested(const Toast &)),
+        this,
+        SLOT(onToastRequested(const Toast &)));
+
+    connect(
+        tweetTemplatesWidget,
+        SIGNAL(toastRequested(const Toast &)),
+        this,
+        SLOT(onToastRequested(const Toast &)));
+}
+
+void MainWindow::exportDraftsToJsonTriggered()
+{
+    // TODO: implement
+}
+
+void MainWindow::exportTemplatesToJsonTriggered()
+{
+    // TODO: implement
+}
+
+void MainWindow::importDraftsFromJsonTriggered()
+{
+    // TODO: implement
+}
+
+void MainWindow::importTemplatesFromJsonTriggered()
+{
+    // TODO: implement
 }
 
 void MainWindow::showComposeWidget()
@@ -131,6 +201,26 @@ void MainWindow::showTweetTemplatesWidget()
     composeWidget->setEnabled(false);
     tweetDraftsWidget->setVisible(false);
     tweetTemplatesWidget->setVisible(true);
+}
+
+void MainWindow::onEditDraftRequested(int draftId)
+{
+    TweetDraft tweetDraft;
+    if (DataStore::getInstance()->getTweetDraftById(draftId, tweetDraft))
+    {
+        composeWidget->loadTweetDraft(tweetDraft);
+        showComposeWidget();
+    }
+}
+
+void MainWindow::onEditTemplateRequested(int templateId)
+{
+    TweetTemplate tweetTemplate;
+    if (DataStore::getInstance()->getTweetTemplateById(templateId, tweetTemplate))
+    {
+        composeWidget->loadTweetTemplate(tweetTemplate);
+        showComposeWidget();
+    }
 }
 
 void MainWindow::exitAppTriggered()
@@ -157,4 +247,10 @@ void MainWindow::showSettingsDialogTriggered()
     {
 
     }
+}
+
+void MainWindow::onToastRequested(const Toast &/*toast*/)
+{
+    // TODO: display toast in bottom right corner of widget for toast duration, and
+    // stack toasts if multiple are requested with overlapping durations
 }

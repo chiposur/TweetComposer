@@ -2,6 +2,7 @@
 #include <QClipboard>
 #include <QFont>
 #include <QGuiApplication>
+#include <QMessageBox>
 #include <QSpacerItem>
 
 #include "composewidget.h"
@@ -211,6 +212,8 @@ void ComposeWidget::saveAsTemplateBtnClicked()
 
 void ComposeWidget::saveBtnClicked()
 {
+    bool success = false;
+
     // Perist changes
     if (isDraft())
     {
@@ -221,7 +224,7 @@ void ComposeWidget::saveBtnClicked()
             {
                 tweetDraft.setText(tweetTextEdit->toPlainText());
                 (*tweetDrafts)[dataStore->getDraftIdIndex(draftId)] = tweetDraft;
-                SettingsManager::getInstance()->saveTweetDrafts();
+                success = SettingsManager::getInstance()->saveTweetDrafts();
             }
         }
     }
@@ -232,8 +235,21 @@ void ComposeWidget::saveBtnClicked()
         {
             tweetTemplate.setText(tweetTextEdit->toPlainText());
             (*tweetTemplates)[dataStore->getTemplateIdIndex(templateId)] = tweetTemplate;
-            SettingsManager::getInstance()->saveTweetDrafts();
+            success = SettingsManager::getInstance()->saveTweetDrafts();
         }
+    }
+
+    QString toastMessage =
+        QString("%1%2 saved")
+        .arg(isDraft() ? "Draft" : "Template")
+        .arg(success ? "" : " not");
+    Toast::ToastTypes toastType = success ? Toast::ToastTypes::INFO : Toast::ToastTypes::ERROR;
+    Toast toast(toastMessage, toastType, 2000);
+    emit toastRequested(toast);
+
+    if (success)
+    {
+        clearTweetEdit();
     }
 }
 
@@ -261,9 +277,64 @@ void ComposeWidget::deleteBtnClicked()
 
     if (success)
     {
-        tweetTextEdit->setPlainText("");
-        updateBtnStates();
+        clearTweetEdit();
     }
+
+    QString toastMessage =
+        QString("%1%2 deleted")
+        .arg(isDraft() ? "Draft" : "Template")
+        .arg(success ? "" : " not");
+    Toast::ToastTypes toastType = success ? Toast::ToastTypes::INFO : Toast::ToastTypes::ERROR;
+    Toast toast(toastMessage, toastType, 2000);
+    emit toastRequested(toast);
+}
+
+void ComposeWidget::clearTweetEdit()
+{
+    tweetTextEdit->setPlainText("");
+    draftId = templateId = -1;
+    updateBtnStates();
+}
+
+void ComposeWidget::loadTweetDraft(const TweetDraft &tweetDraft)
+{
+    if (checkAndPromptIfDirty())
+    {
+        return;
+    }
+
+    tweetTextEdit->setPlainText(tweetDraft.getText());
+    draftId = tweetDraft.getId();
+    templateId = -1;
+    updateBtnStates();
+}
+
+void ComposeWidget::loadTweetTemplate(const TweetTemplate &tweetTemplate)
+{
+    if (checkAndPromptIfDirty())
+    {
+        return;
+    }
+
+    tweetTextEdit->setPlainText(tweetTemplate.getText());
+    templateId = tweetTemplate.getId();
+    draftId = -1;
+    updateBtnStates();
+}
+
+bool ComposeWidget::checkAndPromptIfDirty()
+{
+    bool cancelLoad = false;
+    if (!tweetTextEdit->toPlainText().isEmpty())
+    {
+        QMessageBox::StandardButton result = QMessageBox::question(this, "Clear tweet?", "Do you want to clear the current tweet?");
+        if (result != QMessageBox::Yes)
+        {
+            cancelLoad = true;
+        }
+    }
+
+    return cancelLoad;
 }
 
 void PlainTextEdit::keyPressEvent(QKeyEvent *e)

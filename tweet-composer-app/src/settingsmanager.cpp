@@ -47,12 +47,3 @@ bool SettingsManager::saveTweetTemplates()
     // TODO: implement saving and serializing templates to QSettings
     return true;
 }
-
-QString SettingsManager::serializeSettingsToJson()
-{
-    QString jsonSettings;
-
-    // TODO: serialize QSettings to Json for exporting and downloading
-
-    return jsonSettings;
-}

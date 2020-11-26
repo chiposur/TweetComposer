@@ -23,8 +23,6 @@ public:
     bool saveTweetDrafts();
     bool saveTweetTemplates();
 
-    QString serializeSettingsToJson();
-
 signals:
 
 private:
