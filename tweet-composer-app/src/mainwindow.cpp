@@ -95,6 +95,12 @@ void MainWindow::createMainLayout()
         tweetDraftsWidget,
         SLOT(onTweetDraftAdded(const TweetDraft &)));
 
+    connect(
+        composeWidget,
+        SIGNAL(tweetDraftEdited(const TweetDraft &)),
+        tweetDraftsWidget,
+        SLOT(onTweetDraftEdited(const TweetDraft &)));
+
     tweetTemplatesWidget = new TweetTemplatesWidget();
     tweetTemplatesWidget->setVisible(false);
     mainLayout->addWidget(tweetTemplatesWidget);
@@ -104,6 +110,12 @@ void MainWindow::createMainLayout()
         SIGNAL(tweetTemplateAdded(const TweetTemplate &)),
         tweetTemplatesWidget,
         SLOT(onTweetTemplateAdded(const TweetTemplate &)));
+
+    connect(
+        composeWidget,
+        SIGNAL(tweetTemplateEdited(const TweetTemplate &)),
+        tweetTemplatesWidget,
+        SLOT(onTweetTemplateEdited(const TweetTemplate &)));
 
     // Hook up events for changing views
     connect(

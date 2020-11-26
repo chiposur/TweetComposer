@@ -17,8 +17,10 @@ SOURCES += \
     src/settingsmanager.cpp \
     src/composewidget.cpp \
     src/tweetdraft.cpp \
+    src/tweetdraftsitemwidget.cpp \
     src/tweetdraftswidget.cpp \
     src/tweettemplate.cpp \
+    src/tweettemplatesitemwidget.cpp \
     src/tweettemplateswidget.cpp \
 
 HEADERS += \
@@ -34,6 +36,8 @@ HEADERS += \
     include/tweettemplateswidget.h \
     include/datastore.h \
     include/toast.h \
+    include/tweetdraftsitemwidget.h \
+    include/tweettemplatesitemwidget.h \
 
 RESOURCES += \
     images.qrc

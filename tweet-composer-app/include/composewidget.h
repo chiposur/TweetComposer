@@ -49,6 +49,8 @@ public slots:
 signals:
     void tweetDraftAdded(const TweetDraft &tweetDraft);
     void tweetTemplateAdded(const TweetTemplate &tweetTemplate);
+    void tweetDraftEdited(const TweetDraft &tweetDraft);
+    void tweetTemplateEdited(const TweetTemplate &tweetTemplate);
     void showTweetDrafts();
     void showTweetTemplates();
     void toastRequested(const Toast &toast);

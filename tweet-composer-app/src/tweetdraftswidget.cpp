@@ -22,3 +22,8 @@ void TweetDraftsWidget::onBackPressed()
 {
     emit backRequested();
 }
+
+void TweetDraftsWidget::onTweetDraftEdited(const TweetDraft &/*tweetTemplate*/)
+{
+    // TODO: implement
+}

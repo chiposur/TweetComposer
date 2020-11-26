@@ -1,11 +1,13 @@
 #ifndef TWEETDRAFTSWIDGET_H
 #define TWEETDRAFTSWIDGET_H
 
+#include <QMap>
 #include <QObject>
 #include <QWidget>
 
 #include "tweetdraft.h"
 #include "toast.h"
+#include "tweetdraftsitemwidget.h"
 
 class TweetDraftsWidget : public QWidget
 {
@@ -21,7 +23,11 @@ signals:
 
 public slots:
     void onTweetDraftAdded(const TweetDraft &tweetDraft);
+    void onTweetDraftEdited(const TweetDraft &tweetDraft);
     void onBackPressed();
+
+private:
+    QMap<int, TweetDraftsItemWidget *> idToItemMap;
 };
 
 #endif // TWEETDRAFTSWIDGET_H
