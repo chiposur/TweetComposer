@@ -14,10 +14,23 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     tweetDrafts = dataStore->getTweetDrafts();
     tweetTemplates = dataStore->getTweetTemplates();
 
-    mainLayout = new QVBoxLayout();
+    QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
 
-    toolButtonsLayout = new QHBoxLayout();
+    QHBoxLayout *navBtnsLayout = new QHBoxLayout();
+    mainLayout->addLayout(navBtnsLayout);
+
+    StandardButton *draftsBtn = new StandardButton("Drafts");
+    StandardButton *templatesBtn = new StandardButton("Templates");
+    navBtnsLayout->addWidget(draftsBtn);
+    navBtnsLayout->addWidget(templatesBtn);
+
+    connect(draftsBtn, SIGNAL(clicked()), this, SLOT(draftsBtnClicked()));
+    connect(templatesBtn, SIGNAL(clicked()), this, SLOT(templatesBtnClicked()));
+
+    navBtnsLayout->addStretch();
+
+    QHBoxLayout *toolButtonsLayout = new QHBoxLayout();
     toolButtonsLayout->setSpacing(0);
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(toolButtonsLayout);
@@ -353,6 +366,16 @@ bool ComposeWidget::checkAndPromptIfDirty()
     }
 
     return cancelLoad;
+}
+
+void ComposeWidget::draftsBtnClicked()
+{
+    emit showTweetDrafts();
+}
+
+void ComposeWidget::templatesBtnClicked()
+{
+    emit showTweetTemplates();
 }
 
 void PlainTextEdit::keyPressEvent(QKeyEvent *e)

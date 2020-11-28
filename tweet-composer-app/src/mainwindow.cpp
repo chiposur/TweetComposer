@@ -241,21 +241,21 @@ void MainWindow::importTemplatesFromJsonTriggered()
 
 void MainWindow::showComposeWidget()
 {
-    composeWidget->setEnabled(true);
+    composeWidget->setVisible(true);
     tweetDraftsWidget->setVisible(false);
     tweetTemplatesWidget->setVisible(false);
 }
 
 void MainWindow::showTweetDraftsWidget()
 {
-    composeWidget->setEnabled(false);
+    composeWidget->setVisible(false);
     tweetDraftsWidget->setVisible(true);
     tweetTemplatesWidget->setVisible(false);
 }
 
 void MainWindow::showTweetTemplatesWidget()
 {
-    composeWidget->setEnabled(false);
+    composeWidget->setVisible(false);
     tweetDraftsWidget->setVisible(false);
     tweetTemplatesWidget->setVisible(true);
 }

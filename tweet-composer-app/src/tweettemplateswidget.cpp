@@ -1,6 +1,7 @@
 #include "tweettemplateswidget.h"
 #include "customcontrols.h"
 
+#include <QHBoxLayout>
 #include <QScrollArea>
 #include <QVBoxLayout>
 
@@ -9,8 +10,15 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
 
+    QHBoxLayout *navBtnsLayout = new QHBoxLayout();
+    mainLayout->addLayout(navBtnsLayout);
+
     StandardButton *backBtn = new StandardButton("Back");
-    mainLayout->addWidget(backBtn);
+    navBtnsLayout->addWidget(backBtn);
+
+    connect(backBtn, SIGNAL(clicked()), this, SLOT(onBackPressed()));
+
+    navBtnsLayout->addStretch();
 
     QScrollArea *scrollArea = new QScrollArea();
     QWidget *templatesContainerWidget = new QWidget();

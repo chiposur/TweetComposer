@@ -45,6 +45,8 @@ public slots:
     void deleteBtnClicked();
     void loadTweetDraft(const TweetDraft &tweetDraft);
     void loadTweetTemplate(const TweetTemplate &tweetTemplate);
+    void draftsBtnClicked();
+    void templatesBtnClicked();
 
 signals:
     void tweetDraftAdded(const TweetDraft &tweetDraft);
@@ -62,9 +64,6 @@ private:
     void updateBtnStates();
     void clearTweetEdit();
     bool checkAndPromptIfDirty();
-
-    QHBoxLayout *toolButtonsLayout;
-    QVBoxLayout *mainLayout;
 
     QToolButton *boldToolButton;
     QToolButton *italicToolButton;
