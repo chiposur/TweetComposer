@@ -22,6 +22,7 @@ SOURCES += \
     src/tweettemplate.cpp \
     src/tweettemplatesitemwidget.cpp \
     src/tweettemplateswidget.cpp \
+    src/jsonserializer.cpp \
 
 HEADERS += \
     include/settings.h \
@@ -38,6 +39,7 @@ HEADERS += \
     include/toast.h \
     include/tweetdraftsitemwidget.h \
     include/tweettemplatesitemwidget.h \
+    include/jsonserializer.h \
 
 RESOURCES += \
     images.qrc

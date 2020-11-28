@@ -10,6 +10,7 @@
 #include "tweettemplateswidget.h"
 #include "settingsdialog.h"
 #include "toast.h"
+#include "datastore.h"
 
 class MainWindow : public QMainWindow
 {
@@ -37,6 +38,8 @@ public slots:
 private:
     void createMenuBar();
     void createMainLayout();
+
+    DataStore *dataStore;
 
     QVBoxLayout *mainLayout;
     ComposeWidget *composeWidget;

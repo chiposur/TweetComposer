@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <jsonserializer.h>
 #include "settings.h"
 #include "settingsmanager.h"
 
@@ -19,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     createMenuBar();
     createMainLayout();
+
+    dataStore = DataStore::getInstance();
 
     // Load entities from disk
     SettingsManager *settingsMgr = SettingsManager::getInstance();
@@ -188,22 +191,52 @@ void MainWindow::createMainLayout()
 
 void MainWindow::exportDraftsToJsonTriggered()
 {
-    // TODO: implement
+    QString json = JsonSerializer::serialize(*dataStore->getTweetDrafts());
+
+    // TODO: write json file to disk
 }
 
 void MainWindow::exportTemplatesToJsonTriggered()
 {
-    // TODO: implement
+    QString json = JsonSerializer::serialize(*dataStore->getTweetTemplates());
+
+    // TODO: write json file to disk
 }
 
 void MainWindow::importDraftsFromJsonTriggered()
 {
-    // TODO: implement
+    QString json;
+
+    // TODO: load json file from disk
+
+    QVector<TweetDraft> tweetDrafts;
+    JsonSerializer::deserialize(tweetDrafts, json);
+
+    if (tweetDrafts.count() > 0)
+    {
+        for (TweetDraft tweetDraft : tweetDrafts)
+        {
+            dataStore->addTweetDraft(tweetDraft);
+        }
+    }
 }
 
 void MainWindow::importTemplatesFromJsonTriggered()
 {
-    // TODO: implement
+    QString json;
+
+    // TODO: load json file from disk
+
+    QVector<TweetTemplate> tweetTemplates;
+    JsonSerializer::deserialize(tweetTemplates, json);
+
+    if (tweetTemplates.count() > 0)
+    {
+        for (TweetTemplate tweetTemplate : tweetTemplates)
+        {
+            dataStore->addTweetTemplate(tweetTemplate);
+        }
+    }
 }
 
 void MainWindow::showComposeWidget()
