@@ -1,6 +1,7 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
+#include <QCheckBox>
 #include <QDialog>
 #include <QObject>
 
@@ -11,8 +12,10 @@ class SettingsDialog : public QDialog
 public:
     SettingsDialog(QWidget *parent = nullptr);
 
-signals:
+    void accept();
 
+    QCheckBox *encryptDraftsCheck;
+    QCheckBox *encryptTemplatesCheck;
 };
 
 #endif // SETTINGSDIALOG_H

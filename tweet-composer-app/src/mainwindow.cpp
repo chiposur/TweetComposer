@@ -302,7 +302,7 @@ void MainWindow::showSettingsDialogTriggered()
     SettingsDialog dialog(this);
     if (dialog.exec())
     {
-
+        SettingsManager::getInstance()->saveSettings();
     }
 }
 
