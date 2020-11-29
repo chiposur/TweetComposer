@@ -75,17 +75,17 @@ void DataStore::deleteTweetDraftById(int id)
     if (draftIdToIndexMap[id] != tweetDrafts.count() - 1)
     {
         // Swap drafts
-        TweetDraft draftToMove = tweetDrafts[tweetDrafts.count() - 1];
+        TweetDraft draftToMove = tweetDrafts.last();
         TweetDraft draftToDelete = tweetDrafts[draftIdToIndexMap[id]];
         tweetDrafts[draftIdToIndexMap[id]] = draftToMove;
-        tweetDrafts[tweetDrafts.count() - 1] = draftToDelete;
+        tweetDrafts.last() = draftToDelete;
 
         // Update map
         draftIdToIndexMap[draftToMove.getId()] = draftIdToIndexMap[id];
         draftIdToIndexMap[id] = tweetDrafts.count() - 1;
     }
 
-    int lastTweetId = tweetDrafts[tweetDrafts.count() - 1].getId();
+    int lastTweetId = tweetDrafts.last().getId();
     draftIdToIndexMap.remove(lastTweetId);
     tweetDrafts.removeLast();
 }
@@ -96,17 +96,17 @@ void DataStore::deleteTweetTemplateById(int id)
     if (templateIdToIndexMap[id] != tweetTemplates.count() - 1)
     {
         // Swap templates
-        TweetTemplate templateToMove = tweetTemplates[tweetTemplates.count() - 1];
+        TweetTemplate templateToMove = tweetTemplates.last();
         TweetTemplate templateToDelete = tweetTemplates[templateIdToIndexMap[id]];
         tweetTemplates[templateIdToIndexMap[id]] = templateToMove;
-        tweetTemplates[tweetTemplates.count() - 1] = templateToDelete;
+        tweetTemplates.last() = templateToDelete;
 
         // Update map
         templateIdToIndexMap[templateToMove.getId()] = templateIdToIndexMap[id];
         templateIdToIndexMap[id] = tweetTemplates.count() - 1;
     }
 
-    int lastTweetId = tweetTemplates[tweetTemplates.count() - 1].getId();
+    int lastTweetId = tweetTemplates.last().getId();
     templateIdToIndexMap.remove(lastTweetId);
     tweetTemplates.removeLast();
 }
