@@ -15,6 +15,8 @@ public:
 
     void updateText(const QString &text) { templateTextLabel->setText(text); }
 
+    void mouseReleaseEvent(QMouseEvent *event);
+
 signals:
     void templateItemClicked(int templateId);
 

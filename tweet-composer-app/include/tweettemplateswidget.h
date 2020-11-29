@@ -27,6 +27,7 @@ public slots:
     void onTweetTemplateEdited(const TweetTemplate &tweetTemplate);
     void onTweetTemplateDeleted(int templateId);
     void onBackPressed();
+    void onTweetTemplateClicked(int templateId);
 
 private:
     QMap<int, TweetTemplatesItemWidget *> idToItemMap;

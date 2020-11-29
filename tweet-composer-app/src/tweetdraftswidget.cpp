@@ -27,12 +27,15 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
 
     draftsContainerLayout = new QVBoxLayout();
     draftsContainerWidget->setLayout(draftsContainerLayout);
+
+    mainLayout->addStretch();
 }
 
 void TweetDraftsWidget::onTweetDraftAdded(const TweetDraft &tweetDraft)
 {
     TweetDraftsItemWidget *draftItemWidget = new TweetDraftsItemWidget(tweetDraft);
     draftsContainerLayout->addWidget(draftItemWidget);
+    connect(draftItemWidget, SIGNAL(draftItemClicked(int)), this, SLOT(onTweetDraftClicked(int)));
 }
 
 void TweetDraftsWidget::onBackPressed()
@@ -50,4 +53,9 @@ void TweetDraftsWidget::onTweetDraftDeleted(int draftId)
     TweetDraftsItemWidget *draftItemWidget = idToItemMap[draftId];
     idToItemMap.remove(draftId);
     delete draftItemWidget;
+}
+
+void TweetDraftsWidget::onTweetDraftClicked(int draftId)
+{
+    emit editDraftRequested(draftId);
 }

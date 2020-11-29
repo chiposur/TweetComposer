@@ -15,6 +15,8 @@ public:
 
     void updateText(const QString &text) { draftTextLabel->setText(text); }
 
+    void mouseReleaseEvent(QMouseEvent *event);
+
 signals:
     void draftItemClicked(int draftId);
 

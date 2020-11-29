@@ -59,12 +59,14 @@ void DataStore::addTweetDraft(const TweetDraft &tweetDraft)
 {
     ++TweetDraft::numDrafts;
     tweetDrafts.append(tweetDraft);
+    draftIdToIndexMap.insert(tweetDraft.getId(), tweetDrafts.count() - 1);
 }
 
 void DataStore::addTweetTemplate(const TweetTemplate &tweetTemplate)
 {
     ++TweetTemplate::numTemplates;
     tweetTemplates.append(tweetTemplate);
+    templateIdToIndexMap.insert(tweetTemplate.getId(), tweetTemplates.count() - 1);
 }
 
 void DataStore::deleteTweetDraftById(int id)

@@ -27,12 +27,15 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
 
     templatesContainerLayout = new QVBoxLayout();
     templatesContainerWidget->setLayout(templatesContainerLayout);
+
+    mainLayout->addStretch();
 }
 
 void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTemplate)
 {
     TweetTemplatesItemWidget *templateItemWidget = new TweetTemplatesItemWidget(tweetTemplate);
     templatesContainerLayout->addWidget(templateItemWidget);
+    connect(templateItemWidget, SIGNAL(templateItemClicked(int)), this, SLOT(onTweetTemplateClicked(int)));
 }
 
 void TweetTemplatesWidget::onBackPressed()
@@ -50,4 +53,9 @@ void TweetTemplatesWidget::onTweetTemplateDeleted(int templateId)
     TweetTemplatesItemWidget *templateItemWidget = idToItemMap[templateId];
     idToItemMap.remove(templateId);
     delete templateItemWidget;
+}
+
+void TweetTemplatesWidget::onTweetTemplateClicked(int templateId)
+{
+    emit editTemplateRequested(templateId);
 }

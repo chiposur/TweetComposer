@@ -11,6 +11,7 @@ StandardButton::StandardButton(QWidget *parent) : QPushButton(parent)
         QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
 
     setStyleSheet(styleSheet.arg(standardGreen.name()));
+    setCursor(Qt::PointingHandCursor);
 }
 
 StandardButton::StandardButton(const QString &text, QWidget *parent)
@@ -22,6 +23,7 @@ StandardButton::StandardButton(const QString &text, QWidget *parent)
         QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
 
     setStyleSheet(styleSheet.arg(standardGreen.name()));
+    setCursor(Qt::PointingHandCursor);
 }
 
 DeleteButton::DeleteButton(QWidget *parent) : QPushButton(parent)
@@ -32,6 +34,7 @@ DeleteButton::DeleteButton(QWidget *parent) : QPushButton(parent)
         QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
 
     setStyleSheet(styleSheet.arg(deleteRed.name()));
+    setCursor(Qt::PointingHandCursor);
 }
 
 DeleteButton::DeleteButton(const QString &text, QWidget *parent)
@@ -43,4 +46,5 @@ DeleteButton::DeleteButton(const QString &text, QWidget *parent)
         QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
 
     setStyleSheet(styleSheet.arg(deleteRed.name()));
+    setCursor(Qt::PointingHandCursor);
 }
