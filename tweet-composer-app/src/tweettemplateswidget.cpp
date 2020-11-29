@@ -36,6 +36,7 @@ void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTempla
     TweetTemplatesItemWidget *templateItemWidget = new TweetTemplatesItemWidget(tweetTemplate);
     templatesContainerLayout->addWidget(templateItemWidget);
     connect(templateItemWidget, SIGNAL(templateItemClicked(int)), this, SLOT(onTweetTemplateClicked(int)));
+    idToItemMap.insert(tweetTemplate.getId(), templateItemWidget);
 }
 
 void TweetTemplatesWidget::onBackPressed()

@@ -36,6 +36,7 @@ void TweetDraftsWidget::onTweetDraftAdded(const TweetDraft &tweetDraft)
     TweetDraftsItemWidget *draftItemWidget = new TweetDraftsItemWidget(tweetDraft);
     draftsContainerLayout->addWidget(draftItemWidget);
     connect(draftItemWidget, SIGNAL(draftItemClicked(int)), this, SLOT(onTweetDraftClicked(int)));
+    idToItemMap.insert(tweetDraft.getId(), draftItemWidget);
 }
 
 void TweetDraftsWidget::onBackPressed()
