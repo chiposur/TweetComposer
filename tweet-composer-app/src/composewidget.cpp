@@ -236,7 +236,7 @@ void ComposeWidget::saveBtnClicked()
             if (dataStore->getTweetDraftById(draftId, tweetDraft))
             {
                 tweetDraft.setText(tweetTextEdit->toPlainText());
-                (*tweetDrafts)[dataStore->getDraftIdIndex(draftId)] = tweetDraft;
+                dataStore->editTweetDraftById(draftId, tweetDraft);
                 success = SettingsManager::getInstance()->saveTweetDrafts();
             }
         }
@@ -244,11 +244,11 @@ void ComposeWidget::saveBtnClicked()
     else
     {
         TweetTemplate tweetTemplate;
-        if (dataStore->getTweetTemplateById(draftId, tweetTemplate))
+        if (dataStore->getTweetTemplateById(templateId, tweetTemplate))
         {
             tweetTemplate.setText(tweetTextEdit->toPlainText());
-            (*tweetTemplates)[dataStore->getTemplateIdIndex(templateId)] = tweetTemplate;
-            success = SettingsManager::getInstance()->saveTweetDrafts();
+            dataStore->editTweetTemplateById(templateId, tweetTemplate);
+            success = SettingsManager::getInstance()->saveTweetTemplates();
         }
     }
 

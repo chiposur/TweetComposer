@@ -60,6 +60,7 @@ void DataStore::addTweetDraft(const TweetDraft &tweetDraft)
     ++TweetDraft::numDrafts;
     tweetDrafts.append(tweetDraft);
     draftIdToIndexMap.insert(tweetDraft.getId(), tweetDrafts.count() - 1);
+    emit tweetDraftAdded(tweetDraft);
 }
 
 void DataStore::addTweetTemplate(const TweetTemplate &tweetTemplate)
@@ -67,6 +68,19 @@ void DataStore::addTweetTemplate(const TweetTemplate &tweetTemplate)
     ++TweetTemplate::numTemplates;
     tweetTemplates.append(tweetTemplate);
     templateIdToIndexMap.insert(tweetTemplate.getId(), tweetTemplates.count() - 1);
+    emit tweetTemplateAdded(tweetTemplate);
+}
+
+void DataStore::editTweetDraftById(int id, const TweetDraft &tweetDraft)
+{
+    tweetDrafts[getDraftIdIndex(id)] = tweetDraft;
+    emit tweetDraftEdited(tweetDraft);
+}
+
+void DataStore::editTweetTemplateById(int id, const TweetTemplate &tweetTemplate)
+{
+    tweetTemplates[getTemplateIdIndex(id)] = tweetTemplate;
+    emit tweetTemplateEdited(tweetTemplate);
 }
 
 void DataStore::deleteTweetDraftById(int id)
@@ -88,6 +102,7 @@ void DataStore::deleteTweetDraftById(int id)
     int lastTweetId = tweetDrafts.last().getId();
     draftIdToIndexMap.remove(lastTweetId);
     tweetDrafts.removeLast();
+    emit tweetDraftDeleted(lastTweetId);
 }
 
 void DataStore::deleteTweetTemplateById(int id)
@@ -109,4 +124,5 @@ void DataStore::deleteTweetTemplateById(int id)
     int lastTweetId = tweetTemplates.last().getId();
     templateIdToIndexMap.remove(lastTweetId);
     tweetTemplates.removeLast();
+    emit tweetTemplateDeleted(lastTweetId);
 }

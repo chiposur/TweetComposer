@@ -28,6 +28,9 @@ public:
     void addTweetDraft(const TweetDraft &tweetDraft);
     void addTweetTemplate(const TweetTemplate &tweetTemplate);
 
+    void editTweetDraftById(int id, const TweetDraft &tweetDraft);
+    void editTweetTemplateById(int id, const TweetTemplate &tweetTemplate);
+
     void deleteTweetDraftById(int id);
     void deleteTweetTemplateById(int id);
 
@@ -35,6 +38,12 @@ public:
     int getTemplateIdIndex(int id) { return templateIdToIndexMap.contains(id) ? templateIdToIndexMap[id] : -1; };
 
 signals:
+    void tweetDraftAdded(const TweetDraft &tweetDraft);
+    void tweetDraftEdited(const TweetDraft &tweetDraft);
+    void tweetDraftDeleted(int draftId);
+    void tweetTemplateAdded(const TweetTemplate &tweetTemplate);
+    void tweetTemplateEdited(const TweetTemplate &tweetTemplate);
+    void tweetTemplateDeleted(int templateId);
 
 private:
     QVector<TweetDraft> tweetDrafts = QVector<TweetDraft>();
