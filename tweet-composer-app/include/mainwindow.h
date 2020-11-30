@@ -11,6 +11,7 @@
 #include "settingsdialog.h"
 #include "toast.h"
 #include "datastore.h"
+#include "jsonserializer.h"
 
 class MainWindow : public QMainWindow
 {
@@ -40,6 +41,7 @@ private:
     void createMainLayout();
 
     DataStore *dataStore;
+    JsonSerializer *jsonSerializer;
 
     QVBoxLayout *mainLayout;
     ComposeWidget *composeWidget;

@@ -22,11 +22,49 @@ MainWindow::MainWindow(QWidget *parent)
     createMainLayout();
 
     dataStore = DataStore::getInstance();
+    jsonSerializer = JsonSerializer::getInstance();
 
     // Load entities from disk
     SettingsManager *settingsMgr = SettingsManager::getInstance();
     settingsMgr->loadTweetDrafts();
     settingsMgr->loadTweetTemplates();
+
+    // Connect DataStore singleton add/edit/delete signals to JsonSerializer singleton
+    connect(
+        dataStore,
+        SIGNAL(tweetDraftAdded(const TweetDraft &)),
+        jsonSerializer,
+        SLOT(onTweetDraftAdded(const TweetDraft &)));
+
+    connect(
+        dataStore,
+        SIGNAL(tweetDraftEdited(const TweetDraft &)),
+        jsonSerializer,
+        SLOT(onTweetDraftEdited(const TweetDraft &)));
+
+    connect(
+        dataStore,
+        SIGNAL(tweetDraftDeleted(int)),
+        jsonSerializer,
+        SLOT(onTweetDraftDeleted(int)));
+
+    connect(
+        dataStore,
+        SIGNAL(tweetTemplateAdded(const TweetTemplate &)),
+        jsonSerializer,
+        SLOT(onTweetTemplateAdded(const TweetTemplate &)));
+
+    connect(
+        dataStore,
+        SIGNAL(tweetTemplateEdited(const TweetTemplate &)),
+        jsonSerializer,
+        SLOT(onTweetTemplateEdited(const TweetTemplate &)));
+
+    connect(
+        dataStore,
+        SIGNAL(tweetTemplateDeleted(int)),
+        jsonSerializer,
+        SLOT(onTweetTemplateDeleted(int)));
 }
 
 MainWindow::~MainWindow()

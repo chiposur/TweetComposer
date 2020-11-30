@@ -33,7 +33,7 @@ bool deserializeQJsonObject(const QJsonObject &jsonObject, TweetDraft &tweetDraf
     bool hasText = jsonObject.contains("text") && jsonObject["text"].isString();
     if (hasId && hasText)
     {
-   tweetDraft.setText(jsonObject["text"].toString());
+        tweetDraft.setText(jsonObject["text"].toString());
         return true;
     }
     else
@@ -55,7 +55,23 @@ bool deserializeQJsonObject(const QJsonObject &jsonObject, TweetTemplate &tweetT
     {
         return false;
     } 
-	}
+}
+
+JsonSerializer::JsonSerializer(QString json)
+{
+    jsonDocument = new QJsonDocument(QJsonDocument::fromJson(json.toUtf8()));
+}
+
+JsonSerializer::~JsonSerializer()
+{
+    delete jsonDocument;
+}
+
+JsonSerializer *JsonSerializer::getInstance()
+{
+    static JsonSerializer jsonSerializer("{ \"tweetDrafts\": [], \"tweetTemplates\": [] }");
+    return &jsonSerializer;
+}
 
 QString JsonSerializer::serialize(const TweetDraft &tweetDraft)
 {
@@ -77,9 +93,7 @@ QString JsonSerializer::serialize(const QVector<TweetDraft> &tweetDrafts)
       jsonArray.push_back(createQJsonObject(tweetDraft));
     }
 
-    QJsonObject draftsObject;
-    draftsObject["tweetDrafts"] = jsonArray;
-    QJsonDocument doc(draftsObject);
+    QJsonDocument doc(jsonArray);
     return doc.toJson();
 }
 
@@ -91,9 +105,7 @@ QString JsonSerializer::serialize(const QVector<TweetTemplate> &tweetTemplates)
       jsonArray.push_back(createQJsonObject(tweetTemplate));
     }
 
-    QJsonObject draftsObject;
-    draftsObject["tweetTemplates"] = jsonArray;
-    QJsonDocument doc(draftsObject);
+    QJsonDocument doc(jsonArray);
     return doc.toJson();
 }
 
@@ -101,12 +113,12 @@ bool JsonSerializer::deserialize(QVector<TweetDraft> &tweetDrafts, const QString
 {
     QJsonDocument doc(QJsonDocument::fromJson(json.toUtf8()));
 
-    if (!doc.isObject() || doc.object().contains("tweetDrafts") || !doc["tweetDrafts"].isArray())
+    if (!doc.isArray())
     {
         return false;
     }
 
-    for (QJsonValue value : doc["tweetDrafts"].toArray())
+    for (QJsonValue value : doc.array())
     {
         if (!value.isObject())
         {
@@ -127,12 +139,12 @@ bool JsonSerializer::deserialize(QVector<TweetTemplate> &tweetTemplates, const Q
 {
     QJsonDocument doc(QJsonDocument::fromJson(json.toUtf8()));
 
-    if (!doc.isObject() || !doc.object().contains("tweetTemplates") || !doc["tweetTemplates"].isArray())
+    if (!doc.isArray())
     {
         return false;
     }
 
-    for (QJsonValue value : doc["tweetTemplates"].toArray())
+    for (QJsonValue value : doc.array())
     {
         if (!value.isObject())
         {
@@ -171,4 +183,129 @@ bool JsonSerializer::deserialize(TweetTemplate &tweetTemplate, const QString &js
     }
 
     return deserializeQJsonObject(doc.object(), tweetTemplate);
+}
+
+void JsonSerializer::onTweetDraftAdded(const TweetDraft &tweetDraft)
+{
+    QJsonArray draftsArray = (*jsonDocument)["tweetDrafts"].toArray();
+    draftsArray.append(QJsonValue(createQJsonObject(tweetDraft)));
+    jsonDocument->object()["tweetDrafts"] = draftsArray;
+}
+
+void JsonSerializer::onTweetDraftEdited(const TweetDraft &tweetDraft)
+{
+    QJsonArray draftsArray = (*jsonDocument)["tweetDrafts"].toArray();
+    for (QJsonValue value : draftsArray)
+    {
+        if (value.toObject()["id"] == tweetDraft.getId())
+        {
+            value = QJsonValue(createQJsonObject(tweetDraft));
+        }
+    }
+
+    jsonDocument->object()["tweetDrafts"] = draftsArray;
+}
+
+void JsonSerializer::onTweetDraftDeleted(int draftId)
+{
+    QJsonArray draftsArray = (*jsonDocument)["tweetDrafts"].toArray();
+    int index = 0;
+    for (QJsonValue value : draftsArray)
+    {
+        if (value.toObject()["id"] == draftId)
+        {
+            break;
+        }
+
+        ++index;
+    }
+
+    draftsArray.removeAt(index);
+    jsonDocument->object()["tweetDrafts"] = draftsArray;
+}
+
+void JsonSerializer::onTweetTemplateAdded(const TweetTemplate &tweetTemplate)
+{
+    QJsonArray templatesArray = (*jsonDocument)["tweetTemplates"].toArray();
+    templatesArray.append(QJsonValue(createQJsonObject(tweetTemplate)));
+    jsonDocument->object()["tweetTemplates"] = templatesArray;
+}
+
+void JsonSerializer::onTweetTemplateEdited(const TweetTemplate &tweetTemplate)
+{
+    QJsonArray draftsArray = (*jsonDocument)["tweetTemplates"].toArray();
+    for (QJsonValue value : draftsArray)
+    {
+        if (value.toObject()["id"] == tweetTemplate.getId())
+        {
+            value = QJsonValue(createQJsonObject(tweetTemplate));
+        }
+    }
+
+    jsonDocument->object()["tweetTemplates"] = draftsArray;
+}
+
+void JsonSerializer::onTweetTemplateDeleted(int templateId)
+{
+    QJsonArray draftsArray = (*jsonDocument)["tweetTemplates"].toArray();
+    int index = 0;
+    for (QJsonValue value : draftsArray)
+    {
+        if (value.toObject()["id"] == templateId)
+        {
+            break;
+        }
+
+        ++index;
+    }
+
+    draftsArray.removeAt(index);
+    jsonDocument->object()["tweetTemplates"] = draftsArray;
+}
+
+QString JsonSerializer::json()
+{
+    return jsonDocument->toJson();
+}
+
+QString JsonSerializer::tweetDraftsJson(bool &success)
+{
+    QString json;
+
+    if (!jsonDocument->isObject()
+        || !jsonDocument->object().contains("tweetDrafts")
+        || !jsonDocument->object()["tweetDrafts"].isArray())
+    {
+        success = false;
+    }
+    else
+    {
+        QJsonArray tweetTemplatesJson = jsonDocument->object()["tweetDrafts"].toArray();
+        QJsonDocument doc(tweetTemplatesJson);
+        json = doc.toJson();
+        success = true;
+    }
+
+    return json;
+}
+
+QString JsonSerializer::tweetTemplatesJson(bool &success)
+{
+    QString json;
+
+    if (!jsonDocument->isObject()
+        || !jsonDocument->object().contains("tweetTemplates")
+        || !jsonDocument->object()["tweetTemplates"].isArray())
+    {
+        success = false;
+    }
+    else
+    {
+        QJsonArray tweetTemplatesJson = jsonDocument->object()["tweetTemplates"].toArray();
+        QJsonDocument doc(tweetTemplatesJson);
+        json = doc.toJson();
+        success = true;
+    }
+
+    return json;
 }
