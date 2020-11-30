@@ -4,8 +4,9 @@
 #include <QList>
 #include <QObject>
 
-#include <tweetdraft.h>
-#include <tweettemplate.h>
+#include "tweetdraft.h"
+#include "tweettemplate.h"
+#include "jsonserializer.h"
 
 class SettingsManager : public QObject
 {
@@ -16,6 +17,7 @@ public:
 
     static SettingsManager *getInstance();
 
+    void loadSettings();
     void loadTweetDrafts();
     void loadTweetTemplates();
 
@@ -26,6 +28,7 @@ public:
 signals:
 
 private:
+    JsonSerializer *jsonSerializer;
 };
 
 #endif // SETTINGSMANAGER_H

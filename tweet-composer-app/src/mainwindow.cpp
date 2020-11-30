@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Load entities from disk
     SettingsManager *settingsMgr = SettingsManager::getInstance();
+    settingsMgr->loadSettings();
     settingsMgr->loadTweetDrafts();
     settingsMgr->loadTweetTemplates();
 
