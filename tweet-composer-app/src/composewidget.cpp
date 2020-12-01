@@ -209,7 +209,7 @@ void ComposeWidget::saveAsDraftBtnClicked()
     dataStore->addTweetDraft(tweetDraft);
     tweetTextEdit->setPlainText("");
 
-    emit tweetDraftAdded(tweetDraft);
+    SettingsManager::getInstance()->saveTweetDrafts();
 }
 
 void ComposeWidget::saveAsTemplateBtnClicked()
@@ -220,7 +220,7 @@ void ComposeWidget::saveAsTemplateBtnClicked()
     dataStore->addTweetTemplate(tweetTemplate);
     tweetTextEdit->setPlainText("");
 
-    emit tweetTemplateAdded(tweetTemplate);
+    SettingsManager::getInstance()->saveTweetTemplates();
 }
 
 void ComposeWidget::saveBtnClicked()
@@ -262,23 +262,6 @@ void ComposeWidget::saveBtnClicked()
 
     if (success)
     {
-        if (isDraft())
-        {
-            TweetDraft tweetDraft;
-            if (dataStore->getTweetDraftById(draftId, tweetDraft))
-            {
-                emit tweetDraftEdited(tweetDraft);
-            }
-        }
-        else
-        {
-            TweetTemplate tweetTemplate;
-            if (dataStore->getTweetTemplateById(templateId, tweetTemplate))
-            {
-                emit tweetTemplateEdited(tweetTemplate);
-            }
-        }
-
         clearTweetEdit();
     }
 }
@@ -307,7 +290,6 @@ void ComposeWidget::deleteBtnClicked()
 
     if (success)
     {
-        isDraft() ? emit tweetDraftDeleted(draftId) : emit tweetTemplateDeleted(templateId);
         clearTweetEdit();
     }
 

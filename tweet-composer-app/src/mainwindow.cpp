@@ -22,17 +22,20 @@ MainWindow::MainWindow(QWidget *parent)
     initAndConnectSingletons();
     createMenuBar();
     createMainLayout();
-
-    // Load entities from disk
-    SettingsManager *settingsMgr = SettingsManager::getInstance();
-    settingsMgr->loadSettings();
-    settingsMgr->loadTweetDrafts();
-    settingsMgr->loadTweetTemplates();
+    loadEntitiesFromDisk();
 }
 
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::loadEntitiesFromDisk()
+{
+    SettingsManager *settingsMgr = SettingsManager::getInstance();
+    settingsMgr->loadSettings();
+    settingsMgr->loadTweetDrafts();
+    settingsMgr->loadTweetTemplates();
 }
 
 void MainWindow::initAndConnectSingletons()
@@ -137,19 +140,19 @@ void MainWindow::createMainLayout()
     mainLayout->addWidget(tweetDraftsWidget);
 
     connect(
-        composeWidget,
+        dataStore,
         SIGNAL(tweetDraftAdded(const TweetDraft &)),
         tweetDraftsWidget,
         SLOT(onTweetDraftAdded(const TweetDraft &)));
 
     connect(
-        composeWidget,
+        dataStore,
         SIGNAL(tweetDraftEdited(const TweetDraft &)),
         tweetDraftsWidget,
         SLOT(onTweetDraftEdited(const TweetDraft &)));
 
     connect(
-        composeWidget,
+        dataStore,
         SIGNAL(tweetDraftDeleted(int)),
         tweetDraftsWidget,
         SLOT(onTweetDraftDeleted(int)));
@@ -159,19 +162,19 @@ void MainWindow::createMainLayout()
     mainLayout->addWidget(tweetTemplatesWidget);
 
     connect(
-        composeWidget,
+        dataStore,
         SIGNAL(tweetTemplateAdded(const TweetTemplate &)),
         tweetTemplatesWidget,
         SLOT(onTweetTemplateAdded(const TweetTemplate &)));
 
     connect(
-        composeWidget,
+        dataStore,
         SIGNAL(tweetTemplateEdited(const TweetTemplate &)),
         tweetTemplatesWidget,
         SLOT(onTweetTemplateEdited(const TweetTemplate &)));
 
     connect(
-        composeWidget,
+        dataStore,
         SIGNAL(tweetTemplateDeleted(int)),
         tweetTemplatesWidget,
         SLOT(onTweetTemplateDeleted(int)));
@@ -235,7 +238,8 @@ void MainWindow::createMainLayout()
 
 void MainWindow::exportDraftsToJsonTriggered()
 {
-    QString json = JsonSerializer::serialize(*dataStore->getTweetDrafts());
+    bool success;
+    QString json = jsonSerializer->tweetDraftsJson(success);
 
     static QString lastSelectedImportDir;
     lastSelectedImportDir =
@@ -254,7 +258,8 @@ void MainWindow::exportDraftsToJsonTriggered()
 
 void MainWindow::exportTemplatesToJsonTriggered()
 {
-    QString json = JsonSerializer::serialize(*dataStore->getTweetTemplates());
+    bool success;
+    QString json = jsonSerializer->tweetTemplatesJson(success);
 
     static QString lastSelectedImportDir;
     lastSelectedImportDir =

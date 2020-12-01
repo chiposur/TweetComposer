@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QSettings>
 
 #include "tweetdraft.h"
 #include "tweettemplate.h"
@@ -29,6 +30,7 @@ signals:
 
 private:
     JsonSerializer *jsonSerializer;
+    QSettings *settings;
 };
 
 #endif // SETTINGSMANAGER_H

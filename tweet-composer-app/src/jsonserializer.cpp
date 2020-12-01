@@ -48,7 +48,7 @@ bool deserializeQJsonObject(const QJsonObject &jsonObject, TweetTemplate &tweetT
     bool hasText = jsonObject.contains("text") && jsonObject["text"].isString();
     if (hasId && hasText)
     {
-   tweetTemplate.setText(jsonObject["text"].toString());
+        tweetTemplate.setText(jsonObject["text"].toString());
         return true;
     }
     else
@@ -292,8 +292,8 @@ QString JsonSerializer::tweetDraftsJson(bool &success)
     }
     else
     {
-        QJsonArray tweetTemplatesJson = jsonDocument->object()["tweetDrafts"].toArray();
-        QJsonDocument doc(tweetTemplatesJson);
+        QJsonArray tweetDraftsJson = jsonDocument->object()["tweetDrafts"].toArray();
+        QJsonDocument doc(tweetDraftsJson);
         json = doc.toJson();
         success = true;
     }
