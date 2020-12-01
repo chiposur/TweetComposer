@@ -3,6 +3,7 @@
 #include "settings.h"
 #include "settingsmanager.h"
 
+#include <QFileDialog>
 #include <QGuiApplication>
 #include <QMessageBox>
 
@@ -18,17 +19,26 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *mainWidget = new QWidget();
     setCentralWidget(mainWidget);
 
+    initAndConnectSingletons();
     createMenuBar();
     createMainLayout();
-
-    dataStore = DataStore::getInstance();
-    jsonSerializer = JsonSerializer::getInstance();
 
     // Load entities from disk
     SettingsManager *settingsMgr = SettingsManager::getInstance();
     settingsMgr->loadSettings();
     settingsMgr->loadTweetDrafts();
     settingsMgr->loadTweetTemplates();
+}
+
+MainWindow::~MainWindow()
+{
+
+}
+
+void MainWindow::initAndConnectSingletons()
+{
+    dataStore = DataStore::getInstance();
+    jsonSerializer = JsonSerializer::getInstance();
 
     // Connect DataStore singleton add/edit/delete signals to JsonSerializer singleton
     connect(
@@ -66,11 +76,6 @@ MainWindow::MainWindow(QWidget *parent)
         SIGNAL(tweetTemplateDeleted(int)),
         jsonSerializer,
         SLOT(onTweetTemplateDeleted(int)));
-}
-
-MainWindow::~MainWindow()
-{
-
 }
 
 void MainWindow::createMenuBar()
@@ -232,21 +237,61 @@ void MainWindow::exportDraftsToJsonTriggered()
 {
     QString json = JsonSerializer::serialize(*dataStore->getTweetDrafts());
 
-    // TODO: write json file to disk
+    static QString lastSelectedImportDir;
+    lastSelectedImportDir =
+        QFileDialog::getExistingDirectory(
+            this,
+            "Select export directory",
+            lastSelectedImportDir,
+            QFileDialog::ShowDirsOnly);
+
+    QFile exportFile(QString("%1/tweetdrafts.json").arg(lastSelectedImportDir));
+    if (exportFile.open(QFile::ReadWrite))
+    {
+        exportFile.write(json.toUtf8());
+    }
 }
 
 void MainWindow::exportTemplatesToJsonTriggered()
 {
     QString json = JsonSerializer::serialize(*dataStore->getTweetTemplates());
 
-    // TODO: write json file to disk
+    static QString lastSelectedImportDir;
+    lastSelectedImportDir =
+        QFileDialog::getExistingDirectory(
+            this,
+            "Select export directory",
+            lastSelectedImportDir,
+            QFileDialog::ShowDirsOnly);
+
+    QFile exportFile(QString("%1/tweettemplates.json").arg(lastSelectedImportDir));
+    if (exportFile.open(QFile::ReadWrite))
+    {
+        exportFile.write(json.toUtf8());
+    }
 }
 
 void MainWindow::importDraftsFromJsonTriggered()
 {
-    QString json;
+    static QString lastSelectedImportDir;
+    QString filename =
+        QFileDialog::getOpenFileName(
+            this,
+            "Select import directory",
+            lastSelectedImportDir);
 
-    // TODO: load json file from disk
+    QFile selectedFile(filename);
+    if (!selectedFile.open(QFile::ReadOnly))
+    {
+        QMessageBox::warning(
+            this,
+            "Could not open file",
+            "Could not open file for reading, check that you have the appropriate permissions.");
+        return;
+    }
+
+    lastSelectedImportDir = QFileInfo(filename).absoluteFilePath();
+    QString json = selectedFile.readAll();
 
     QVector<TweetDraft> tweetDrafts;
     JsonSerializer::deserialize(tweetDrafts, json);
@@ -262,9 +307,25 @@ void MainWindow::importDraftsFromJsonTriggered()
 
 void MainWindow::importTemplatesFromJsonTriggered()
 {
-    QString json;
+    static QString lastSelectedImportDir;
+    QString filename =
+        QFileDialog::getOpenFileName(
+            this,
+            "Select import directory",
+            lastSelectedImportDir);
 
-    // TODO: load json file from disk
+    QFile selectedFile(filename);
+    if (!selectedFile.open(QFile::ReadOnly))
+    {
+        QMessageBox::warning(
+            this,
+            "Could not open file",
+            "Could not open file for reading, check that you have the appropriate permissions.");
+        return;
+    }
+
+    lastSelectedImportDir = QFileInfo(filename).absoluteFilePath();
+    QString json = selectedFile.readAll();
 
     QVector<TweetTemplate> tweetTemplates;
     JsonSerializer::deserialize(tweetTemplates, json);

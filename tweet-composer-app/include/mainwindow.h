@@ -39,6 +39,7 @@ public slots:
 private:
     void createMenuBar();
     void createMainLayout();
+    void initAndConnectSingletons();
 
     DataStore *dataStore;
     JsonSerializer *jsonSerializer;
