@@ -1,7 +1,8 @@
 #include "mainwindow.h"
-#include <jsonserializer.h>
+#include "jsonserializer.h"
 #include "settings.h"
 #include "settingsmanager.h"
+#include "toastwidget.h"
 
 #include <QFileDialog>
 #include <QGuiApplication>
@@ -411,8 +412,23 @@ void MainWindow::showSettingsDialogTriggered()
     }
 }
 
-void MainWindow::onToastRequested(const Toast &/*toast*/)
+void MainWindow::onToastRequested(const Toast &toast)
 {
-    // TODO: display toast in bottom right corner of widget for toast duration, and
-    // stack toasts if multiple are requested with overlapping durations
+    ToastWidget *toastWidget = new ToastWidget(toast, this);
+    connect(toastWidget, SIGNAL(toastWidgetExpired(int)), this, SLOT(onToastWidgetExpired(int)));
+    topToastHeight += TOAST_MARGIN_PX + toastWidget->height();
+    int toastX = width() - toastWidget->width() - TOAST_MARGIN_PX;
+    int toastY = height() - topToastHeight;
+    toastWidget->move(toastX, toastY);
+    toastWidget->setVisible(true);
+}
+
+void MainWindow::onToastWidgetExpired(int height)
+{
+    topToastHeight -= height + TOAST_MARGIN_PX;
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
 }

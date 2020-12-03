@@ -1,8 +1,10 @@
 #include "toast.h"
 
+int Toast::numToasts = 0;
+
 Toast::Toast()
 {
-
+    id = ++Toast::numToasts;
 }
 
 Toast::Toast(
@@ -10,6 +12,7 @@ Toast::Toast(
     ToastTypes toastType,
     int durationMs)
 {
+    this->id = ++numToasts;
     this->text = text;
     this->toastType = toastType;
     this->durationMs = durationMs;

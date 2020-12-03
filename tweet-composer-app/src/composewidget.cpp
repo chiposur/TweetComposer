@@ -210,6 +210,9 @@ void ComposeWidget::saveAsDraftBtnClicked()
     tweetTextEdit->setPlainText("");
 
     SettingsManager::getInstance()->saveTweetDrafts();
+
+    Toast toast("Tweet saved as draft", Toast::ToastTypes::INFO, 2000);
+    emit toastRequested(toast);
 }
 
 void ComposeWidget::saveAsTemplateBtnClicked()
@@ -221,6 +224,9 @@ void ComposeWidget::saveAsTemplateBtnClicked()
     tweetTextEdit->setPlainText("");
 
     SettingsManager::getInstance()->saveTweetTemplates();
+
+    Toast toast("Tweet saved as template", Toast::ToastTypes::INFO, 2000);
+    emit toastRequested(toast);
 }
 
 void ComposeWidget::saveBtnClicked()
