@@ -40,6 +40,7 @@ ToastWidget::ToastWidget(const Toast &toast, QWidget *parent) : QLabel(parent)
     QString styleString =
         QString("QLabel {") +
         "background-color: %1; color: %2; border: 1px solid %3;" +
+        "padding: 8;"
         "}";
 
     setStyleSheet(
@@ -48,6 +49,11 @@ ToastWidget::ToastWidget(const Toast &toast, QWidget *parent) : QLabel(parent)
         .arg(textColor)
         .arg(borderColor));
 
+    QFontMetrics fontMetrics(font());
+    int textWidth = fontMetrics.horizontalAdvance(text());
+    int horizontalPaddingsWidth = 8 * 2;
+    int borderWidth = 1 * 2;
+    setFixedWidth(textWidth + horizontalPaddingsWidth + borderWidth + frameWidth());
     QTimer::singleShot(toast.getDurationMs(), this, SLOT(onDurationExpired()));
 }
 
