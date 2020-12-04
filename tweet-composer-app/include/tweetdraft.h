@@ -27,7 +27,7 @@ public:
     }
 
 private:
-    int id;
+    int id = -1;
     QString text;
 };
 

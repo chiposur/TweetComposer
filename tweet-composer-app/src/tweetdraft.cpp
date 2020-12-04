@@ -4,5 +4,5 @@ int TweetDraft::numDrafts = 0;
 
 TweetDraft::TweetDraft()
 {
-    id = numDrafts;
+
 }
