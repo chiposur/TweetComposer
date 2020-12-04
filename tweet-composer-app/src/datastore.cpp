@@ -83,6 +83,28 @@ void DataStore::editTweetTemplateById(int id, const TweetTemplate &tweetTemplate
     emit tweetTemplateEdited(tweetTemplate);
 }
 
+void DataStore::deleteAllTweetDrafts()
+{
+    for (int id : draftIdToIndexMap.keys())
+    {
+        emit tweetDraftDeleted(id);
+    }
+
+    tweetDrafts.empty();
+    draftIdToIndexMap.clear();
+}
+
+void DataStore::deleteAllTweetTemplates()
+{
+    for (int id : templateIdToIndexMap.keys())
+    {
+        emit tweetTemplateDeleted(id);
+    }
+
+    tweetTemplates.empty();
+    templateIdToIndexMap.clear();
+}
+
 void DataStore::deleteTweetDraftById(int id)
 {
     // Make sure draft is last vector element then delete

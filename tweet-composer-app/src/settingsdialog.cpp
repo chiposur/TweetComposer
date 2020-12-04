@@ -1,9 +1,12 @@
 #include "settingsdialog.h"
 #include "settings.h"
 #include "customcontrols.h"
+#include "datastore.h"
+#include "settingsmanager.h"
 
 #include <QGroupBox>
 #include <QHBoxLayout>
+#include <QMessageBox>
 #include <QVBoxLayout>
 
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
@@ -26,6 +29,16 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     storageLayout->addWidget(encryptDraftsCheck);
     storageLayout->addWidget(encryptTemplatesCheck);
 
+    QHBoxLayout *deleteBtnsLayout = new QHBoxLayout();
+    storageLayout->addLayout(deleteBtnsLayout);
+
+    deleteAllDraftsBtn = new DeleteButton("Delete all Drafts");
+    deleteAllTemplatesBtn = new DeleteButton("Delete all Templates");
+    connect(deleteAllDraftsBtn, SIGNAL(clicked()), this, SLOT(onDeleteAllDraftsBtnClicked()));
+    connect(deleteAllTemplatesBtn, SIGNAL(clicked()), this, SLOT(onDeleteAllTemplatesBtnClicked()));
+    deleteBtnsLayout->addWidget(deleteAllDraftsBtn);
+    deleteBtnsLayout->addWidget(deleteAllTemplatesBtn);
+
     mainLayout->addStretch();
 
     QHBoxLayout *btnsLayout = new QHBoxLayout();
@@ -39,6 +52,36 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     btnsLayout->addWidget(cancelBtn);
     connect(saveBtn, SIGNAL(clicked()), this, SLOT(accept()));
     connect(cancelBtn, SIGNAL(clicked()), this, SLOT(reject()));
+}
+
+void SettingsDialog::onDeleteAllDraftsBtnClicked()
+{
+    QMessageBox::StandardButton result =
+        QMessageBox::question(
+            this,
+            "Delete all drafts?",
+            "Are you sure you want to delete all drafts? This can't be undone.");
+
+    if (result == QMessageBox::Yes)
+    {
+        DataStore::getInstance()->deleteAllTweetDrafts();
+        SettingsManager::getInstance()->saveTweetDrafts();
+    }
+}
+
+void SettingsDialog::onDeleteAllTemplatesBtnClicked()
+{
+    QMessageBox::StandardButton result =
+        QMessageBox::question(
+            this,
+            "Delete all templates?",
+            "Are you sure you want to delete all templates? This can't be undone.");
+
+    if (result == QMessageBox::Yes)
+    {
+        DataStore::getInstance()->deleteAllTweetTemplates();
+        SettingsManager::getInstance()->saveTweetTemplates();
+    }
 }
 
 void SettingsDialog::accept()

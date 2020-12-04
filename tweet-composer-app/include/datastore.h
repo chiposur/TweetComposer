@@ -34,6 +34,9 @@ public:
     void deleteTweetDraftById(int id);
     void deleteTweetTemplateById(int id);
 
+    void deleteAllTweetDrafts();
+    void deleteAllTweetTemplates();
+
     int getDraftIdIndex(int id) { return draftIdToIndexMap.contains(id) ? draftIdToIndexMap[id] : -1; };
     int getTemplateIdIndex(int id) { return templateIdToIndexMap.contains(id) ? templateIdToIndexMap[id] : -1; };
 
