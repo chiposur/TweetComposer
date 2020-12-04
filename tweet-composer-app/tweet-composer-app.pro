@@ -42,6 +42,7 @@ HEADERS += \
     include/tweettemplatesitemwidget.h \
     include/jsonserializer.h \
     include/toastwidget.h \
+    include/twitterbootstrapstyles.h
 
 RESOURCES += \
     images.qrc

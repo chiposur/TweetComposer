@@ -1,15 +1,9 @@
 #include "toastwidget.h"
+#include "twitterbootstrapstyles.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTimer>
-
-QString ToastWidget::infoBgColor = "#5bc0de";
-QString ToastWidget::errorBgColor = "#d9534f";
-QString ToastWidget::infoTextColor = "#004085";
-QString ToastWidget::errorTextColor = "#721c24";
-QString ToastWidget::infoBorderColor = "#b8daff";
-QString ToastWidget::errorBorderColor = "#f5c6cb";
 
 ToastWidget::ToastWidget(const Toast &toast, QWidget *parent) : QLabel(parent)
 {
@@ -22,19 +16,19 @@ ToastWidget::ToastWidget(const Toast &toast, QWidget *parent) : QLabel(parent)
     switch (toast.getToastType())
     {
     case Toast::ToastTypes::INFO:
-        backgroundColor = infoBgColor;
-        textColor = infoTextColor;
-        borderColor = infoBorderColor;
+        backgroundColor = TwitterBootstrapStyles::INFO_BG_COLOR;
+        textColor = TwitterBootstrapStyles::INFO_TEXT_COLOR;
+        borderColor = TwitterBootstrapStyles::INFO_BORDER_COLOR;
         break;
     case Toast::ToastTypes::ERROR:
-        backgroundColor = errorBgColor;
-        textColor = errorTextColor;
-        borderColor = errorBorderColor;
+        backgroundColor = TwitterBootstrapStyles::ERROR_BG_COLOR;
+        textColor = TwitterBootstrapStyles::ERROR_TEXT_COLOR;
+        borderColor = TwitterBootstrapStyles::ERROR_BORDER_COLOR;
         break;
     default:
-        backgroundColor = infoBgColor;
-        textColor = infoTextColor;
-        borderColor = infoBorderColor;
+        backgroundColor = TwitterBootstrapStyles::INFO_BG_COLOR;
+        textColor = TwitterBootstrapStyles::INFO_TEXT_COLOR;
+        borderColor = TwitterBootstrapStyles::INFO_BORDER_COLOR;
     }
 
     QString styleString =

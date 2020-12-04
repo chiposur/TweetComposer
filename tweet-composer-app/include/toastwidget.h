@@ -19,13 +19,6 @@ private slots:
     void onDurationExpired();
 
 private:
-    static QString infoBgColor;
-    static QString errorBgColor;
-    static QString infoTextColor;
-    static QString errorTextColor;
-    static QString infoBorderColor;
-    static QString errorBorderColor;
-
     int toastId;
 };
 

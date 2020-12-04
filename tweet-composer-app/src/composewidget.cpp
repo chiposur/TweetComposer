@@ -294,11 +294,6 @@ void ComposeWidget::deleteBtnClicked()
         }
     }
 
-    if (success)
-    {
-        clearTweetEdit();
-    }
-
     QString toastMessage =
         QString("%1%2 deleted")
         .arg(isDraft() ? "Draft" : "Template")
@@ -306,6 +301,11 @@ void ComposeWidget::deleteBtnClicked()
     Toast::ToastTypes toastType = success ? Toast::ToastTypes::INFO : Toast::ToastTypes::ERROR;
     Toast toast(toastMessage, toastType, 2000);
     emit toastRequested(toast);
+
+    if (success)
+    {
+        clearTweetEdit();
+    }
 }
 
 void ComposeWidget::clearTweetEdit()
