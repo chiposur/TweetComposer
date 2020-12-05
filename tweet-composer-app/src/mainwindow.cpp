@@ -251,7 +251,7 @@ void MainWindow::exportDraftsToJsonTriggered()
             QFileDialog::ShowDirsOnly);
 
     QFile exportFile(QString("%1/tweetdrafts.json").arg(lastSelectedImportDir));
-    if (exportFile.open(QFile::ReadWrite))
+    if (exportFile.open(QFile::ReadWrite | QFile::Truncate))
     {
         exportFile.write(json.toUtf8());
     }
@@ -271,7 +271,7 @@ void MainWindow::exportTemplatesToJsonTriggered()
             QFileDialog::ShowDirsOnly);
 
     QFile exportFile(QString("%1/tweettemplates.json").arg(lastSelectedImportDir));
-    if (exportFile.open(QFile::ReadWrite))
+    if (exportFile.open(QFile::ReadWrite | QFile::Truncate))
     {
         exportFile.write(json.toUtf8());
     }
