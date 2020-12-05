@@ -112,7 +112,6 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     charsRemainingLabel = new QLabel();
     editorBottomLayout->addWidget(charsRemainingLabel);
 
-    // Add stretch to bottom of main layout to push everything up
     mainLayout->addStretch();
 
     setFont();

@@ -10,7 +10,8 @@ TweetDraftsItemWidget::TweetDraftsItemWidget(const TweetDraft &tweetDraft, QWidg
         QString("QLabel { border:no; border-bottom: 1px solid #17a81a; padding: 3px 4px; }") +
         QString("QLabel:hover { background-color: #17a81a; color: white; }"));
     setStyleSheet(styleSheet);
-
+    setFixedWidth(476);
+    setFixedHeight(sizeHint().height());
     setCursor(Qt::PointingHandCursor);
 }
 

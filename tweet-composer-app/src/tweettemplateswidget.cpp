@@ -14,6 +14,7 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     mainLayout->addLayout(navBtnsLayout);
 
     StandardButton *backBtn = new StandardButton("Back");
+    backBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     navBtnsLayout->addWidget(backBtn);
 
     connect(backBtn, SIGNAL(clicked()), this, SLOT(onBackPressed()));
@@ -21,20 +22,28 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     navBtnsLayout->addStretch();
 
     QScrollArea *scrollArea = new QScrollArea();
+    scrollArea->setStyleSheet("QScrollArea { background: transparent; border: none; }");
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+
     QWidget *templatesContainerWidget = new QWidget();
-    scrollArea->setWidget(templatesContainerWidget);
-    mainLayout->addWidget(templatesContainerWidget);
-
     templatesContainerLayout = new QVBoxLayout();
+    templatesContainerLayout->setContentsMargins(0, 0, 0, 0);
+    templatesContainerLayout->addStretch();
     templatesContainerWidget->setLayout(templatesContainerLayout);
+    scrollArea->setWidget(templatesContainerWidget);
 
-    mainLayout->addStretch();
+    mainLayout->addWidget(scrollArea);
 }
 
 void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTemplate)
 {
     TweetTemplatesItemWidget *templateItemWidget = new TweetTemplatesItemWidget(tweetTemplate);
-    templatesContainerLayout->addWidget(templateItemWidget);
+
+    // Insert template item before the stretch at the end of the layout
+    templatesContainerLayout->insertWidget(templatesContainerLayout->count() - 1, templateItemWidget);
+
     connect(templateItemWidget, SIGNAL(templateItemClicked(int)), this, SLOT(onTweetTemplateClicked(int)));
     idToItemMap.insert(tweetTemplate.getId(), templateItemWidget);
 }
