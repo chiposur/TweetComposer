@@ -74,16 +74,20 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     toolButtonsLayout->addStretch();
 
-    tweetTextEdit = new PlainTextEdit();
-    tweetTextEdit->setPlaceholderText("Compose tweet...");
+    tweetTextEdit = new TextEdit();
     mainLayout->addWidget(tweetTextEdit);
+    tweetTextEdit->setFontWeight(isBold ? QFont::Bold : QFont::Normal);
+    tweetTextEdit->setFontItalic(isItalic);
+    tweetTextEdit->setFontUnderline(isUnderline);
+    tweetTextEdit->setFontFamily(getFontFamilyName(fontFamily));
+    tweetTextEdit->setPlaceholderText("Compose tweet...");
 
     int frameWidth = tweetTextEdit->frameWidth();
     int editorWidth = EDITOR_WIDTH_PX + frameWidth;
     int editorHeight = EDITOR_HEIGHT_PX + frameWidth;
     tweetTextEdit->setFixedWidth(editorWidth);
     tweetTextEdit->setFixedHeight(editorHeight);
-    tweetTextEdit->setStyleSheet("QPlainTextEdit { whitespace: pre-wrap; overflow-wrap: break-word; }");
+    tweetTextEdit->setStyleSheet("QTextEdit { whitespace: pre-wrap; overflow-wrap: break-word; }");
 
     connect(tweetTextEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
@@ -114,44 +118,30 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     mainLayout->addStretch();
 
-    setFont();
     updateBtnStates();
 }
 
-void ComposeWidget::setFont()
+QString ComposeWidget::getFontFamilyName(const QString &fontFamily)
 {
-    QFont font(
-        fontFamily == "Helvetica" ? "Helvetica [Cronyx]" : "Times New Roman",
-        tweetTextEdit->font().pointSize(),
-        isBold ? QFont::Bold : QFont::Normal,
-        isItalic);
-    font.setUnderline(isUnderline);
-    font.setPointSize(FONT_SIZE);
-
-    QTextCursor textCursor = tweetTextEdit->textCursor();
-    QTextCharFormat charFormat = textCursor.charFormat();
-    charFormat.setFont(font);
-    textCursor.setCharFormat(charFormat);
-
-    tweetTextEdit->setTextCursor(textCursor);
+    return fontFamily == "Helvetica" ? "Helvetica [Cronyx]" : "Times New Roman";
 }
 
 void ComposeWidget::boldTriggered()
 {
     isBold = !isBold;
-    setFont();
+    tweetTextEdit->setFontWeight(isBold ? QFont::Bold : QFont::Normal);
 }
 
 void ComposeWidget::italicTriggered()
 {
     isItalic = !isItalic;
-    setFont();
+    tweetTextEdit->setFontItalic(isItalic);
 }
 
 void ComposeWidget::underlineTriggered()
 {
     isUnderline = !isUnderline;
-    setFont();
+    tweetTextEdit->setFontUnderline(isUnderline);
 }
 
 void ComposeWidget::onTextChanged()
@@ -172,8 +162,8 @@ void ComposeWidget::onTextChanged()
 
 void ComposeWidget::onCurrentTextChanged(const QString &text)
 {
-    fontFamily = text;
-    setFont();
+    fontFamily = text ;
+    tweetTextEdit->setFontFamily(getFontFamilyName(fontFamily));
 }
 
 void ComposeWidget::updateBtnStates()
@@ -204,9 +194,9 @@ void ComposeWidget::saveAsDraftBtnClicked()
 {
     TweetDraft tweetDraft;
     tweetDraft.setId(TweetDraft::numDrafts + 1);
-    tweetDraft.setText(tweetTextEdit->toPlainText());
+    tweetDraft.setText(tweetTextEdit->toHtml());
     dataStore->addTweetDraft(tweetDraft);
-    tweetTextEdit->setPlainText("");
+    tweetTextEdit->setHtml("");
 
     SettingsManager::getInstance()->saveTweetDrafts();
 
@@ -218,9 +208,9 @@ void ComposeWidget::saveAsTemplateBtnClicked()
 {
     TweetTemplate tweetTemplate;
     tweetTemplate.setId(TweetTemplate::numTemplates + 1);
-    tweetTemplate.setText(tweetTextEdit->toPlainText());
+    tweetTemplate.setText(tweetTextEdit->toHtml());
     dataStore->addTweetTemplate(tweetTemplate);
-    tweetTextEdit->setPlainText("");
+    tweetTextEdit->setHtml("");
 
     SettingsManager::getInstance()->saveTweetTemplates();
 
@@ -240,7 +230,7 @@ void ComposeWidget::saveBtnClicked()
             TweetDraft tweetDraft;
             if (dataStore->getTweetDraftById(draftId, tweetDraft))
             {
-                tweetDraft.setText(tweetTextEdit->toPlainText());
+                tweetDraft.setText(tweetTextEdit->toHtml());
                 dataStore->editTweetDraftById(draftId, tweetDraft);
                 success = SettingsManager::getInstance()->saveTweetDrafts();
             }
@@ -251,7 +241,7 @@ void ComposeWidget::saveBtnClicked()
         TweetTemplate tweetTemplate;
         if (dataStore->getTweetTemplateById(templateId, tweetTemplate))
         {
-            tweetTemplate.setText(tweetTextEdit->toPlainText());
+            tweetTemplate.setText(tweetTextEdit->toHtml());
             dataStore->editTweetTemplateById(templateId, tweetTemplate);
             success = SettingsManager::getInstance()->saveTweetTemplates();
         }
@@ -309,7 +299,7 @@ void ComposeWidget::deleteBtnClicked()
 
 void ComposeWidget::clearTweetEdit()
 {
-    tweetTextEdit->setPlainText("");
+    tweetTextEdit->setHtml("");
     draftId = templateId = -1;
     updateBtnStates();
 }
@@ -321,7 +311,7 @@ void ComposeWidget::loadTweetDraft(const TweetDraft &tweetDraft)
         return;
     }
 
-    tweetTextEdit->setPlainText(tweetDraft.getText());
+    tweetTextEdit->setHtml(tweetDraft.getText());
     draftId = tweetDraft.getId();
     templateId = -1;
     updateBtnStates();
@@ -334,7 +324,7 @@ void ComposeWidget::loadTweetTemplate(const TweetTemplate &tweetTemplate)
         return;
     }
 
-    tweetTextEdit->setPlainText(tweetTemplate.getText());
+    tweetTextEdit->setHtml(tweetTemplate.getText());
     templateId = tweetTemplate.getId();
     draftId = -1;
     updateBtnStates();
@@ -365,7 +355,7 @@ void ComposeWidget::templatesBtnClicked()
     emit showTweetTemplates();
 }
 
-void PlainTextEdit::keyPressEvent(QKeyEvent *e)
+void TextEdit::keyPressEvent(QKeyEvent *e)
 {
     if (toPlainText().length() >= 500 && e->key() != Qt::Key_Backspace && e->key() != Qt::Key_Delete)
     {
@@ -374,6 +364,6 @@ void PlainTextEdit::keyPressEvent(QKeyEvent *e)
     }
     else
     {
-        QPlainTextEdit::keyPressEvent(e);
+        QTextEdit::keyPressEvent(e);
     }
 }

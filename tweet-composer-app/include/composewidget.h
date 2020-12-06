@@ -5,7 +5,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QObject>
-#include <QPlainTextEdit>
+#include <QTextEdit>
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QTextCharFormat>
@@ -17,12 +17,12 @@
 #include <datastore.h>
 #include <toast.h>
 
-class PlainTextEdit : public QPlainTextEdit
+class TextEdit : public QTextEdit
 {
     Q_OBJECT
 
 public:
-    PlainTextEdit(QWidget *parent = nullptr) : QPlainTextEdit(parent) {}
+    TextEdit(QWidget *parent = nullptr) : QTextEdit(parent) {}
     void keyPressEvent(QKeyEvent *e);
 };
 
@@ -58,12 +58,13 @@ private:
     void updateBtnStates();
     void clearTweetEdit();
     bool checkAndPromptIfDirty();
+    QString getFontFamilyName(const QString &fontFamily);
 
     QToolButton *boldToolButton;
     QToolButton *italicToolButton;
     QToolButton *underlineToolButton;
 
-    PlainTextEdit *tweetTextEdit;
+    TextEdit *tweetTextEdit;
 
     QLabel *charsRemainingLabel;
 
