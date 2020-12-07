@@ -81,13 +81,14 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     tweetTextEdit->setFontUnderline(isUnderline);
     tweetTextEdit->setFontFamily(getFontFamilyName(fontFamily));
     tweetTextEdit->setPlaceholderText("Compose tweet...");
+    tweetTextEdit->setAcceptRichText(false);
 
     int frameWidth = tweetTextEdit->frameWidth();
     int editorWidth = EDITOR_WIDTH_PX + frameWidth;
     int editorHeight = EDITOR_HEIGHT_PX + frameWidth;
     tweetTextEdit->setFixedWidth(editorWidth);
     tweetTextEdit->setFixedHeight(editorHeight);
-    tweetTextEdit->setStyleSheet("QTextEdit { whitespace: pre-wrap; overflow-wrap: break-word; }");
+    tweetTextEdit->setStyleSheet("QTextEdit { font-size: 15px; }");
 
     connect(tweetTextEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
