@@ -32,6 +32,7 @@ HEADERS += \
     include/mainwindow.h \
     include/settingsmanager.h \
     include/composewidget.h \
+    include/styles.h \
     include/tweetdraft.h \
     include/tweettemplate.h \
     include/tweetdraftswidget.h \

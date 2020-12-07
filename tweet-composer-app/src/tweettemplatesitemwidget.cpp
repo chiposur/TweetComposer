@@ -1,4 +1,5 @@
 #include "tweettemplatesitemwidget.h"
+#include "styles.h"
 
 TweetTemplatesItemWidget::TweetTemplatesItemWidget(const TweetTemplate &tweetTemplate, QWidget *parent) : QLabel(parent)
 {
@@ -10,7 +11,7 @@ TweetTemplatesItemWidget::TweetTemplatesItemWidget(const TweetTemplate &tweetTem
         QString("QLabel { border:no; font-size: 15px; border-bottom: 1px solid #17a81a; padding: 3px 4px; }") +
         QString("QLabel:hover { background-color: #17a81a; color: white; }"));
     setStyleSheet(styleSheet);
-    setFixedWidth(476);
+    setFixedWidth(Styles::TWEET_WIDTH_PX);
     setFixedHeight(sizeHint().height());
     setCursor(Qt::PointingHandCursor);
 }

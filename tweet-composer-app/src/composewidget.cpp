@@ -7,6 +7,7 @@
 
 #include "composewidget.h"
 #include "settingsmanager.h"
+#include "styles.h"
 
 ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 {
@@ -84,8 +85,8 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     tweetTextEdit->setAcceptRichText(false);
 
     int frameWidth = tweetTextEdit->frameWidth();
-    int editorWidth = EDITOR_WIDTH_PX + frameWidth;
-    int editorHeight = EDITOR_HEIGHT_PX + frameWidth;
+    int editorWidth = Styles::TWEET_WIDTH_PX + frameWidth;
+    int editorHeight = Styles::TWEET_MAX_HEIGHT_PX + frameWidth;
     tweetTextEdit->setFixedWidth(editorWidth);
     tweetTextEdit->setFixedHeight(editorHeight);
     tweetTextEdit->setStyleSheet("QTextEdit { font-size: 15px; }");
@@ -149,8 +150,8 @@ void ComposeWidget::onTextChanged()
 {
     // Set chars remaining label
     QString charsRemainingText;
-    int charsRemaining = MAX_TWEET_LENGTH - tweetTextEdit->toPlainText().length();
-    if (charsRemaining <=  CHARS_REMAINING_LIMIT)
+    int charsRemaining = Styles::TWEET_MAX_LENGTH - tweetTextEdit->toPlainText().length();
+    if (charsRemaining <=  Styles::TWEET_CHARS_REMAINING_LIMIT)
     {
         charsRemainingText = QString::number(charsRemaining);
         charsRemainingLabel->setStyleSheet(QString("QLabel { color: %1; }").arg(charsRemaining >= 0 ? "black" : "red"));
