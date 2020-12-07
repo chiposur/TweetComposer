@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     createMenuBar();
     createMainLayout();
     loadEntitiesFromDisk();
+
+    // Set minimum size to startup size hint
+    setMinimumSize(sizeHint());
 }
 
 MainWindow::~MainWindow()
