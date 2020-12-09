@@ -368,6 +368,7 @@ void MainWindow::showComposeWidget()
     composeWidget->setVisible(true);
     tweetDraftsWidget->setVisible(false);
     tweetTemplatesWidget->setVisible(false);
+    setWindowTitle("TweetComposer");
 }
 
 void MainWindow::showTweetDraftsWidget()
@@ -375,6 +376,7 @@ void MainWindow::showTweetDraftsWidget()
     composeWidget->setVisible(false);
     tweetDraftsWidget->setVisible(true);
     tweetTemplatesWidget->setVisible(false);
+    setWindowTitle("TweetComposer - Drafts");
 }
 
 void MainWindow::showTweetTemplatesWidget()
@@ -382,6 +384,7 @@ void MainWindow::showTweetTemplatesWidget()
     composeWidget->setVisible(false);
     tweetDraftsWidget->setVisible(false);
     tweetTemplatesWidget->setVisible(true);
+    setWindowTitle("TweetComposer - Templates");
 }
 
 void MainWindow::onEditDraftRequested(int draftId)
