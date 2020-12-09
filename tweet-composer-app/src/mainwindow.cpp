@@ -27,10 +27,21 @@ MainWindow::MainWindow(QWidget *parent)
     initAndConnectSingletons();
     createMenuBar();
     createMainLayout();
-    loadEntitiesFromDisk();
+    loadSettings();
+    loadEntities();
 
     // Set minimum size to startup size hint
     setMinimumSize(sizeHint());
+}
+
+MainWindow::~MainWindow()
+{
+
+}
+
+void MainWindow::loadSettings()
+{
+    settingsManager->loadSettings();
 
     if (Settings::persistWindowState)
     {
@@ -44,14 +55,8 @@ MainWindow::MainWindow(QWidget *parent)
     }
 }
 
-MainWindow::~MainWindow()
+void MainWindow::loadEntities()
 {
-
-}
-
-void MainWindow::loadEntitiesFromDisk()
-{
-    settingsManager->loadSettings();
     settingsManager->loadTweetDrafts();
     settingsManager->loadTweetTemplates();
 }

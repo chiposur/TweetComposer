@@ -49,7 +49,8 @@ private:
     void createMenuBar();
     void createMainLayout();
     void initAndConnectSingletons();
-    void loadEntitiesFromDisk();
+    void loadSettings();
+    void loadEntities();
 
     DataStore *dataStore;
     JsonSerializer *jsonSerializer;
