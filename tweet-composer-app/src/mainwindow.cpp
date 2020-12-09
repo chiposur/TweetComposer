@@ -11,7 +11,7 @@
 
 bool Settings::encryptDraftsOnDisk = false;
 bool Settings::encryptTemplatesOnDisk = false;
-bool Settings::persistWindowSize = false;
+bool Settings::persistWindowState = false;
 
 const QString Styles::TYPEAHEAD_BORDER_COLOR = "#17a81a";
 
@@ -32,14 +32,14 @@ MainWindow::MainWindow(QWidget *parent)
     // Set minimum size to startup size hint
     setMinimumSize(sizeHint());
 
-    if (Settings::persistWindowSize)
+    if (Settings::persistWindowState)
     {
-        QSize windowSize;
-        settingsManager->loadWindowSize(windowSize);
+        QByteArray windowGeometry;
+        settingsManager->loadWindowGeometry(windowGeometry);
 
-        if (windowSize.width() >= minimumWidth() && windowSize.height() >= minimumHeight())
+        if (!restoreGeometry(windowGeometry))
         {
-            resize(windowSize);
+            settingsManager->saveWindowGeometry(saveGeometry());
         }
     }
 }
@@ -456,9 +456,9 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if (Settings::persistWindowSize)
+    if (Settings::persistWindowState)
     {
-        settingsManager->saveWindowSize(size());
+        settingsManager->saveWindowGeometry(saveGeometry());
     }
 
     QMainWindow::closeEvent(event);

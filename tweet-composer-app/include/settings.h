@@ -6,7 +6,7 @@ class Settings
 public:
     static bool encryptDraftsOnDisk;
     static bool encryptTemplatesOnDisk;
-    static bool persistWindowSize;
+    static bool persistWindowState;
 };
 
 #endif // SETTINGS_H

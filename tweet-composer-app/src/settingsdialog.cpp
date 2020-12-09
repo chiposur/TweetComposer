@@ -33,8 +33,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     storageLayout->addWidget(encryptDraftsCheck);
     storageLayout->addWidget(encryptTemplatesCheck);
 
-    persistWindowSizeCheck = new QCheckBox("Persist window size");
-    persistWindowSizeCheck->setChecked(Settings::persistWindowSize);
+    persistWindowSizeCheck = new QCheckBox("Persist window state");
+    persistWindowSizeCheck->setChecked(Settings::persistWindowState);
     storageLayout->addWidget(persistWindowSizeCheck);
 
     QHBoxLayout *deleteBtnsLayout = new QHBoxLayout();
@@ -96,6 +96,6 @@ void SettingsDialog::accept()
 {
     Settings::encryptDraftsOnDisk = encryptDraftsCheck->isChecked();
     Settings::encryptTemplatesOnDisk = encryptTemplatesCheck->isChecked();
-    Settings::persistWindowSize = persistWindowSizeCheck->isChecked();
+    Settings::persistWindowState = persistWindowSizeCheck->isChecked();
     QDialog::accept();
 }

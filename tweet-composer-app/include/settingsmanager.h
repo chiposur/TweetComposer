@@ -19,12 +19,12 @@ public:
     static SettingsManager *getInstance();
 
     void loadSettings();
-    void loadWindowSize(QSize &windowSize);
+    void loadWindowGeometry(QByteArray &windowGeometry);
     void loadTweetDrafts();
     void loadTweetTemplates();
 
     bool saveSettings();
-    bool saveWindowSize(const QSize &size);
+    bool saveWindowGeometry(const QByteArray &windowGeometry);
     bool saveTweetDrafts();
     bool saveTweetTemplates();
 

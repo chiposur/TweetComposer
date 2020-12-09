@@ -10,8 +10,7 @@ const QString encryptTweetDraftsPath("settings/encryptTweetDrafts");
 const QString encryptTweetTemplatesPath("settings/encryptTweetTemplates");
 const QString persistWindowSizePath("settings/persistWindowSize");
 const QString storagePath("storage");
-const QString windowSizeWidthPath("storage/windowSizeWidth");
-const QString windowSizeHeightPath("storage/windowSizeHeight");
+const QString windowGeometryPath("storage/windowGeometry");
 const QString tweetDraftsJsonPath("storage/tweetDraftsJson");
 const QString tweetTemplatesJsonPath("storage/tweetTemplatesJson");
 
@@ -31,13 +30,12 @@ void SettingsManager::loadSettings()
 {
     Settings::encryptDraftsOnDisk = settings->value(encryptTweetDraftsPath, false).toBool();
     Settings::encryptTemplatesOnDisk = settings->value(encryptTweetTemplatesPath, false).toBool();
-    Settings::persistWindowSize = settings->value(persistWindowSizePath, false).toBool();
+    Settings::persistWindowState = settings->value(persistWindowSizePath, false).toBool();
 }
 
-void SettingsManager::loadWindowSize(QSize &windowSize)
+void SettingsManager::loadWindowGeometry(QByteArray &windowGeometry)
 {
-    windowSize.setWidth(settings->value(windowSizeWidthPath, 0).toInt());
-    windowSize.setHeight(settings->value(windowSizeHeightPath, 0).toInt());
+    windowGeometry = settings->value(windowGeometryPath).toByteArray();
 }
 
 void SettingsManager::loadTweetDrafts()
@@ -76,14 +74,13 @@ bool SettingsManager::saveSettings()
 {
     settings->setValue(encryptTweetDraftsPath, Settings::encryptDraftsOnDisk);
     settings->setValue(encryptTweetTemplatesPath, Settings::encryptTemplatesOnDisk);
-    settings->setValue(persistWindowSizePath, Settings::persistWindowSize);
+    settings->setValue(persistWindowSizePath, Settings::persistWindowState);
     return true;
 }
 
-bool SettingsManager::saveWindowSize(const QSize &size)
+bool SettingsManager::saveWindowGeometry(const QByteArray &windowGeometry)
 {
-    settings->setValue(windowSizeWidthPath, size.width());
-    settings->setValue(windowSizeHeightPath, size.height());
+    settings->setValue(windowGeometryPath, windowGeometry);
     return true;
 }
 
