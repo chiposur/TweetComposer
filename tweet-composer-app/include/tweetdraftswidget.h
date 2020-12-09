@@ -28,6 +28,7 @@ public slots:
     void onTweetDraftDeleted(int draftId);
     void onBackPressed();
     void onTweetDraftClicked(int draftId);
+    void onSearchTextChanged(const QString &text);
 
 private:
     QMap<int, TweetDraftsItemWidget *> idToItemMap;

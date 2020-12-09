@@ -93,6 +93,13 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     connect(tweetTextEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
+    nameLineEdit = new QLineEdit();
+    nameLineEdit->setStyleSheet("QLineEdit { font-size: 15px; }");
+    nameLineEdit->setPlaceholderText("Enter an optional name...");
+    nameLineEdit->setMaxLength(200);
+    nameLineEdit->setFixedWidth(tweetTextEdit->width());
+    mainLayout->addWidget(nameLineEdit);
+
     QHBoxLayout *editorBottomLayout = new QHBoxLayout();
     toolButtonsLayout->setSpacing(0);
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
@@ -197,8 +204,9 @@ void ComposeWidget::saveAsDraftBtnClicked()
     TweetDraft tweetDraft;
     tweetDraft.setId(TweetDraft::numDrafts + 1);
     tweetDraft.setText(tweetTextEdit->toHtml());
+    tweetDraft.setName(nameLineEdit->text());
     dataStore->addTweetDraft(tweetDraft);
-    tweetTextEdit->setHtml("");
+    clearTweetEdit();
 
     SettingsManager::getInstance()->saveTweetDrafts();
 
@@ -211,8 +219,9 @@ void ComposeWidget::saveAsTemplateBtnClicked()
     TweetTemplate tweetTemplate;
     tweetTemplate.setId(TweetTemplate::numTemplates + 1);
     tweetTemplate.setText(tweetTextEdit->toHtml());
+    tweetTemplate.setName(nameLineEdit->text());
     dataStore->addTweetTemplate(tweetTemplate);
-    tweetTextEdit->setHtml("");
+    clearTweetEdit();
 
     SettingsManager::getInstance()->saveTweetTemplates();
 
@@ -233,6 +242,7 @@ void ComposeWidget::saveBtnClicked()
             if (dataStore->getTweetDraftById(draftId, tweetDraft))
             {
                 tweetDraft.setText(tweetTextEdit->toHtml());
+                tweetDraft.setName(nameLineEdit->text());
                 dataStore->editTweetDraftById(draftId, tweetDraft);
                 success = SettingsManager::getInstance()->saveTweetDrafts();
             }
@@ -244,6 +254,7 @@ void ComposeWidget::saveBtnClicked()
         if (dataStore->getTweetTemplateById(templateId, tweetTemplate))
         {
             tweetTemplate.setText(tweetTextEdit->toHtml());
+            tweetTemplate.setName(nameLineEdit->text());
             dataStore->editTweetTemplateById(templateId, tweetTemplate);
             success = SettingsManager::getInstance()->saveTweetTemplates();
         }
@@ -302,6 +313,7 @@ void ComposeWidget::deleteBtnClicked()
 void ComposeWidget::clearTweetEdit()
 {
     tweetTextEdit->setHtml("");
+    nameLineEdit->setText("");
     draftId = templateId = -1;
     updateBtnStates();
 }
@@ -314,6 +326,7 @@ void ComposeWidget::loadTweetDraft(const TweetDraft &tweetDraft)
     }
 
     tweetTextEdit->setHtml(tweetDraft.getText());
+    nameLineEdit->setText(tweetDraft.getName());
     draftId = tweetDraft.getId();
     templateId = -1;
     updateBtnStates();
@@ -327,6 +340,7 @@ void ComposeWidget::loadTweetTemplate(const TweetTemplate &tweetTemplate)
     }
 
     tweetTextEdit->setHtml(tweetTemplate.getText());
+    nameLineEdit->setText(tweetTemplate.getName());
     templateId = tweetTemplate.getId();
     draftId = -1;
     updateBtnStates();

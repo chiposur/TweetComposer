@@ -10,7 +10,8 @@ QJsonObject createQJsonObject(const TweetDraft &tweetDraft)
     QJsonObject draftObject
     {
         {"id", tweetDraft.getId()},
-        {"text", tweetDraft.getText()}
+        {"text", tweetDraft.getText()},
+        {"name", tweetDraft.getName()}
     };
 
     return draftObject;
@@ -21,7 +22,8 @@ QJsonObject createQJsonObject(const TweetTemplate &tweetTemplate)
     QJsonObject templateObject
     {
         {"id", tweetTemplate.getId()},
-        {"text", tweetTemplate.getText()}
+        {"text", tweetTemplate.getText()},
+        {"name", tweetTemplate.getName()}
     };
 
     return templateObject;
@@ -34,6 +36,17 @@ bool deserializeQJsonObject(const QJsonObject &jsonObject, TweetDraft &tweetDraf
     if (hasId && hasText)
     {
         tweetDraft.setText(jsonObject["text"].toString());
+
+        if (jsonObject.contains("name"))
+        {
+            QString name = jsonObject["name"].toString();
+            if (name.length() > 200)
+            {
+                name = name.replace(200, name.length() - 200, "");
+            }
+            tweetDraft.setName(name);
+        }
+
         return true;
     }
     else
@@ -49,6 +62,17 @@ bool deserializeQJsonObject(const QJsonObject &jsonObject, TweetTemplate &tweetT
     if (hasId && hasText)
     {
         tweetTemplate.setText(jsonObject["text"].toString());
+
+        if (jsonObject.contains("name"))
+        {
+            QString name = jsonObject["name"].toString();
+            if (name.length() > 200)
+            {
+                name = name.replace(200, name.length() - 200, "");
+            }
+            tweetTemplate.setName(name);
+        }
+
         return true;
     }
     else

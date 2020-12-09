@@ -65,9 +65,8 @@ private:
     QToolButton *underlineToolButton;
 
     TextEdit *tweetTextEdit;
-
+    QLineEdit *nameLineEdit;
     QLabel *charsRemainingLabel;
-
     QComboBox *fontFamiliesComboBox;
 
     StandardButton *saveAsDraftBtn;

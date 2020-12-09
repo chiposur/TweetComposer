@@ -28,6 +28,7 @@ public slots:
     void onTweetTemplateDeleted(int templateId);
     void onBackPressed();
     void onTweetTemplateClicked(int templateId);
+    void onSearchTextChanged(const QString &text);
 
 private:
     QMap<int, TweetTemplatesItemWidget *> idToItemMap;

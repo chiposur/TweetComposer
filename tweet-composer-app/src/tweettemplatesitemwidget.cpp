@@ -1,10 +1,13 @@
 #include "tweettemplatesitemwidget.h"
 #include "styles.h"
 
+#include <QTextDocument>
+
 TweetTemplatesItemWidget::TweetTemplatesItemWidget(const TweetTemplate &tweetTemplate, QWidget *parent) : QLabel(parent)
 {
     templateId = tweetTemplate.getId();
-    setText(tweetTemplate.getText());
+    updateText(tweetTemplate.getText());
+    updateName(tweetTemplate.getName());
 
     // Border:no required to fix border-bottom styling bug in Qt 5
     QString styleSheet(
@@ -14,6 +17,20 @@ TweetTemplatesItemWidget::TweetTemplatesItemWidget(const TweetTemplate &tweetTem
     setFixedWidth(Styles::TWEET_WIDTH_PX);
     setFixedHeight(sizeHint().height());
     setCursor(Qt::PointingHandCursor);
+}
+
+void TweetTemplatesItemWidget::updateText(const QString &text)
+{
+    setText(text);
+
+    QTextDocument doc;
+    doc.setHtml(text);
+    plainText = doc.toPlainText();
+}
+
+void TweetTemplatesItemWidget::updateName(const QString &name)
+{
+    this->name = name;
 }
 
 void TweetTemplatesItemWidget::mouseReleaseEvent(QMouseEvent *event)

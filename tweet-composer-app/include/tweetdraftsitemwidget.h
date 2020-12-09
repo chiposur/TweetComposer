@@ -11,7 +11,11 @@ class TweetDraftsItemWidget : public QLabel
 public:
     explicit TweetDraftsItemWidget(const TweetDraft &tweetDraft, QWidget *parent = nullptr);
 
-    void updateText(const QString &text) { setText(text); }
+    void updateText(const QString &text);
+    void updateName(const QString &name);
+
+    QString getPlainText() const { return plainText; }
+    QString getName() const { return name; }
 
     void mouseReleaseEvent(QMouseEvent *event);
 
@@ -19,6 +23,8 @@ signals:
     void draftItemClicked(int draftId);
 
 private:
+    QString plainText;
+    QString name;
     int draftId;
 };
 

@@ -2,8 +2,10 @@
 #define CUSTOMCONTROLS_H
 
 #include <QColor>
+#include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
+#include <QTimer>
 
 class StandardButton : public QPushButton
 {
@@ -27,6 +29,27 @@ public:
 
 private:
     static const QColor deleteRed;
+};
+
+class Typeahead : public QLineEdit
+{
+    Q_OBJECT
+
+public:
+    Typeahead(int debounceMs, QWidget *parent = nullptr);
+
+signals:
+    void textChanged(const QString &text);
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
+
+private slots:
+    void onDebounceTimeout();
+
+private:
+    int debounceMs;
+    QTimer *debounceTimer;
 };
 
 #endif // CUSTOMCONTROLS_H

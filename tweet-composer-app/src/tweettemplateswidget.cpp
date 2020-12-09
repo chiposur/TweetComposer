@@ -21,6 +21,11 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
 
     navBtnsLayout->addStretch();
 
+    Typeahead *search = new Typeahead(500);
+    search->setPlaceholderText("Search by name or text...");
+    connect(search, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
+    mainLayout->addWidget(search);
+
     QScrollArea *scrollArea = new QScrollArea();
     scrollArea->setStyleSheet("QScrollArea { background: transparent; border: none; }");
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -35,6 +40,16 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     scrollArea->setWidget(templatesContainerWidget);
 
     mainLayout->addWidget(scrollArea);
+}
+
+void TweetTemplatesWidget::onSearchTextChanged(const QString &text)
+{
+    for (TweetTemplatesItemWidget *item : idToItemMap.values())
+    {
+        bool match = item->getPlainText().contains(text, Qt::CaseInsensitive)
+                     || item->getName().contains(text, Qt::CaseInsensitive);
+        item->setVisible(match);
+    }
 }
 
 void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTemplate)
@@ -55,7 +70,9 @@ void TweetTemplatesWidget::onBackPressed()
 
 void TweetTemplatesWidget::onTweetTemplateEdited(const TweetTemplate &tweetTemplate)
 {
-    idToItemMap[tweetTemplate.getId()]->updateText(tweetTemplate.getText());
+    TweetTemplatesItemWidget *item = idToItemMap[tweetTemplate.getId()];
+    item->updateText(tweetTemplate.getText());
+    item->updateName(tweetTemplate.getName());
 }
 
 void TweetTemplatesWidget::onTweetTemplateDeleted(int templateId)

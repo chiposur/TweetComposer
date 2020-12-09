@@ -1,5 +1,6 @@
 #include "tweetdraftswidget.h"
 #include "customcontrols.h"
+#include "styles.h"
 
 #include <QHBoxLayout>
 #include <QScrollArea>
@@ -21,6 +22,11 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
 
     navBtnsLayout->addStretch();
 
+    Typeahead *search = new Typeahead(500);
+    search->setPlaceholderText("Search by name or text...");
+    connect(search, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
+    mainLayout->addWidget(search);
+
     QScrollArea *scrollArea = new QScrollArea();
     scrollArea->setStyleSheet("QScrollArea { background: transparent; border: none; }");
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -35,6 +41,16 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
     scrollArea->setWidget(draftsContainerWidget);
 
     mainLayout->addWidget(scrollArea);
+}
+
+void TweetDraftsWidget::onSearchTextChanged(const QString &text)
+{
+    for (TweetDraftsItemWidget *item : idToItemMap.values())
+    {
+        bool match = item->getPlainText().contains(text, Qt::CaseInsensitive)
+                     || item->getName().contains(text, Qt::CaseInsensitive);
+        item->setVisible(match);
+    }
 }
 
 void TweetDraftsWidget::onTweetDraftAdded(const TweetDraft &tweetDraft)
@@ -55,7 +71,9 @@ void TweetDraftsWidget::onBackPressed()
 
 void TweetDraftsWidget::onTweetDraftEdited(const TweetDraft &tweetTemplate)
 {
-    idToItemMap[tweetTemplate.getId()]->updateText(tweetTemplate.getText());
+    TweetDraftsItemWidget *item = idToItemMap[tweetTemplate.getId()];
+    item->updateText(tweetTemplate.getText());
+    item->updateName(tweetTemplate.getName());
 }
 
 void TweetDraftsWidget::onTweetDraftDeleted(int draftId)

@@ -1,4 +1,5 @@
 #include "customcontrols.h"
+#include "styles.h"
 
 const QColor StandardButton::standardGreen("#17a81a");
 const QColor DeleteButton::deleteRed("#ff0000");
@@ -47,4 +48,30 @@ DeleteButton::DeleteButton(const QString &text, QWidget *parent)
 
     setStyleSheet(styleSheet.arg(deleteRed.name()));
     setCursor(Qt::PointingHandCursor);
+}
+
+Typeahead::Typeahead(int debounceMs, QWidget *parent) : QLineEdit(parent), debounceMs(debounceMs)
+{
+    setStyleSheet(
+        QString("QLineEdit { font-size: 15px; border-radius: %1px; "
+                "background: transparent; border: 2px solid %2; padding: %3px %4px; }")
+        .arg(QString::number(Styles::TYPEAHEAD_BORDER_RADIUS))
+        .arg(Styles::TYPEAHEAD_BORDER_COLOR)
+        .arg(QString::number(Styles::TYPEAHEAD_PADDING_TOP_BOTTOM))
+        .arg(QString::number(Styles::TYPEAHEAD_PADDING_LEFT_RIGHT)));
+
+    debounceTimer = new QTimer();
+    debounceTimer->setSingleShot(true);
+    connect(debounceTimer, SIGNAL(timeout()), this, SLOT(onDebounceTimeout()));
+}
+
+void Typeahead::keyPressEvent(QKeyEvent *event)
+{
+    debounceTimer->start(debounceMs);
+    QLineEdit::keyPressEvent(event);
+}
+
+void Typeahead::onDebounceTimeout()
+{
+    emit textChanged(text());
 }
