@@ -8,7 +8,10 @@
 const QString userSettingsPath("settings");
 const QString encryptTweetDraftsPath("settings/encryptTweetDrafts");
 const QString encryptTweetTemplatesPath("settings/encryptTweetTemplates");
+const QString persistWindowSizePath("settings/persistWindowSize");
 const QString storagePath("storage");
+const QString windowSizeWidthPath("storage/windowSizeWidth");
+const QString windowSizeHeightPath("storage/windowSizeHeight");
 const QString tweetDraftsJsonPath("storage/tweetDraftsJson");
 const QString tweetTemplatesJsonPath("storage/tweetTemplatesJson");
 
@@ -28,6 +31,13 @@ void SettingsManager::loadSettings()
 {
     Settings::encryptDraftsOnDisk = settings->value(encryptTweetDraftsPath, false).toBool();
     Settings::encryptTemplatesOnDisk = settings->value(encryptTweetTemplatesPath, false).toBool();
+    Settings::persistWindowSize = settings->value(persistWindowSizePath, false).toBool();
+}
+
+void SettingsManager::loadWindowSize(QSize &windowSize)
+{
+    windowSize.setWidth(settings->value(windowSizeWidthPath, 0).toInt());
+    windowSize.setHeight(settings->value(windowSizeHeightPath, 0).toInt());
 }
 
 void SettingsManager::loadTweetDrafts()
@@ -66,6 +76,14 @@ bool SettingsManager::saveSettings()
 {
     settings->setValue(encryptTweetDraftsPath, Settings::encryptDraftsOnDisk);
     settings->setValue(encryptTweetTemplatesPath, Settings::encryptTemplatesOnDisk);
+    settings->setValue(persistWindowSizePath, Settings::persistWindowSize);
+    return true;
+}
+
+bool SettingsManager::saveWindowSize(const QSize &size)
+{
+    settings->setValue(windowSizeWidthPath, size.width());
+    settings->setValue(windowSizeHeightPath, size.height());
     return true;
 }
 

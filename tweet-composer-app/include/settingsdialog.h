@@ -23,6 +23,7 @@ private slots:
 private:
     QCheckBox *encryptDraftsCheck;
     QCheckBox *encryptTemplatesCheck;
+    QCheckBox *persistWindowSizeCheck;
 
     DeleteButton *deleteAllDraftsBtn;
     DeleteButton *deleteAllTemplatesBtn;

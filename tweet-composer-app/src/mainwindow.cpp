@@ -11,6 +11,7 @@
 
 bool Settings::encryptDraftsOnDisk = false;
 bool Settings::encryptTemplatesOnDisk = false;
+bool Settings::persistWindowSize = false;
 
 const QString Styles::TYPEAHEAD_BORDER_COLOR = "#17a81a";
 
@@ -30,6 +31,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Set minimum size to startup size hint
     setMinimumSize(sizeHint());
+
+    if (Settings::persistWindowSize)
+    {
+        QSize windowSize;
+        settingsManager->loadWindowSize(windowSize);
+
+        if (windowSize.width() >= minimumWidth() && windowSize.height() >= minimumHeight())
+        {
+            resize(windowSize);
+        }
+    }
 }
 
 MainWindow::~MainWindow()
@@ -39,16 +51,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadEntitiesFromDisk()
 {
-    SettingsManager *settingsMgr = SettingsManager::getInstance();
-    settingsMgr->loadSettings();
-    settingsMgr->loadTweetDrafts();
-    settingsMgr->loadTweetTemplates();
+    settingsManager->loadSettings();
+    settingsManager->loadTweetDrafts();
+    settingsManager->loadTweetTemplates();
 }
 
 void MainWindow::initAndConnectSingletons()
 {
     dataStore = DataStore::getInstance();
     jsonSerializer = JsonSerializer::getInstance();
+    settingsManager = SettingsManager::getInstance();
 
     // Connect DataStore singleton add/edit/delete signals to JsonSerializer singleton
     connect(
@@ -437,4 +449,14 @@ void MainWindow::onToastWidgetExpired(int height)
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (Settings::persistWindowSize)
+    {
+        settingsManager->saveWindowSize(size());
+    }
+
+    QMainWindow::closeEvent(event);
 }

@@ -12,6 +12,7 @@
 #include "toast.h"
 #include "datastore.h"
 #include "jsonserializer.h"
+#include "settingsmanager.h"
 
 class MainWindow : public QMainWindow
 {
@@ -42,6 +43,7 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *event);
+    void closeEvent(QCloseEvent *event);
 
 private:
     void createMenuBar();
@@ -51,6 +53,7 @@ private:
 
     DataStore *dataStore;
     JsonSerializer *jsonSerializer;
+    SettingsManager *settingsManager;
 
     QVBoxLayout *mainLayout;
     ComposeWidget *composeWidget;

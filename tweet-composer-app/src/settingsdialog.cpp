@@ -26,8 +26,16 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     encryptTemplatesCheck = new QCheckBox("Encrypt templates on disk");
     encryptDraftsCheck->setChecked(Settings::encryptDraftsOnDisk);
     encryptTemplatesCheck->setChecked(Settings::encryptTemplatesOnDisk);
+    encryptDraftsCheck->setDisabled(true);
+    encryptDraftsCheck->setToolTip("Feature not yet released");
+    encryptTemplatesCheck->setDisabled(true);
+    encryptTemplatesCheck->setToolTip("Feature not yet released");
     storageLayout->addWidget(encryptDraftsCheck);
     storageLayout->addWidget(encryptTemplatesCheck);
+
+    persistWindowSizeCheck = new QCheckBox("Persist window size");
+    persistWindowSizeCheck->setChecked(Settings::persistWindowSize);
+    storageLayout->addWidget(persistWindowSizeCheck);
 
     QHBoxLayout *deleteBtnsLayout = new QHBoxLayout();
     storageLayout->addLayout(deleteBtnsLayout);
@@ -88,5 +96,6 @@ void SettingsDialog::accept()
 {
     Settings::encryptDraftsOnDisk = encryptDraftsCheck->isChecked();
     Settings::encryptTemplatesOnDisk = encryptTemplatesCheck->isChecked();
+    Settings::persistWindowSize = persistWindowSizeCheck->isChecked();
     QDialog::accept();
 }
