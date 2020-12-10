@@ -14,13 +14,15 @@ class DataStore : public QObject
 public:
     explicit DataStore(QObject *parent = nullptr);
 
+    ~DataStore();
+
     static DataStore *getInstance();
 
     void setTweetDrafts(const QVector<TweetDraft> &tweetDrafts);
     void setTweetTemplates(const QVector<TweetTemplate> &tweetTemplates);
 
-    QVector<TweetDraft> *getTweetDrafts() { return &tweetDrafts; }
-    QVector<TweetTemplate> *getTweetTemplates() { return &tweetTemplates; }
+    QVector<TweetDraft> *getTweetDrafts() { return tweetDrafts; }
+    QVector<TweetTemplate> *getTweetTemplates() { return tweetTemplates; }
 
     bool getTweetDraftById(int id, TweetDraft &tweetDraft);
     bool getTweetTemplateById(int id, TweetTemplate &tweetTemplate);
@@ -37,8 +39,8 @@ public:
     void deleteAllTweetDrafts();
     void deleteAllTweetTemplates();
 
-    int getDraftIdIndex(int id) { return draftIdToIndexMap.contains(id) ? draftIdToIndexMap[id] : -1; };
-    int getTemplateIdIndex(int id) { return templateIdToIndexMap.contains(id) ? templateIdToIndexMap[id] : -1; };
+    int getDraftIdIndex(int id) { return draftIdToIndexMap->contains(id) ? (*draftIdToIndexMap)[id] : -1; };
+    int getTemplateIdIndex(int id) { return templateIdToIndexMap->contains(id) ? (*templateIdToIndexMap)[id] : -1; };
 
 signals:
     void tweetDraftAdded(const TweetDraft &tweetDraft);
@@ -49,11 +51,10 @@ signals:
     void tweetTemplateDeleted(int templateId);
 
 private:
-    QVector<TweetDraft> tweetDrafts = QVector<TweetDraft>();
-    QVector<TweetTemplate> tweetTemplates = QVector<TweetTemplate>();
-
-    QMap<int, int> draftIdToIndexMap = QMap<int, int>();
-    QMap<int, int> templateIdToIndexMap = QMap<int, int>();
+    QVector<TweetDraft> *tweetDrafts;
+    QVector<TweetTemplate> *tweetTemplates;
+    QMap<int, int> *draftIdToIndexMap;
+    QMap<int, int> *templateIdToIndexMap;
 };
 
 #endif // DATASTORE_H
