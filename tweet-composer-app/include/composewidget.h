@@ -17,12 +17,12 @@
 #include <datastore.h>
 #include <toast.h>
 
-class TextEdit : public QTextEdit
+class TweetTextEdit : public QTextEdit
 {
     Q_OBJECT
 
 public:
-    TextEdit(QWidget *parent = nullptr) : QTextEdit(parent) {}
+    TweetTextEdit(QWidget *parent = nullptr) : QTextEdit(parent) {}
     void keyPressEvent(QKeyEvent *e);
 };
 
@@ -53,10 +53,13 @@ signals:
     void showTweetTemplates();
     void toastRequested(const Toast &toast);
 
+private slots:
+    void clearTweetEdit();
+
 private:
+    int tweetTextLength();
     void setFont();
     void updateBtnStates();
-    void clearTweetEdit();
     bool checkAndPromptIfDirty();
     QString getFontFamilyName(const QString &fontFamily);
 
@@ -64,11 +67,12 @@ private:
     QToolButton *italicToolButton;
     QToolButton *underlineToolButton;
 
-    TextEdit *tweetTextEdit;
+    TweetTextEdit *tweetTextEdit;
     QLineEdit *nameLineEdit;
     QLabel *charsRemainingLabel;
     QComboBox *fontFamiliesComboBox;
 
+    StandardButton *cancelBtn;
     StandardButton *saveAsDraftBtn;
     StandardButton *saveAsTemplateBtn;
     StandardButton *saveBtn;

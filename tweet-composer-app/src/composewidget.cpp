@@ -21,6 +21,13 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     QHBoxLayout *navBtnsLayout = new QHBoxLayout();
     mainLayout->addLayout(navBtnsLayout);
 
+    cancelBtn  = new StandardButton();
+    navBtnsLayout->addWidget(cancelBtn);
+
+    connect(cancelBtn, SIGNAL(clicked()), this, SLOT(clearTweetEdit()));
+
+    navBtnsLayout->addStretch();
+
     StandardButton *draftsBtn = new StandardButton("Drafts");
     StandardButton *templatesBtn = new StandardButton("Templates");
     navBtnsLayout->addWidget(draftsBtn);
@@ -28,8 +35,6 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     connect(draftsBtn, SIGNAL(clicked()), this, SLOT(draftsBtnClicked()));
     connect(templatesBtn, SIGNAL(clicked()), this, SLOT(templatesBtnClicked()));
-
-    navBtnsLayout->addStretch();
 
     QHBoxLayout *toolButtonsLayout = new QHBoxLayout();
     toolButtonsLayout->setSpacing(0);
@@ -75,7 +80,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     toolButtonsLayout->addStretch();
 
-    tweetTextEdit = new TextEdit();
+    tweetTextEdit = new TweetTextEdit();
     mainLayout->addWidget(tweetTextEdit);
     tweetTextEdit->setFontWeight(isBold ? QFont::Bold : QFont::Normal);
     tweetTextEdit->setFontItalic(isItalic);
@@ -130,6 +135,11 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     updateBtnStates();
 }
 
+int ComposeWidget::tweetTextLength()
+{
+    return tweetTextEdit->toPlainText().length();
+}
+
 QString ComposeWidget::getFontFamilyName(const QString &fontFamily)
 {
     return fontFamily == "Helvetica" ? "Helvetica [Cronyx]" : "Times New Roman";
@@ -177,23 +187,27 @@ void ComposeWidget::onCurrentTextChanged(const QString &text)
 
 void ComposeWidget::updateBtnStates()
 {
+    int tweetHasText = tweetTextLength() > 0;
     if (isTemplate() || isDraft())
     {
+        cancelBtn->setText("Cancel edit");
+        cancelBtn->setVisible(true);
         saveAsDraftBtn->setVisible(false);
         saveAsTemplateBtn->setVisible(false);
         saveBtn->setVisible(true);
-        deleteBtn->setVisible(true);
-
         saveBtn->setText(isDraft() ? "Save Draft" : "Save Template");
-        saveBtn->setEnabled(tweetTextEdit->toPlainText().length() > 0);
+        saveBtn->setEnabled(tweetHasText);
+        deleteBtn->setVisible(true);
         deleteBtn->setText(isDraft() ? "Delete Draft" : "Delete Template");
     }
     else
     {
+        cancelBtn->setVisible(tweetHasText);
+        cancelBtn->setText("Clear");
         saveAsDraftBtn->setVisible(true);
-        saveAsDraftBtn->setEnabled(tweetTextEdit->toPlainText().length() > 0);
+        saveAsDraftBtn->setEnabled(tweetHasText);
         saveAsTemplateBtn->setVisible(true);
-        saveAsTemplateBtn->setEnabled(tweetTextEdit->toPlainText().length() > 0);
+        saveAsTemplateBtn->setEnabled(tweetHasText);
         saveBtn->setVisible(false);
         deleteBtn->setVisible(false);
     }
@@ -371,7 +385,7 @@ void ComposeWidget::templatesBtnClicked()
     emit showTweetTemplates();
 }
 
-void TextEdit::keyPressEvent(QKeyEvent *e)
+void TweetTextEdit::keyPressEvent(QKeyEvent *e)
 {
     if (toPlainText().length() >= 500 && e->key() != Qt::Key_Backspace && e->key() != Qt::Key_Delete)
     {
