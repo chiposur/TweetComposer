@@ -14,7 +14,7 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
     QHBoxLayout *navBtnsLayout = new QHBoxLayout();
     mainLayout->addLayout(navBtnsLayout);
 
-    StandardButton *backBtn = new StandardButton("Back");
+    Button *backBtn = new Button("Back");
     backBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     navBtnsLayout->addWidget(backBtn);
 

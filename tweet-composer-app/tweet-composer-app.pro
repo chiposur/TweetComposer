@@ -11,6 +11,8 @@ SOURCES += \
     src/datastore.cpp \
     src/main.cpp \
     src/customcontrols.cpp \
+    src/settings.cpp \
+    src/styles.cpp \
     src/toast.cpp \
     src/settingsdialog.cpp \
     src/mainwindow.cpp \

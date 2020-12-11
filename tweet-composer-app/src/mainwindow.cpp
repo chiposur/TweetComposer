@@ -9,12 +9,6 @@
 #include <QGuiApplication>
 #include <QMessageBox>
 
-bool Settings::encryptDraftsOnDisk = false;
-bool Settings::encryptTemplatesOnDisk = false;
-bool Settings::persistWindowState = false;
-
-const QString Styles::TYPEAHEAD_BORDER_COLOR = "#17a81a";
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {

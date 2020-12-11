@@ -72,11 +72,11 @@ private:
     QLabel *charsRemainingLabel;
     QComboBox *fontFamiliesComboBox;
 
-    StandardButton *cancelBtn;
-    StandardButton *saveAsDraftBtn;
-    StandardButton *saveAsTemplateBtn;
-    StandardButton *saveBtn;
-    StandardButton *deleteBtn;
+    Button *cancelBtn;
+    Button *saveAsDraftBtn;
+    Button *saveAsTemplateBtn;
+    Button *saveBtn;
+    Button *deleteBtn;
 
     bool isBold = false;
     bool isItalic = false;

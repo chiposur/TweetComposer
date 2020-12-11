@@ -21,9 +21,9 @@ private slots:
     void onDeleteAllTemplatesBtnClicked();
 
 private:
-    QCheckBox *encryptDraftsCheck;
-    QCheckBox *encryptTemplatesCheck;
-    QCheckBox *persistWindowSizeCheck;
+    CheckBox *encryptDraftsCheck;
+    CheckBox *encryptTemplatesCheck;
+    CheckBox *persistWindowSizeCheck;
 
     DeleteButton *deleteAllDraftsBtn;
     DeleteButton *deleteAllTemplatesBtn;

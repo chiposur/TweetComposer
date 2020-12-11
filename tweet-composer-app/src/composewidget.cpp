@@ -21,15 +21,15 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     QHBoxLayout *navBtnsLayout = new QHBoxLayout();
     mainLayout->addLayout(navBtnsLayout);
 
-    cancelBtn  = new StandardButton();
+    cancelBtn  = new Button();
     navBtnsLayout->addWidget(cancelBtn);
 
     connect(cancelBtn, SIGNAL(clicked()), this, SLOT(clearTweetEdit()));
 
     navBtnsLayout->addStretch();
 
-    StandardButton *draftsBtn = new StandardButton("Drafts");
-    StandardButton *templatesBtn = new StandardButton("Templates");
+    Button *draftsBtn = new Button("Drafts");
+    Button *templatesBtn = new Button("Templates");
     navBtnsLayout->addWidget(draftsBtn);
     navBtnsLayout->addWidget(templatesBtn);
 
@@ -110,10 +110,10 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(editorBottomLayout);
 
-    saveAsDraftBtn = new StandardButton("Save as Draft");
-    saveAsTemplateBtn = new StandardButton("Save as Template");
-    saveBtn = new StandardButton();
-    deleteBtn = new StandardButton();
+    saveAsDraftBtn = new Button("Save as Draft");
+    saveAsTemplateBtn = new Button("Save as Template");
+    saveBtn = new Button();
+    deleteBtn = new Button();
 
     editorBottomLayout->addWidget(saveAsDraftBtn);
     editorBottomLayout->addWidget(saveAsTemplateBtn);

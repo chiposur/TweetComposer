@@ -1,64 +1,45 @@
 #include "customcontrols.h"
 #include "styles.h"
 
-const QColor StandardButton::standardGreen("#17a81a");
-const QColor DeleteButton::deleteRed("#ff0000");
-
-StandardButton::StandardButton(QWidget *parent) : QPushButton(parent)
+Button::Button(QWidget *parent) : QPushButton(parent)
 {
-    QString styleSheet =
-        QString("QPushButton { color: %1; border: none; background-color: transparent; padding: 3px 4px; } ") +
-        QString("QPushButton:disabled { color: gray; }") +
-        QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
-
-    setStyleSheet(styleSheet.arg(standardGreen.name()));
+    setStyleSheet(Styles::BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
 }
 
-StandardButton::StandardButton(const QString &text, QWidget *parent)
+Button::Button(const QString &text, QWidget *parent)
     : QPushButton(text, parent)
 {
-    QString styleSheet =
-        QString("QPushButton { color: %1; border: none; background-color: transparent; padding: 3px 4px; } ") +
-        QString("QPushButton:disabled { color: gray; }") +
-        QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
-
-    setStyleSheet(styleSheet.arg(standardGreen.name()));
+    setStyleSheet(Styles::BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
 }
 
 DeleteButton::DeleteButton(QWidget *parent) : QPushButton(parent)
 {
-    QString styleSheet =
-        QString("QPushButton { color: %1; border: none; background-color: transparent; padding: 3px 4px; } ") +
-        QString("QPushButton:disabled { color: gray; }") +
-        QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
-
-    setStyleSheet(styleSheet.arg(deleteRed.name()));
+    setStyleSheet(Styles::DELETE_BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
 }
 
 DeleteButton::DeleteButton(const QString &text, QWidget *parent)
     : QPushButton(text, parent)
 {
-    QString styleSheet =
-        QString("QPushButton { color: %1; border: none; background-color: transparent; padding: 3px 4px; } ") +
-        QString("QPushButton:disabled { color: gray; }") +
-        QString("QPushButton:hover { color: white; border-width: 2px; border-color: %1; background-color: %1; }");
-
-    setStyleSheet(styleSheet.arg(deleteRed.name()));
+    setStyleSheet(Styles::DELETE_BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
+}
+
+CheckBox::CheckBox(QWidget *parent) : QCheckBox(parent)
+{
+    setStyleSheet(Styles::CHECKBOX_STYLE_SHEET);
+}
+
+CheckBox::CheckBox(const QString &text, QWidget *parent) : QCheckBox(text, parent)
+{
+    setStyleSheet(Styles::CHECKBOX_STYLE_SHEET);
 }
 
 Typeahead::Typeahead(int debounceMs, QWidget *parent) : QLineEdit(parent), debounceMs(debounceMs)
 {
-    setStyleSheet(
-        QString("QLineEdit { font-size: 15px; border-radius: %1px; "
-                "background: transparent; border: 2px solid %2; padding: %3px %4px; }")
-        .arg(QString::number(Styles::TYPEAHEAD_BORDER_RADIUS))
-        .arg(Styles::TYPEAHEAD_BORDER_COLOR)
-        .arg(QString::number(Styles::TYPEAHEAD_PADDING_TOP_BOTTOM))
-        .arg(QString::number(Styles::TYPEAHEAD_PADDING_LEFT_RIGHT)));
+    setStyleSheet(Styles::TYPEAHEAD_STYLE_SHEET);
 
     debounceTimer = new QTimer();
     debounceTimer->setSingleShot(true);

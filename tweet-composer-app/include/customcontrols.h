@@ -1,22 +1,22 @@
 #ifndef CUSTOMCONTROLS_H
 #define CUSTOMCONTROLS_H
 
-#include <QColor>
+#include <QCheckBox>
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
 #include <QTimer>
 
-class StandardButton : public QPushButton
+class Button : public QPushButton
 {
     Q_OBJECT
 
 public:
-    StandardButton(const QString &text, QWidget *parent = nullptr);
-    StandardButton(QWidget *parent = nullptr);
+    Button(const QString &text, QWidget *parent = nullptr);
+    Button(QWidget *parent = nullptr);
 
 private:
-    static const QColor standardGreen;
+    static const QString STYLE_SHEET;
 };
 
 class DeleteButton : public QPushButton
@@ -28,7 +28,16 @@ public:
     DeleteButton(QWidget *parent = nullptr);
 
 private:
-    static const QColor deleteRed;
+    static const QString STYLE_SHEET;
+};
+
+class CheckBox : public QCheckBox
+{
+    Q_OBJECT
+
+public:
+    CheckBox(const QString &text, QWidget *parent = nullptr);
+    CheckBox(QWidget *parent = nullptr);
 };
 
 class Typeahead : public QLineEdit
