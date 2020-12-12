@@ -34,6 +34,7 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
     scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 
     QWidget *draftsContainerWidget = new QWidget();
+    draftsContainerWidget->setStyleSheet("QWidget { background: transparent; }");
     draftsContainerLayout = new QVBoxLayout();
     draftsContainerLayout->setContentsMargins(0, 0, 0, 0);
     draftsContainerLayout->addStretch();

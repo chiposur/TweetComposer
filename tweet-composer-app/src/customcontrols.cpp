@@ -1,6 +1,61 @@
 #include "customcontrols.h"
 #include "styles.h"
 
+#include <QKeyEvent>
+
+MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
+{
+    setStyleSheet(Styles::MENU_BAR_STYLE_SHEET);
+}
+
+Menu::Menu(const QString &title, QWidget *parent) : QMenu(title, parent)
+{
+    setStyleSheet(Styles::MENU_STYLE_SHEET);
+}
+
+TweetTextEdit::TweetTextEdit(QWidget *parent) : QTextEdit(parent)
+{
+    setStyleSheet(Styles::TWEET_TEXT_EDIT_STYLE_SHEET);
+}
+
+void TweetTextEdit::keyPressEvent(QKeyEvent *e)
+{
+    if (toPlainText().length() >= 500 && e->key() != Qt::Key_Backspace && e->key() != Qt::Key_Delete)
+    {
+        // Prevent text longer than 500 characters
+        e->accept();
+    }
+    else
+    {
+        QTextEdit::keyPressEvent(e);
+    }
+}
+
+LineEdit::LineEdit(QWidget *parent) : QLineEdit(parent)
+{
+    setStyleSheet(Styles::LINE_EDIT_STYLE_SHEET);
+}
+
+BoldToolButton::BoldToolButton(QWidget *parent) : QToolButton(parent)
+{
+    setStyleSheet(Styles::BOLD_TOOL_BUTTON_STYLE_SHEET);
+}
+
+ItalicToolButton::ItalicToolButton(QWidget *parent) : QToolButton(parent)
+{
+    setStyleSheet(Styles::ITALIC_TOOL_BUTTON_STYLE_SHEET);
+}
+
+UnderlineToolButton::UnderlineToolButton(QWidget *parent) : QToolButton(parent)
+{
+    setStyleSheet(Styles::UNDERLINE_TOOL_BUTTON_STYLE_SHEET);
+}
+
+ComboBox::ComboBox(QWidget *parent) : QComboBox(parent)
+{
+    setStyleSheet(Styles::COMBOBOX_STYLE_SHEET);
+}
+
 Button::Button(QWidget *parent) : QPushButton(parent)
 {
     setStyleSheet(Styles::BUTTON_STYLE_SHEET);

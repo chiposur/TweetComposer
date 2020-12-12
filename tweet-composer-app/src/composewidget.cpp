@@ -41,33 +41,30 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(toolButtonsLayout);
 
-    boldToolButton = new QToolButton();
+    boldToolButton = new BoldToolButton();
     boldToolButton->setText("B");
     boldToolButton->setCheckable(true);
-    boldToolButton->setStyleSheet("QToolButton { font-weight: bold; }");
     toolButtonsLayout->addWidget(boldToolButton);
 
     connect(boldToolButton, SIGNAL(clicked()), this, SLOT(boldTriggered()));
 
-    italicToolButton = new QToolButton();
+    italicToolButton = new ItalicToolButton();
     italicToolButton->setText("I");
     italicToolButton->setCheckable(true);
-    italicToolButton->setStyleSheet("QToolButton { font-style: italic; }");
     toolButtonsLayout->addWidget(italicToolButton);
 
     connect(italicToolButton, SIGNAL(clicked()), this, SLOT(italicTriggered()));
 
-    underlineToolButton = new QToolButton();
+    underlineToolButton = new UnderlineToolButton();
     underlineToolButton->setText("U");
     underlineToolButton->setCheckable(true);
-    underlineToolButton->setStyleSheet("QToolButton { text-decoration: underline; }");
     toolButtonsLayout->addWidget(underlineToolButton);
 
     connect(underlineToolButton, SIGNAL(clicked()), this, SLOT(underlineTriggered()));
 
     toolButtonsLayout->addSpacerItem(new QSpacerItem(8, 0));
 
-    fontFamiliesComboBox = new QComboBox();
+    fontFamiliesComboBox = new ComboBox();
     QStringList fontFamilies;
     fontFamilies << "Helvetica"; // Helvetica is default twitter font
     fontFamilies << "Times";
@@ -94,12 +91,10 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     int editorHeight = Styles::TWEET_MAX_HEIGHT_PX + frameWidth;
     tweetTextEdit->setFixedWidth(editorWidth);
     tweetTextEdit->setFixedHeight(editorHeight);
-    tweetTextEdit->setStyleSheet("QTextEdit { font-size: 15px; }");
 
     connect(tweetTextEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
-    nameLineEdit = new QLineEdit();
-    nameLineEdit->setStyleSheet("QLineEdit { font-size: 15px; }");
+    nameLineEdit = new LineEdit();
     nameLineEdit->setPlaceholderText("Enter an optional name...");
     nameLineEdit->setMaxLength(200);
     nameLineEdit->setFixedWidth(tweetTextEdit->width());
@@ -383,17 +378,4 @@ void ComposeWidget::draftsBtnClicked()
 void ComposeWidget::templatesBtnClicked()
 {
     emit showTweetTemplates();
-}
-
-void TweetTextEdit::keyPressEvent(QKeyEvent *e)
-{
-    if (toPlainText().length() >= 500 && e->key() != Qt::Key_Backspace && e->key() != Qt::Key_Delete)
-    {
-        // Prevent text longer than 500 characters
-        e->accept();
-    }
-    else
-    {
-        QTextEdit::keyPressEvent(e);
-    }
 }

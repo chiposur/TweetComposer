@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle("TweetComposer");
     setWindowIcon(APP_ICON);
+    setStyleSheet(Styles::MAIN_WINDOW_STYLE_SHEET);
 
     QWidget *mainWidget = new QWidget();
     setCentralWidget(mainWidget);
@@ -101,10 +102,10 @@ void MainWindow::initAndConnectSingletons()
 
 void MainWindow::createMenuBar()
 {
-    QMenuBar *menuBar = new QMenuBar(this);
+    MenuBar *menuBar = new MenuBar();
     setMenuBar(menuBar);
 
-    QMenu *fileMenu = new QMenu("File");
+    Menu *fileMenu = new Menu("File");
     menuBar->addMenu(fileMenu);
 
     QAction *settingsAction = new QAction("Settings");
@@ -136,7 +137,7 @@ void MainWindow::createMenuBar()
     connect(settingsAction, SIGNAL(triggered()), this, SLOT(showSettingsDialogTriggered()));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(exitAppTriggered()));
 
-    QMenu *helpMenu = new QMenu("Help");
+    Menu *helpMenu = new Menu("Help");
     menuBar->addMenu(helpMenu);
 
     QAction *aboutAction = new QAction("About");

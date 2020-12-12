@@ -5,7 +5,6 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QObject>
-#include <QTextEdit>
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QTextCharFormat>
@@ -16,15 +15,6 @@
 #include <customcontrols.h>
 #include <datastore.h>
 #include <toast.h>
-
-class TweetTextEdit : public QTextEdit
-{
-    Q_OBJECT
-
-public:
-    TweetTextEdit(QWidget *parent = nullptr) : QTextEdit(parent) {}
-    void keyPressEvent(QKeyEvent *e);
-};
 
 class ComposeWidget : public QWidget
 {

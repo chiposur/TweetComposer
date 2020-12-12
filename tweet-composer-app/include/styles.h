@@ -17,6 +17,16 @@ public:
     static const QColor DELETE_RED;
     static const QString TYPEAHEAD_BORDER_COLOR;
 
+    static const QString MAIN_WINDOW_STYLE_SHEET;
+    static const QString MENU_BAR_STYLE_SHEET;
+    static const QString MENU_STYLE_SHEET;
+    static const QString SETTINGS_DIALOG_STYLE_SHEET;
+    static const QString TWEET_TEXT_EDIT_STYLE_SHEET;
+    static const QString LINE_EDIT_STYLE_SHEET;
+    static const QString BOLD_TOOL_BUTTON_STYLE_SHEET;
+    static const QString ITALIC_TOOL_BUTTON_STYLE_SHEET;
+    static const QString UNDERLINE_TOOL_BUTTON_STYLE_SHEET;
+    static const QString COMBOBOX_STYLE_SHEET;
     static const QString BUTTON_STYLE_SHEET;
     static const QString DELETE_BUTTON_STYLE_SHEET;
     static const QString CHECKBOX_STYLE_SHEET;

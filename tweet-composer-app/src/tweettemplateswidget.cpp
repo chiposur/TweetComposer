@@ -33,6 +33,7 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 
     QWidget *templatesContainerWidget = new QWidget();
+    templatesContainerWidget->setStyleSheet("QWidget { background: transparent; }");
     templatesContainerLayout = new QVBoxLayout();
     templatesContainerLayout->setContentsMargins(0, 0, 0, 0);
     templatesContainerLayout->addStretch();

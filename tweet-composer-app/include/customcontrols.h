@@ -2,10 +2,78 @@
 #define CUSTOMCONTROLS_H
 
 #include <QCheckBox>
+#include <QComboBox>
+#include <QMenu>
+#include <QMenuBar>
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
+#include <QTextEdit>
 #include <QTimer>
+#include <QToolButton>
+
+class MenuBar : public QMenuBar
+{
+    Q_OBJECT
+public:
+    MenuBar(QWidget *parent = nullptr);
+};
+
+class Menu : public QMenu
+{
+    Q_OBJECT
+public:
+    Menu(const QString &title, QWidget *parent = nullptr);
+};
+
+class TweetTextEdit : public QTextEdit
+{
+    Q_OBJECT
+
+public:
+    TweetTextEdit(QWidget *parent = nullptr);
+    void keyPressEvent(QKeyEvent *e);
+};
+
+class LineEdit : public QLineEdit
+{
+    Q_OBJECT
+
+public:
+    LineEdit(QWidget *parent = nullptr);
+};
+
+class ComboBox : public QComboBox
+{
+    Q_OBJECT
+
+public:
+    ComboBox(QWidget *parent = nullptr);
+};
+
+class BoldToolButton : public QToolButton
+{
+    Q_OBJECT
+
+public:
+    BoldToolButton(QWidget *parent = nullptr);
+};
+
+class ItalicToolButton : public QToolButton
+{
+    Q_OBJECT
+
+public:
+    ItalicToolButton(QWidget *parent = nullptr);
+};
+
+class UnderlineToolButton : public QToolButton
+{
+    Q_OBJECT
+
+public:
+    UnderlineToolButton(QWidget *parent = nullptr);
+};
 
 class Button : public QPushButton
 {

@@ -3,6 +3,7 @@
 #include "customcontrols.h"
 #include "datastore.h"
 #include "settingsmanager.h"
+#include "styles.h"
 
 #include <QGroupBox>
 #include <QHBoxLayout>
@@ -12,6 +13,7 @@
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 {
     setWindowTitle("TweetComposer Settings");
+    setStyleSheet(Styles::SETTINGS_DIALOG_STYLE_SHEET);
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
