@@ -18,7 +18,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
 
-    QGroupBox *storageGroupBox = new QGroupBox("Storage");
+    GroupBox *storageGroupBox = new GroupBox("Storage");
     mainLayout->addWidget(storageGroupBox);
 
     QVBoxLayout *storageLayout = new QVBoxLayout();
@@ -57,7 +57,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     btnsLayout->addStretch();
 
     Button *saveBtn = new Button("Save");
-    DeleteButton *cancelBtn = new DeleteButton("Cancel");
+    Button *cancelBtn = new Button("Cancel");
     btnsLayout->addWidget(saveBtn);
     btnsLayout->addWidget(cancelBtn);
     connect(saveBtn, SIGNAL(clicked()), this, SLOT(accept()));

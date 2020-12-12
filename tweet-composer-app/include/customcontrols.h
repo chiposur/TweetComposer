@@ -3,6 +3,7 @@
 
 #include <QCheckBox>
 #include <QComboBox>
+#include <QGroupBox>
 #include <QMenu>
 #include <QMenuBar>
 #include <QLineEdit>
@@ -24,6 +25,13 @@ class Menu : public QMenu
     Q_OBJECT
 public:
     Menu(const QString &title, QWidget *parent = nullptr);
+};
+
+class GroupBox : public QGroupBox
+{
+    Q_OBJECT
+public:
+    GroupBox(const QString &title, QWidget *parent = nullptr);
 };
 
 class TweetTextEdit : public QTextEdit

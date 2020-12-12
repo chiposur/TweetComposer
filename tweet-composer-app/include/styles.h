@@ -21,6 +21,7 @@ public:
     static const QString MENU_BAR_STYLE_SHEET;
     static const QString MENU_STYLE_SHEET;
     static const QString SETTINGS_DIALOG_STYLE_SHEET;
+    static const QString GROUPBOX_STYLE_SHEET;
     static const QString TWEET_TEXT_EDIT_STYLE_SHEET;
     static const QString LINE_EDIT_STYLE_SHEET;
     static const QString BOLD_TOOL_BUTTON_STYLE_SHEET;

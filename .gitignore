@@ -33,6 +33,7 @@ Thumbs.db
 .qmake.stash
 debug/
 release/
+.tmp.drivedownload/
 
 # Prerequisites
 *.d

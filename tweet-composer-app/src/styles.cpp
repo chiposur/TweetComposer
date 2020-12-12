@@ -36,6 +36,18 @@ const QString Styles::SETTINGS_DIALOG_STYLE_SHEET =
     "background: white;"
     "}";
 
+const QString Styles::GROUPBOX_STYLE_SHEET =
+    "QGroupBox {"
+    "margin-top: 0.5em;"
+    "border: 1px solid #17a81a;"
+    "}"
+    "QGroupBox::title {"
+    "subcontrol-origin: margin;"
+    "left: 5px;"
+    "padding: 0 3px 0 3px;"
+    "color: #17a81a;"
+    "}";
+
 const QString Styles::TWEET_TEXT_EDIT_STYLE_SHEET =
     "QTextEdit {"
     "background: transparent;"

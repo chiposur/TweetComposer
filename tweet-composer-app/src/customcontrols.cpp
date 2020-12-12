@@ -13,6 +13,11 @@ Menu::Menu(const QString &title, QWidget *parent) : QMenu(title, parent)
     setStyleSheet(Styles::MENU_STYLE_SHEET);
 }
 
+GroupBox::GroupBox(const QString &title, QWidget *parent) : QGroupBox(title, parent)
+{
+    setStyleSheet(Styles::GROUPBOX_STYLE_SHEET);
+}
+
 TweetTextEdit::TweetTextEdit(QWidget *parent) : QTextEdit(parent)
 {
     setStyleSheet(Styles::TWEET_TEXT_EDIT_STYLE_SHEET);
