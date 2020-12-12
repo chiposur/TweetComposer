@@ -13,27 +13,6 @@
 #include <QTimer>
 #include <QToolButton>
 
-class MenuBar : public QMenuBar
-{
-    Q_OBJECT
-public:
-    MenuBar(QWidget *parent = nullptr);
-};
-
-class Menu : public QMenu
-{
-    Q_OBJECT
-public:
-    Menu(const QString &title, QWidget *parent = nullptr);
-};
-
-class GroupBox : public QGroupBox
-{
-    Q_OBJECT
-public:
-    GroupBox(const QString &title, QWidget *parent = nullptr);
-};
-
 class TweetTextEdit : public QTextEdit
 {
     Q_OBJECT
@@ -41,22 +20,6 @@ class TweetTextEdit : public QTextEdit
 public:
     TweetTextEdit(QWidget *parent = nullptr);
     void keyPressEvent(QKeyEvent *e);
-};
-
-class LineEdit : public QLineEdit
-{
-    Q_OBJECT
-
-public:
-    LineEdit(QWidget *parent = nullptr);
-};
-
-class ComboBox : public QComboBox
-{
-    Q_OBJECT
-
-public:
-    ComboBox(QWidget *parent = nullptr);
 };
 
 class BoldToolButton : public QToolButton
@@ -83,18 +46,6 @@ public:
     UnderlineToolButton(QWidget *parent = nullptr);
 };
 
-class Button : public QPushButton
-{
-    Q_OBJECT
-
-public:
-    Button(const QString &text, QWidget *parent = nullptr);
-    Button(QWidget *parent = nullptr);
-
-private:
-    static const QString STYLE_SHEET;
-};
-
 class DeleteButton : public QPushButton
 {
     Q_OBJECT
@@ -105,15 +56,6 @@ public:
 
 private:
     static const QString STYLE_SHEET;
-};
-
-class CheckBox : public QCheckBox
-{
-    Q_OBJECT
-
-public:
-    CheckBox(const QString &text, QWidget *parent = nullptr);
-    CheckBox(QWidget *parent = nullptr);
 };
 
 class Typeahead : public QLineEdit

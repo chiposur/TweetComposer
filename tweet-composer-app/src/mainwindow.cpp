@@ -5,6 +5,7 @@
 #include "toastwidget.h"
 #include "styles.h"
 
+#include <QApplication>
 #include <QFileDialog>
 #include <QGuiApplication>
 #include <QMessageBox>
@@ -14,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle("TweetComposer");
     setWindowIcon(APP_ICON);
-    setStyleSheet(Styles::MAIN_WINDOW_STYLE_SHEET);
+    updateAppStyles();
 
     QWidget *mainWidget = new QWidget();
     setCentralWidget(mainWidget);
@@ -32,6 +33,21 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::updateAppStyles()
+{
+    QString appStyleSheet =
+        Styles::MAIN_WINDOW_STYLE_SHEET +
+        Styles::MENU_BAR_STYLE_SHEET +
+        Styles::MENU_STYLE_SHEET +
+        Styles::GROUPBOX_STYLE_SHEET +
+        Styles::LINE_EDIT_STYLE_SHEET +
+        Styles::COMBOBOX_STYLE_SHEET +
+        Styles::BUTTON_STYLE_SHEET +
+        Styles::CHECKBOX_STYLE_SHEET;
+
+    qApp->setStyleSheet(appStyleSheet);
 }
 
 void MainWindow::loadSettings()
@@ -102,10 +118,10 @@ void MainWindow::initAndConnectSingletons()
 
 void MainWindow::createMenuBar()
 {
-    MenuBar *menuBar = new MenuBar();
+    QMenuBar *menuBar = new QMenuBar();
     setMenuBar(menuBar);
 
-    Menu *fileMenu = new Menu("File");
+    QMenu *fileMenu = new QMenu("File");
     menuBar->addMenu(fileMenu);
 
     QAction *settingsAction = new QAction("Settings");
@@ -137,7 +153,7 @@ void MainWindow::createMenuBar()
     connect(settingsAction, SIGNAL(triggered()), this, SLOT(showSettingsDialogTriggered()));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(exitAppTriggered()));
 
-    Menu *helpMenu = new Menu("Help");
+    QMenu *helpMenu = new QMenu("Help");
     menuBar->addMenu(helpMenu);
 
     QAction *aboutAction = new QAction("About");

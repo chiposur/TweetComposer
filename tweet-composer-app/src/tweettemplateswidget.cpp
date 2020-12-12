@@ -13,7 +13,7 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     QHBoxLayout *navBtnsLayout = new QHBoxLayout();
     mainLayout->addLayout(navBtnsLayout);
 
-    Button *backBtn = new Button("Back");
+    QPushButton *backBtn = new QPushButton("Back");
     backBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     navBtnsLayout->addWidget(backBtn);
 

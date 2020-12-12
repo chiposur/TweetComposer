@@ -21,15 +21,15 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     QHBoxLayout *navBtnsLayout = new QHBoxLayout();
     mainLayout->addLayout(navBtnsLayout);
 
-    cancelBtn  = new Button();
+    cancelBtn  = new QPushButton();
     navBtnsLayout->addWidget(cancelBtn);
 
     connect(cancelBtn, SIGNAL(clicked()), this, SLOT(clearTweetEdit()));
 
     navBtnsLayout->addStretch();
 
-    Button *draftsBtn = new Button("Drafts");
-    Button *templatesBtn = new Button("Templates");
+    QPushButton *draftsBtn = new QPushButton("Drafts");
+    QPushButton *templatesBtn = new QPushButton("Templates");
     navBtnsLayout->addWidget(draftsBtn);
     navBtnsLayout->addWidget(templatesBtn);
 
@@ -64,7 +64,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     toolButtonsLayout->addSpacerItem(new QSpacerItem(8, 0));
 
-    fontFamiliesComboBox = new ComboBox();
+    fontFamiliesComboBox = new QComboBox();
     QStringList fontFamilies;
     fontFamilies << "Helvetica"; // Helvetica is default twitter font
     fontFamilies << "Times";
@@ -94,7 +94,7 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 
     connect(tweetTextEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
-    nameLineEdit = new LineEdit();
+    nameLineEdit = new QLineEdit();
     nameLineEdit->setPlaceholderText("Enter an optional name...");
     nameLineEdit->setMaxLength(200);
     nameLineEdit->setFixedWidth(tweetTextEdit->width());
@@ -105,10 +105,10 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(editorBottomLayout);
 
-    saveAsDraftBtn = new Button("Save as Draft");
-    saveAsTemplateBtn = new Button("Save as Template");
-    saveBtn = new Button();
-    deleteBtn = new Button();
+    saveAsDraftBtn = new QPushButton("Save as Draft");
+    saveAsTemplateBtn = new QPushButton("Save as Template");
+    saveBtn = new QPushButton();
+    deleteBtn = new QPushButton();
 
     editorBottomLayout->addWidget(saveAsDraftBtn);
     editorBottomLayout->addWidget(saveAsTemplateBtn);

@@ -18,14 +18,14 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
 
-    GroupBox *storageGroupBox = new GroupBox("Storage");
+    QGroupBox *storageGroupBox = new QGroupBox("Storage");
     mainLayout->addWidget(storageGroupBox);
 
     QVBoxLayout *storageLayout = new QVBoxLayout();
     storageGroupBox->setLayout(storageLayout);
 
-    encryptDraftsCheck = new CheckBox("Encrypt drafts on disk");
-    encryptTemplatesCheck = new CheckBox("Encrypt templates on disk");
+    encryptDraftsCheck = new QCheckBox("Encrypt drafts on disk");
+    encryptTemplatesCheck = new QCheckBox("Encrypt templates on disk");
     encryptDraftsCheck->setChecked(Settings::encryptDraftsOnDisk);
     encryptTemplatesCheck->setChecked(Settings::encryptTemplatesOnDisk);
     encryptDraftsCheck->setDisabled(true);
@@ -35,7 +35,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     storageLayout->addWidget(encryptDraftsCheck);
     storageLayout->addWidget(encryptTemplatesCheck);
 
-    persistWindowSizeCheck = new CheckBox("Persist window state");
+    persistWindowSizeCheck = new QCheckBox("Persist window state");
     persistWindowSizeCheck->setChecked(Settings::persistWindowState);
     storageLayout->addWidget(persistWindowSizeCheck);
 
@@ -56,8 +56,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     btnsLayout->addStretch();
 
-    Button *saveBtn = new Button("Save");
-    Button *cancelBtn = new Button("Cancel");
+    QPushButton *saveBtn = new QPushButton("Save");
+    QPushButton *cancelBtn = new QPushButton("Cancel");
     btnsLayout->addWidget(saveBtn);
     btnsLayout->addWidget(cancelBtn);
     connect(saveBtn, SIGNAL(clicked()), this, SLOT(accept()));

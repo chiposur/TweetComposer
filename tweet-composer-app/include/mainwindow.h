@@ -46,6 +46,7 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private:
+    void updateAppStyles();
     void createMenuBar();
     void createMainLayout();
     void initAndConnectSingletons();
