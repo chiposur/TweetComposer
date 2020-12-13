@@ -118,7 +118,11 @@ const QString Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET =
 
 const QString Styles::BUTTON_STYLE_SHEET =
     "QPushButton {"
-    "color: #17a81a; border: none; background-color: transparent; padding: 3px 4px;"
+    "color: #17a81a;"
+    "border: none;"
+    "background-color: transparent;"
+    "border-radius: 15px;"
+    "padding: 6px 15px;"
     "font-size: 15px;"
     "} "
     "QPushButton:disabled {"

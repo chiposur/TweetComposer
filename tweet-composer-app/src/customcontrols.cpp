@@ -23,30 +23,15 @@ void TweetTextEdit::keyPressEvent(QKeyEvent *e)
 
 BoldToggleButton::BoldToggleButton(QWidget *parent) : QPushButton(parent)
 {
+    setText("B");
     setFixedSize(24, 24);
     setCheckable(true);
     setStyleSheet(Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET);
 }
-
-BoldToggleButton::BoldToggleButton(const QString &text, QWidget *parent)
-    : QPushButton(text, parent)
-{
-    setFixedSize(24, 24);
-    setCheckable(true);
-    setStyleSheet(Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET);
-}
-
 
 ItalicToggleButton::ItalicToggleButton(QWidget *parent) : QPushButton(parent)
 {
-    setFixedSize(24, 24);
-    setCheckable(true);
-    setStyleSheet(Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET);
-}
-
-ItalicToggleButton::ItalicToggleButton(const QString &text, QWidget *parent)
-    : QPushButton(text, parent)
-{
+    setText("I");
     setFixedSize(24, 24);
     setCheckable(true);
     setStyleSheet(Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET);
@@ -55,14 +40,7 @@ ItalicToggleButton::ItalicToggleButton(const QString &text, QWidget *parent)
 
 UnderlineToggleButton::UnderlineToggleButton(QWidget *parent) : QPushButton(parent)
 {
-    setFixedSize(24, 24);
-    setCheckable(true);
-    setStyleSheet(Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET);
-}
-
-UnderlineToggleButton::UnderlineToggleButton(const QString &text, QWidget *parent)
-    : QPushButton(text, parent)
-{
+    setText("U");
     setFixedSize(24, 24);
     setCheckable(true);
     setStyleSheet(Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET);

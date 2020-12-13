@@ -27,7 +27,6 @@ class BoldToggleButton : public QPushButton
     Q_OBJECT
 
 public:
-    BoldToggleButton(const QString &text, QWidget *parent = nullptr);
     BoldToggleButton(QWidget *parent = nullptr);
 };
 
@@ -36,7 +35,6 @@ class ItalicToggleButton : public QPushButton
     Q_OBJECT
 
 public:
-    ItalicToggleButton(const QString &text, QWidget *parent = nullptr);
     ItalicToggleButton(QWidget *parent = nullptr);
 };
 
@@ -45,7 +43,6 @@ class UnderlineToggleButton : public QPushButton
     Q_OBJECT
 
 public:
-    UnderlineToggleButton(const QString &text, QWidget *parent = nullptr);
     UnderlineToggleButton(QWidget *parent = nullptr);
 };
 

@@ -41,19 +41,19 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(toolButtonsLayout);
 
-    boldToggleButton = new BoldToggleButton("B");
+    boldToggleButton = new BoldToggleButton();
     boldToggleButton->setCheckable(true);
     toolButtonsLayout->addWidget(boldToggleButton);
 
     connect(boldToggleButton, SIGNAL(toggled(bool)), this, SLOT(boldToggled(bool)));
 
-    italicToggleButton = new ItalicToggleButton("I");
+    italicToggleButton = new ItalicToggleButton();
     italicToggleButton->setCheckable(true);
     toolButtonsLayout->addWidget(italicToggleButton);
 
     connect(italicToggleButton, SIGNAL(toggled(bool)), this, SLOT(italicToggled(bool)));
 
-    underlineToggleButton = new UnderlineToggleButton("U");
+    underlineToggleButton = new UnderlineToggleButton();
     underlineToggleButton->setCheckable(true);
     toolButtonsLayout->addWidget(underlineToggleButton);
 
