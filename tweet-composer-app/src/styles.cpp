@@ -84,7 +84,7 @@ const QString Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET =
     "QPushButton:checked {"
     "color: white;"
     "background: #17a81a;"
-    "}";;
+    "}";
 
 const QString Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET =
     "QPushButton {"
