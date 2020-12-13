@@ -21,19 +21,51 @@ void TweetTextEdit::keyPressEvent(QKeyEvent *e)
     }
 }
 
-BoldToolButton::BoldToolButton(QWidget *parent) : QToolButton(parent)
+BoldToggleButton::BoldToggleButton(QWidget *parent) : QPushButton(parent)
 {
-    setStyleSheet(Styles::BOLD_TOOL_BUTTON_STYLE_SHEET);
+    setFixedSize(24, 24);
+    setCheckable(true);
+    setStyleSheet(Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET);
 }
 
-ItalicToolButton::ItalicToolButton(QWidget *parent) : QToolButton(parent)
+BoldToggleButton::BoldToggleButton(const QString &text, QWidget *parent)
+    : QPushButton(text, parent)
 {
-    setStyleSheet(Styles::ITALIC_TOOL_BUTTON_STYLE_SHEET);
+    setFixedSize(24, 24);
+    setCheckable(true);
+    setStyleSheet(Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET);
 }
 
-UnderlineToolButton::UnderlineToolButton(QWidget *parent) : QToolButton(parent)
+
+ItalicToggleButton::ItalicToggleButton(QWidget *parent) : QPushButton(parent)
 {
-    setStyleSheet(Styles::UNDERLINE_TOOL_BUTTON_STYLE_SHEET);
+    setFixedSize(24, 24);
+    setCheckable(true);
+    setStyleSheet(Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET);
+}
+
+ItalicToggleButton::ItalicToggleButton(const QString &text, QWidget *parent)
+    : QPushButton(text, parent)
+{
+    setFixedSize(24, 24);
+    setCheckable(true);
+    setStyleSheet(Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET);
+}
+
+
+UnderlineToggleButton::UnderlineToggleButton(QWidget *parent) : QPushButton(parent)
+{
+    setFixedSize(24, 24);
+    setCheckable(true);
+    setStyleSheet(Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET);
+}
+
+UnderlineToggleButton::UnderlineToggleButton(const QString &text, QWidget *parent)
+    : QPushButton(text, parent)
+{
+    setFixedSize(24, 24);
+    setCheckable(true);
+    setStyleSheet(Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET);
 }
 
 DeleteButton::DeleteButton(QWidget *parent) : QPushButton(parent)

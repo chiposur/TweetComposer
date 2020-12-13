@@ -71,25 +71,49 @@ const QString Styles::COMBOBOX_STYLE_SHEET =
     "font-size: 15px;"
     "}";
 
-const QString Styles::BOLD_TOOL_BUTTON_STYLE_SHEET =
-    "QToolButton {"
-    //"border: 1px solid #17a81a;"
+const QString Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET =
+    "QPushButton {"
+    "padding: 4px;"
+    "color: #17a81a;"
     "font-size: 15px;"
     "font-weight: bold;"
-    "}";
+    "}"
+    "QPushButton:hover {"
+    "color: white;"
+    "}"
+    "QPushButton:checked {"
+    "color: white;"
+    "background: #17a81a;"
+    "}";;
 
-const QString Styles::ITALIC_TOOL_BUTTON_STYLE_SHEET =
-    "QToolButton {"
-    //"border: 1px solid #17a81a;"
+const QString Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET =
+    "QPushButton {"
+    "padding: 4px;"
+    "color: #17a81a;"
     "font-size: 15px;"
     "font-style: italic;"
+    "}"
+    "QPushButton:hover {"
+    "color: white;"
+    "}"
+    "QPushButton:checked {"
+    "color: white;"
+    "background: #17a81a;"
     "}";
 
-const QString Styles::UNDERLINE_TOOL_BUTTON_STYLE_SHEET =
-    "QToolButton {"
-    //"border: 1px solid #17a81a;"
+const QString Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET =
+    "QPushButton {"
+    "padding: 4px;"
+    "color: #17a81a;"
     "font-size: 15px; "
     "text-decoration: underline;"
+    "}"
+    "QPushButton:hover {"
+    "color: white;"
+    "}"
+    "QPushButton:checked {"
+    "color: white;"
+    "background: #17a81a;"
     "}";
 
 const QString Styles::BUTTON_STYLE_SHEET =

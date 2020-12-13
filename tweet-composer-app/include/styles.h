@@ -24,9 +24,9 @@ public:
     static const QString GROUPBOX_STYLE_SHEET;
     static const QString TWEET_TEXT_EDIT_STYLE_SHEET;
     static const QString LINE_EDIT_STYLE_SHEET;
-    static const QString BOLD_TOOL_BUTTON_STYLE_SHEET;
-    static const QString ITALIC_TOOL_BUTTON_STYLE_SHEET;
-    static const QString UNDERLINE_TOOL_BUTTON_STYLE_SHEET;
+    static const QString BOLD_TOGGLE_BUTTON_STYLE_SHEET;
+    static const QString ITALIC_TOGGLE_BUTTON_STYLE_SHEET;
+    static const QString UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET;
     static const QString COMBOBOX_STYLE_SHEET;
     static const QString BUTTON_STYLE_SHEET;
     static const QString DELETE_BUTTON_STYLE_SHEET;

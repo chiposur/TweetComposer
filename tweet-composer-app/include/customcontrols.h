@@ -22,28 +22,31 @@ public:
     void keyPressEvent(QKeyEvent *e);
 };
 
-class BoldToolButton : public QToolButton
+class BoldToggleButton : public QPushButton
 {
     Q_OBJECT
 
 public:
-    BoldToolButton(QWidget *parent = nullptr);
+    BoldToggleButton(const QString &text, QWidget *parent = nullptr);
+    BoldToggleButton(QWidget *parent = nullptr);
 };
 
-class ItalicToolButton : public QToolButton
+class ItalicToggleButton : public QPushButton
 {
     Q_OBJECT
 
 public:
-    ItalicToolButton(QWidget *parent = nullptr);
+    ItalicToggleButton(const QString &text, QWidget *parent = nullptr);
+    ItalicToggleButton(QWidget *parent = nullptr);
 };
 
-class UnderlineToolButton : public QToolButton
+class UnderlineToggleButton : public QPushButton
 {
     Q_OBJECT
 
 public:
-    UnderlineToolButton(QWidget *parent = nullptr);
+    UnderlineToggleButton(const QString &text, QWidget *parent = nullptr);
+    UnderlineToggleButton(QWidget *parent = nullptr);
 };
 
 class DeleteButton : public QPushButton

@@ -41,26 +41,23 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(toolButtonsLayout);
 
-    boldToolButton = new BoldToolButton();
-    boldToolButton->setText("B");
-    boldToolButton->setCheckable(true);
-    toolButtonsLayout->addWidget(boldToolButton);
+    boldToggleButton = new BoldToggleButton("B");
+    boldToggleButton->setCheckable(true);
+    toolButtonsLayout->addWidget(boldToggleButton);
 
-    connect(boldToolButton, SIGNAL(clicked()), this, SLOT(boldTriggered()));
+    connect(boldToggleButton, SIGNAL(toggled(bool)), this, SLOT(boldToggled(bool)));
 
-    italicToolButton = new ItalicToolButton();
-    italicToolButton->setText("I");
-    italicToolButton->setCheckable(true);
-    toolButtonsLayout->addWidget(italicToolButton);
+    italicToggleButton = new ItalicToggleButton("I");
+    italicToggleButton->setCheckable(true);
+    toolButtonsLayout->addWidget(italicToggleButton);
 
-    connect(italicToolButton, SIGNAL(clicked()), this, SLOT(italicTriggered()));
+    connect(italicToggleButton, SIGNAL(toggled(bool)), this, SLOT(italicToggled(bool)));
 
-    underlineToolButton = new UnderlineToolButton();
-    underlineToolButton->setText("U");
-    underlineToolButton->setCheckable(true);
-    toolButtonsLayout->addWidget(underlineToolButton);
+    underlineToggleButton = new UnderlineToggleButton("U");
+    underlineToggleButton->setCheckable(true);
+    toolButtonsLayout->addWidget(underlineToggleButton);
 
-    connect(underlineToolButton, SIGNAL(clicked()), this, SLOT(underlineTriggered()));
+    connect(underlineToggleButton, SIGNAL(toggled(bool)), this, SLOT(underlineToggled(bool)));
 
     toolButtonsLayout->addSpacerItem(new QSpacerItem(8, 0));
 
@@ -140,21 +137,21 @@ QString ComposeWidget::getFontFamilyName(const QString &fontFamily)
     return fontFamily == "Helvetica" ? "Helvetica [Cronyx]" : "Times New Roman";
 }
 
-void ComposeWidget::boldTriggered()
+void ComposeWidget::boldToggled(bool checked)
 {
-    isBold = !isBold;
+    isBold = checked;
     tweetTextEdit->setFontWeight(isBold ? QFont::Bold : QFont::Normal);
 }
 
-void ComposeWidget::italicTriggered()
+void ComposeWidget::italicToggled(bool checked)
 {
-    isItalic = !isItalic;
+    isItalic = checked;
     tweetTextEdit->setFontItalic(isItalic);
 }
 
-void ComposeWidget::underlineTriggered()
+void ComposeWidget::underlineToggled(bool checked)
 {
-    isUnderline = !isUnderline;
+    isUnderline = checked;
     tweetTextEdit->setFontUnderline(isUnderline);
 }
 

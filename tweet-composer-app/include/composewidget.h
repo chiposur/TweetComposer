@@ -24,9 +24,9 @@ public:
     explicit ComposeWidget(QWidget *parent = nullptr);
 
 public slots:
-    void boldTriggered();
-    void italicTriggered();
-    void underlineTriggered();
+    void boldToggled(bool checked);
+    void italicToggled(bool checked);
+    void underlineToggled(bool checked);
     void onTextChanged();
     void onCurrentTextChanged(const QString &text);
     void saveAsDraftBtnClicked();
@@ -53,9 +53,9 @@ private:
     bool checkAndPromptIfDirty();
     QString getFontFamilyName(const QString &fontFamily);
 
-    QToolButton *boldToolButton;
-    QToolButton *italicToolButton;
-    QToolButton *underlineToolButton;
+    BoldToggleButton *boldToggleButton;
+    ItalicToggleButton *italicToggleButton;
+    UnderlineToggleButton *underlineToggleButton;
 
     TweetTextEdit *tweetTextEdit;
     QLineEdit *nameLineEdit;
