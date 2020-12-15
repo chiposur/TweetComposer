@@ -276,15 +276,14 @@ void MainWindow::exportDraftsToJsonTriggered()
     bool success;
     QString json = jsonSerializer->tweetDraftsJson(success);
 
-    static QString lastSelectedImportDir;
-    lastSelectedImportDir =
+    lastSelectedDraftsExportDir =
         QFileDialog::getExistingDirectory(
             this,
             "Select export directory",
-            lastSelectedImportDir,
+            lastSelectedDraftsExportDir,
             QFileDialog::ShowDirsOnly);
 
-    QFile exportFile(QString("%1/tweetdrafts.json").arg(lastSelectedImportDir));
+    QFile exportFile(QString("%1/tweetdrafts.json").arg(lastSelectedDraftsExportDir));
     if (exportFile.open(QFile::ReadWrite | QFile::Truncate))
     {
         exportFile.write(json.toUtf8());
@@ -296,15 +295,14 @@ void MainWindow::exportTemplatesToJsonTriggered()
     bool success;
     QString json = jsonSerializer->tweetTemplatesJson(success);
 
-    static QString lastSelectedImportDir;
-    lastSelectedImportDir =
+    lastSelectedTemplatesExportDir =
         QFileDialog::getExistingDirectory(
             this,
             "Select export directory",
-            lastSelectedImportDir,
+            lastSelectedTemplatesExportDir,
             QFileDialog::ShowDirsOnly);
 
-    QFile exportFile(QString("%1/tweettemplates.json").arg(lastSelectedImportDir));
+    QFile exportFile(QString("%1/tweettemplates.json").arg(lastSelectedTemplatesExportDir));
     if (exportFile.open(QFile::ReadWrite | QFile::Truncate))
     {
         exportFile.write(json.toUtf8());
@@ -313,12 +311,11 @@ void MainWindow::exportTemplatesToJsonTriggered()
 
 void MainWindow::importDraftsFromJsonTriggered()
 {
-    static QString lastSelectedImportDir;
     QString filename =
         QFileDialog::getOpenFileName(
             this,
             "Select import directory",
-            lastSelectedImportDir);
+            lastSelectedDraftsImportDir);
 
     QFile selectedFile(filename);
     if (!selectedFile.open(QFile::ReadOnly))
@@ -330,7 +327,7 @@ void MainWindow::importDraftsFromJsonTriggered()
         return;
     }
 
-    lastSelectedImportDir = QFileInfo(filename).absoluteFilePath();
+    lastSelectedDraftsImportDir = QFileInfo(filename).absoluteFilePath();
     QString json = selectedFile.readAll();
 
     QVector<TweetDraft> tweetDrafts;
@@ -342,17 +339,18 @@ void MainWindow::importDraftsFromJsonTriggered()
         {
             dataStore->addTweetDraft(tweetDraft);
         }
+
+        settingsManager->saveTweetDrafts();
     }
 }
 
 void MainWindow::importTemplatesFromJsonTriggered()
 {
-    static QString lastSelectedImportDir;
     QString filename =
         QFileDialog::getOpenFileName(
             this,
             "Select import directory",
-            lastSelectedImportDir);
+            lastSelectedTemplatesImportDir);
 
     QFile selectedFile(filename);
     if (!selectedFile.open(QFile::ReadOnly))
@@ -364,7 +362,7 @@ void MainWindow::importTemplatesFromJsonTriggered()
         return;
     }
 
-    lastSelectedImportDir = QFileInfo(filename).absoluteFilePath();
+    lastSelectedTemplatesImportDir = QFileInfo(filename).absoluteFilePath();
     QString json = selectedFile.readAll();
 
     QVector<TweetTemplate> tweetTemplates;
@@ -376,6 +374,8 @@ void MainWindow::importTemplatesFromJsonTriggered()
         {
             dataStore->addTweetTemplate(tweetTemplate);
         }
+
+        settingsManager->saveTweetTemplates();
     }
 }
 

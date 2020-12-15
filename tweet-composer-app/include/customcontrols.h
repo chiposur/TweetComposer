@@ -4,12 +4,13 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QGroupBox>
-#include <QStyledItemDelegate>
+#include <QLabel>
 #include <QMenu>
 #include <QMenuBar>
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
+#include <QStyledItemDelegate>
 #include <QTextEdit>
 #include <QTimer>
 #include <QToolButton>
@@ -18,13 +19,18 @@ class ComboBoxItemDelegate : public QStyledItemDelegate
 {
 public:
     ComboBoxItemDelegate(QComboBox *comboBox);
+    ~ComboBoxItemDelegate();
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
 private:
+    static const QString STYLE_SHEET;
+    static const QString HOVER_STYLE_SHEET;
+
     QComboBox *comboBox;
+    QLabel *itemRenderLabel;
 };
 
 class TweetTextEdit : public QTextEdit

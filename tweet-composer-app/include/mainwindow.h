@@ -62,6 +62,11 @@ private:
     TweetDraftsWidget *tweetDraftsWidget;
     TweetTemplatesWidget *tweetTemplatesWidget;
 
+    QString lastSelectedDraftsExportDir;
+    QString lastSelectedTemplatesExportDir;
+    QString lastSelectedDraftsImportDir;
+    QString lastSelectedTemplatesImportDir;
+
     int topToastHeight = 0;
 
     static const int TOAST_MARGIN_PX = 8;

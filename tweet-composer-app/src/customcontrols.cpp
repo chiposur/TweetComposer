@@ -6,39 +6,43 @@
 
 #include <QKeyEvent>
 
+const QString ComboBoxItemDelegate::STYLE_SHEET =
+    "QLabel {"
+    "font-size: 15px;"
+    "padding: 2px 1px;"
+    "background-color: white;"
+    "color: #17a81a;"
+    "font-family: %1;"
+    "}";
+
+const QString ComboBoxItemDelegate::HOVER_STYLE_SHEET =
+    "QLabel {"
+    "font-size: 15px;"
+    "padding: 2px 1px;"
+    "background-color: #17a81a;"
+    "color: white;"
+    "font-family: %1;"
+    "}";
+
 ComboBoxItemDelegate::ComboBoxItemDelegate(QComboBox *comboBox)
 {
     this->comboBox = comboBox;
+    itemRenderLabel = new QLabel();
+}
+
+ComboBoxItemDelegate::~ComboBoxItemDelegate()
+{
+    delete itemRenderLabel;
 }
 
 void ComboBoxItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QString richText = comboBox->itemText(index.row());
-    static QLabel richTextLabel;
-    richTextLabel.setText(richText);
-
-    static const QString styleSheet =
-        "QLabel {"
-        "font-size: 15px;"
-        "padding: 2px 1px;"
-        "background-color: white;"
-        "color: #17a81a;"
-        "font-family: %1;"
-        "}";
-    static const QString hoverStyleSheet =
-        "QLabel {"
-        "font-size: 15px;"
-        "padding: 2px 1px;"
-        "background-color: #17a81a;"
-        "color: white;"
-        "font-family: %1;"
-        "}";
+    itemRenderLabel->setText(comboBox->itemText(index.row()));
     QFont font = comboBox->itemData(index.row(), Qt::FontRole).value<QFont>();
     QString fontFamily = font.family();
-    richTextLabel.setStyleSheet(
-        option.state & QStyle::State_MouseOver ? hoverStyleSheet.arg(fontFamily) : styleSheet.arg(fontFamily));
-
-    richTextLabel.render(painter, option.rect.topLeft());
+    itemRenderLabel->setStyleSheet(
+        option.state & QStyle::State_MouseOver ? HOVER_STYLE_SHEET.arg(fontFamily) : STYLE_SHEET.arg(fontFamily));
+    itemRenderLabel->render(painter, option.rect.topLeft());
 }
 
 QSize ComboBoxItemDelegate::sizeHint(const QStyleOptionViewItem &/*option*/, const QModelIndex &/*index*/) const
