@@ -4,6 +4,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QGroupBox>
+#include <QStyledItemDelegate>
 #include <QMenu>
 #include <QMenuBar>
 #include <QLineEdit>
@@ -12,6 +13,19 @@
 #include <QTextEdit>
 #include <QTimer>
 #include <QToolButton>
+
+class ComboBoxItemDelegate : public QStyledItemDelegate
+{
+public:
+    ComboBoxItemDelegate(QComboBox *comboBox);
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+private:
+    QComboBox *comboBox;
+};
 
 class TweetTextEdit : public QTextEdit
 {

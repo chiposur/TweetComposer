@@ -69,6 +69,19 @@ const QString Styles::COMBOBOX_STYLE_SHEET =
     "background: transparent;"
     "border: 1px solid #17a81a;"
     "font-size: 15px;"
+    "color: #17a81a;"
+    "}"
+    "QComboBox::drop-down {"
+    "border-image: url(:/images/down-arrow-green.png);"
+    "}"
+    "QComboBox::down-arrow {"
+    "image: url(:/images/down-arrow-green.png);"
+    "background: transparent;"
+    "}"
+    "QComboBox QAbstractItemView {"
+    "border: 1px solid #17a81a;"
+    "selection-background-color: #17a81a;"
+    "selection-color: white;"
     "}";
 
 const QString Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET =

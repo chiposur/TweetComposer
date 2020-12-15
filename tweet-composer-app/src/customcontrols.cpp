@@ -1,7 +1,50 @@
 #include "customcontrols.h"
 #include "styles.h"
 
+#include <QLabel>
+#include <QPainter>
+
 #include <QKeyEvent>
+
+ComboBoxItemDelegate::ComboBoxItemDelegate(QComboBox *comboBox)
+{
+    this->comboBox = comboBox;
+}
+
+void ComboBoxItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    QString richText = comboBox->itemText(index.row());
+    static QLabel richTextLabel;
+    richTextLabel.setText(richText);
+
+    static const QString styleSheet =
+        "QLabel {"
+        "font-size: 15px;"
+        "padding: 2px 1px;"
+        "background-color: white;"
+        "color: #17a81a;"
+        "font-family: %1;"
+        "}";
+    static const QString hoverStyleSheet =
+        "QLabel {"
+        "font-size: 15px;"
+        "padding: 2px 1px;"
+        "background-color: #17a81a;"
+        "color: white;"
+        "font-family: %1;"
+        "}";
+    QFont font = comboBox->itemData(index.row(), Qt::FontRole).value<QFont>();
+    QString fontFamily = font.family();
+    richTextLabel.setStyleSheet(
+        option.state & QStyle::State_MouseOver ? hoverStyleSheet.arg(fontFamily) : styleSheet.arg(fontFamily));
+
+    richTextLabel.render(painter, option.rect.topLeft());
+}
+
+QSize ComboBoxItemDelegate::sizeHint(const QStyleOptionViewItem &/*option*/, const QModelIndex &/*index*/) const
+{
+    return QSize(comboBox->size().width(), 24);
+}
 
 TweetTextEdit::TweetTextEdit(QWidget *parent) : QTextEdit(parent)
 {

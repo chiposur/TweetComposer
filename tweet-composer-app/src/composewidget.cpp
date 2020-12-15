@@ -62,15 +62,22 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     toolButtonsLayout->addSpacerItem(new QSpacerItem(8, 0));
 
     fontFamiliesComboBox = new QComboBox();
+    toolButtonsLayout->addWidget(fontFamiliesComboBox);
+    fontFamiliesComboBox->setItemDelegate(new ComboBoxItemDelegate(fontFamiliesComboBox));
     QStringList fontFamilies;
     fontFamilies << "Helvetica"; // Helvetica is default twitter font
     fontFamilies << "Times";
     fontFamiliesComboBox->addItems(fontFamilies);
-    toolButtonsLayout->addWidget(fontFamiliesComboBox);
+
+    QFont font;
+    font.setFamily("Helvetica");
+    fontFamiliesComboBox->setItemData(0, font, Qt::FontRole);
+    font.setFamily("Times New Roman");
+    fontFamiliesComboBox->setItemData(1, font, Qt::FontRole);
 
     connect(fontFamiliesComboBox, SIGNAL(currentTextChanged(const QString &)), this, SLOT(onCurrentTextChanged(const QString &)));
 
-    fontFamily = fontFamilies.first();
+    fontFamily = getFontFamilyName(fontFamilies.first());
 
     toolButtonsLayout->addStretch();
 
@@ -173,8 +180,11 @@ void ComposeWidget::onTextChanged()
 
 void ComposeWidget::onCurrentTextChanged(const QString &text)
 {
-    fontFamily = text ;
-    tweetTextEdit->setFontFamily(getFontFamilyName(fontFamily));
+    fontFamily = getFontFamilyName(text);
+    QFont font = fontFamiliesComboBox->font();
+    font.setFamily(fontFamily);
+    fontFamiliesComboBox->setFont(font);
+    tweetTextEdit->setFontFamily(fontFamily);
 }
 
 void ComposeWidget::updateBtnStates()
