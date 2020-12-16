@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>images/green-twitter-logo.ico</file>
-		<file>images/down-arrow-green.png</file>
+        <file>images/down-arrow-green.png</file>
     </qresource>
 </RCC>

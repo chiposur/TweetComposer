@@ -12,6 +12,10 @@ const QString Styles::MAIN_WINDOW_STYLE_SHEET =
 const QString Styles::MENU_BAR_STYLE_SHEET =
     "QMenuBar::item {"
     "color: #17a81a;"
+    "}"
+    "QMenuBar::item:selected {"
+    "background: #17a81a;"
+    "color: white;"
     "}";
 
 const QString Styles::MENU_STYLE_SHEET =
