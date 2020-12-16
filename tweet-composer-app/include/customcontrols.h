@@ -19,7 +19,6 @@ class ComboBoxItemDelegate : public QStyledItemDelegate
 {
 public:
     ComboBoxItemDelegate(QComboBox *comboBox);
-    ~ComboBoxItemDelegate();
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
@@ -30,7 +29,8 @@ private:
     static const QString HOVER_STYLE_SHEET;
 
     QComboBox *comboBox;
-    QLabel *itemRenderLabel;
+
+    mutable QLabel itemRenderLabel;
 };
 
 class TweetTextEdit : public QTextEdit

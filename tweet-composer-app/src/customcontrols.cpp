@@ -27,22 +27,16 @@ const QString ComboBoxItemDelegate::HOVER_STYLE_SHEET =
 ComboBoxItemDelegate::ComboBoxItemDelegate(QComboBox *comboBox)
 {
     this->comboBox = comboBox;
-    itemRenderLabel = new QLabel();
-}
-
-ComboBoxItemDelegate::~ComboBoxItemDelegate()
-{
-    delete itemRenderLabel;
 }
 
 void ComboBoxItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    itemRenderLabel->setText(comboBox->itemText(index.row()));
+    itemRenderLabel.setText(comboBox->itemText(index.row()));
     QFont font = comboBox->itemData(index.row(), Qt::FontRole).value<QFont>();
     QString fontFamily = font.family();
-    itemRenderLabel->setStyleSheet(
+    itemRenderLabel.setStyleSheet(
         option.state & QStyle::State_MouseOver ? HOVER_STYLE_SHEET.arg(fontFamily) : STYLE_SHEET.arg(fontFamily));
-    itemRenderLabel->render(painter, option.rect.topLeft());
+    itemRenderLabel.render(painter, option.rect.topLeft());
 }
 
 QSize ComboBoxItemDelegate::sizeHint(const QStyleOptionViewItem &/*option*/, const QModelIndex &/*index*/) const
