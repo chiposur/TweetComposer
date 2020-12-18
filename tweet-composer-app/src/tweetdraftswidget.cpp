@@ -23,7 +23,7 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
 
     Typeahead *search = new Typeahead(500);
     search->setPlaceholderText("Search by name or text...");
-    connect(search, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
+    connect(search, SIGNAL(searchTextChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
     mainLayout->addWidget(search);
 
     draftsContainer = new ScrollableContainer();

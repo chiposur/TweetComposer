@@ -86,7 +86,7 @@ public:
     Typeahead(int debounceMs, QWidget *parent = nullptr);
 
 signals:
-    void textChanged(const QString &text);
+    void searchTextChanged(const QString &text);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

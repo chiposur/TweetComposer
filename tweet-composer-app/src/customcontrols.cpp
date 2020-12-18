@@ -117,5 +117,5 @@ void Typeahead::keyPressEvent(QKeyEvent *event)
 
 void Typeahead::onDebounceTimeout()
 {
-    emit textChanged(text());
+    emit searchTextChanged(text());
 }
