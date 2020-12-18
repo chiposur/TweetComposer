@@ -68,7 +68,7 @@ void TweetTemplatesWidget::onTweetTemplateDeleted(int templateId)
 {
     TweetTemplatesItemWidget *templateItemWidget = idToItemMap[templateId];
     idToItemMap.remove(templateId);
-    delete templateItemWidget;
+    templateItemWidget->deleteLater();
 }
 
 void TweetTemplatesWidget::onTweetTemplateClicked(int templateId)

@@ -68,7 +68,7 @@ void TweetDraftsWidget::onTweetDraftDeleted(int draftId)
 {
     TweetDraftsItemWidget *draftItemWidget = idToItemMap[draftId];
     idToItemMap.remove(draftId);
-    delete draftItemWidget;
+    draftItemWidget->deleteLater();
 }
 
 void TweetDraftsWidget::onTweetDraftClicked(int draftId)
