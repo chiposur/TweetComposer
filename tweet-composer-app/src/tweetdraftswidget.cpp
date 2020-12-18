@@ -1,5 +1,4 @@
 #include "tweetdraftswidget.h"
-#include "customcontrols.h"
 
 #include <QHBoxLayout>
 #include <QScrollArea>
@@ -26,8 +25,7 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
     connect(search, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
     mainLayout->addWidget(search);
 
-    DraftsTemplatesContainer *draftsContainer = new DraftsTemplatesContainer();
-    draftsLayout = draftsContainer->draftsTemplatesContainerLayout;
+    draftsContainer = new DraftsTemplatesContainer();
     mainLayout->addWidget(draftsContainer);
 }
 
@@ -44,9 +42,7 @@ void TweetDraftsWidget::onSearchTextChanged(const QString &text)
 void TweetDraftsWidget::onTweetDraftAdded(const TweetDraft &tweetDraft)
 {
     TweetDraftsItemWidget *draftItemWidget = new TweetDraftsItemWidget(tweetDraft);
-
-    // Insert draft item before the stretch at the end of the layout
-    draftsLayout->insertWidget(draftsLayout->count() - 1, draftItemWidget);
+    draftsContainer->appendWidget(draftItemWidget);
 
     connect(draftItemWidget, SIGNAL(draftItemClicked(int)), this, SLOT(onTweetDraftClicked(int)));
     idToItemMap.insert(tweetDraft.getId(), draftItemWidget);

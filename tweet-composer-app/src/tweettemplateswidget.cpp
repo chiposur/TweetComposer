@@ -1,5 +1,4 @@
 #include "tweettemplateswidget.h"
-#include "customcontrols.h"
 
 #include <QHBoxLayout>
 #include <QScrollArea>
@@ -26,8 +25,7 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     connect(search, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
     mainLayout->addWidget(search);
 
-    DraftsTemplatesContainer *templatesContainer = new DraftsTemplatesContainer();
-    templatesLayout = templatesContainer->draftsTemplatesContainerLayout;
+    templatesContainer = new DraftsTemplatesContainer();
     mainLayout->addWidget(templatesContainer);
 }
 
@@ -44,9 +42,7 @@ void TweetTemplatesWidget::onSearchTextChanged(const QString &text)
 void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTemplate)
 {
     TweetTemplatesItemWidget *templateItemWidget = new TweetTemplatesItemWidget(tweetTemplate);
-
-    // Insert template item before the stretch at the end of the layout
-    templatesLayout->insertWidget(templatesLayout->count() - 1, templateItemWidget);
+    templatesContainer->appendWidget(templateItemWidget);
 
     connect(templateItemWidget, SIGNAL(templateItemClicked(int)), this, SLOT(onTweetTemplateClicked(int)));
     idToItemMap.insert(tweetTemplate.getId(), templateItemWidget);

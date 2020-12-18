@@ -135,3 +135,9 @@ DraftsTemplatesContainer::DraftsTemplatesContainer(QWidget *parent) : QScrollAre
     draftsTemplatesContainerWidget->setLayout(draftsTemplatesContainerLayout);
     setWidget(draftsTemplatesContainerWidget);
 }
+
+void DraftsTemplatesContainer::appendWidget(QWidget *widget)
+{
+    // Insert widget before the stretch at the end of the layout
+    draftsTemplatesContainerLayout->insertWidget(draftsTemplatesContainerLayout->count() - 1, widget);
+}

@@ -108,6 +108,9 @@ class DraftsTemplatesContainer : public QScrollArea
 public:
     DraftsTemplatesContainer(QWidget *parent = nullptr);
 
+    void appendWidget(QWidget *widget);
+
+private:
     QVBoxLayout *draftsTemplatesContainerLayout;
 };
 
