@@ -26,6 +26,7 @@ SOURCES += \
     src/tweettemplateswidget.cpp \
     src/jsonserializer.cpp \
     src/toastwidget.cpp \
+    src/scrollablecontainer.cpp \
 
 HEADERS += \
     include/settings.h \
@@ -45,7 +46,8 @@ HEADERS += \
     include/tweettemplatesitemwidget.h \
     include/jsonserializer.h \
     include/toastwidget.h \
-    include/twitterbootstrapstyles.h
+    include/twitterbootstrapstyles.h \
+    include/scrollablecontainer.h \
 
 RESOURCES += \
     images.qrc

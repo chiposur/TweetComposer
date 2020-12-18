@@ -1,4 +1,5 @@
 #include "tweettemplateswidget.h"
+#include "customcontrols.h"
 
 #include <QHBoxLayout>
 #include <QScrollArea>
@@ -25,7 +26,7 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     connect(search, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
     mainLayout->addWidget(search);
 
-    templatesContainer = new DraftsTemplatesContainer();
+    templatesContainer = new ScrollableContainer();
     mainLayout->addWidget(templatesContainer);
 }
 

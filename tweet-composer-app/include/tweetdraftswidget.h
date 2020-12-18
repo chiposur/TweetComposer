@@ -6,7 +6,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "customcontrols.h"
+#include "scrollablecontainer.h"
 #include "tweetdraft.h"
 #include "toast.h"
 #include "tweetdraftsitemwidget.h"
@@ -33,7 +33,7 @@ public slots:
 
 private:
     QMap<int, TweetDraftsItemWidget *> idToItemMap;
-    DraftsTemplatesContainer *draftsContainer;
+    ScrollableContainer *draftsContainer;
 };
 
 #endif // TWEETDRAFTSWIDGET_H
