@@ -26,21 +26,9 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     connect(search, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChanged(const QString &)));
     mainLayout->addWidget(search);
 
-    QScrollArea *scrollArea = new QScrollArea();
-    scrollArea->setStyleSheet("QScrollArea { background: transparent; border: none; }");
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scrollArea->setWidgetResizable(true);
-    scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
-
-    QWidget *templatesContainerWidget = new QWidget();
-    templatesContainerWidget->setStyleSheet("QWidget { background: transparent; }");
-    templatesContainerLayout = new QVBoxLayout();
-    templatesContainerLayout->setContentsMargins(0, 0, 0, 0);
-    templatesContainerLayout->addStretch();
-    templatesContainerWidget->setLayout(templatesContainerLayout);
-    scrollArea->setWidget(templatesContainerWidget);
-
-    mainLayout->addWidget(scrollArea);
+    DraftsTemplatesContainer *templatesContainer = new DraftsTemplatesContainer();
+    templatesLayout = templatesContainer->draftsTemplatesContainerLayout;
+    mainLayout->addWidget(templatesContainer);
 }
 
 void TweetTemplatesWidget::onSearchTextChanged(const QString &text)
@@ -58,7 +46,7 @@ void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTempla
     TweetTemplatesItemWidget *templateItemWidget = new TweetTemplatesItemWidget(tweetTemplate);
 
     // Insert template item before the stretch at the end of the layout
-    templatesContainerLayout->insertWidget(templatesContainerLayout->count() - 1, templateItemWidget);
+    templatesLayout->insertWidget(templatesLayout->count() - 1, templateItemWidget);
 
     connect(templateItemWidget, SIGNAL(templateItemClicked(int)), this, SLOT(onTweetTemplateClicked(int)));
     idToItemMap.insert(tweetTemplate.getId(), templateItemWidget);

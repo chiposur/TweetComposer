@@ -10,10 +10,12 @@
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QStyledItemDelegate>
 #include <QTextEdit>
 #include <QTimer>
 #include <QToolButton>
+#include <QVBoxLayout>
 
 class ComboBoxItemDelegate : public QStyledItemDelegate
 {
@@ -97,6 +99,16 @@ private slots:
 private:
     int debounceMs;
     QTimer *debounceTimer;
+};
+
+class DraftsTemplatesContainer : public QScrollArea
+{
+    Q_OBJECT
+
+public:
+    DraftsTemplatesContainer(QWidget *parent = nullptr);
+
+    QVBoxLayout *draftsTemplatesContainerLayout;
 };
 
 #endif // CUSTOMCONTROLS_H

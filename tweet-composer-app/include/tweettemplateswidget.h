@@ -32,7 +32,7 @@ public slots:
 
 private:
     QMap<int, TweetTemplatesItemWidget *> idToItemMap;
-    QVBoxLayout *templatesContainerLayout;
+    QVBoxLayout *templatesLayout;
 };
 
 #endif // TWEETTEMPLATESWIDGET_H

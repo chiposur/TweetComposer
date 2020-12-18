@@ -119,3 +119,19 @@ void Typeahead::onDebounceTimeout()
 {
     emit textChanged(text());
 }
+
+DraftsTemplatesContainer::DraftsTemplatesContainer(QWidget *parent) : QScrollArea(parent)
+{
+    setStyleSheet("QScrollArea { background: transparent; border: none; }");
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setWidgetResizable(true);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+
+    QWidget *draftsTemplatesContainerWidget = new QWidget();
+    draftsTemplatesContainerWidget->setStyleSheet("QWidget { background: transparent; }");
+    draftsTemplatesContainerLayout = new QVBoxLayout();
+    draftsTemplatesContainerLayout->setContentsMargins(0, 0, 0, 0);
+    draftsTemplatesContainerLayout->addStretch();
+    draftsTemplatesContainerWidget->setLayout(draftsTemplatesContainerLayout);
+    setWidget(draftsTemplatesContainerWidget);
+}
