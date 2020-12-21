@@ -27,8 +27,6 @@ public slots:
     void onTweetTemplateAdded(const TweetTemplate &tweetTemplate);
     void onTweetTemplateEdited(const TweetTemplate &tweetTemplate);
     void onTweetTemplateDeleted(int templateId);
-    void onBackPressed();
-    void onTweetTemplateClicked(int templateId);
     void onSearchTextChanged(const QString &text);
 
 private:

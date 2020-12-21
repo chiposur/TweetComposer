@@ -17,7 +17,7 @@ TweetTemplatesWidget::TweetTemplatesWidget(QWidget *parent) : QWidget(parent)
     backBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     navBtnsLayout->addWidget(backBtn);
 
-    connect(backBtn, SIGNAL(clicked()), this, SLOT(onBackPressed()));
+    connect(backBtn, SIGNAL(clicked()), this, SIGNAL(backRequested()));
 
     navBtnsLayout->addStretch();
 
@@ -45,13 +45,8 @@ void TweetTemplatesWidget::onTweetTemplateAdded(const TweetTemplate &tweetTempla
     TweetTemplatesItemWidget *templateItemWidget = new TweetTemplatesItemWidget(tweetTemplate);
     templatesContainer->appendWidget(templateItemWidget);
 
-    connect(templateItemWidget, SIGNAL(templateItemClicked(int)), this, SLOT(onTweetTemplateClicked(int)));
+    connect(templateItemWidget, SIGNAL(templateItemClicked(int)), this, SIGNAL(editTemplateRequested(int)));
     idToItemMap.insert(tweetTemplate.getId(), templateItemWidget);
-}
-
-void TweetTemplatesWidget::onBackPressed()
-{
-    emit backRequested();
 }
 
 void TweetTemplatesWidget::onTweetTemplateEdited(const TweetTemplate &tweetTemplate)
@@ -66,9 +61,4 @@ void TweetTemplatesWidget::onTweetTemplateDeleted(int templateId)
     TweetTemplatesItemWidget *templateItemWidget = idToItemMap[templateId];
     idToItemMap.remove(templateId);
     templateItemWidget->deleteLater();
-}
-
-void TweetTemplatesWidget::onTweetTemplateClicked(int templateId)
-{
-    emit editTemplateRequested(templateId);
 }

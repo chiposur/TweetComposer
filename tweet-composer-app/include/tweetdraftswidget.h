@@ -27,8 +27,6 @@ public slots:
     void onTweetDraftAdded(const TweetDraft &tweetDraft);
     void onTweetDraftEdited(const TweetDraft &tweetDraft);
     void onTweetDraftDeleted(int draftId);
-    void onBackPressed();
-    void onTweetDraftClicked(int draftId);
     void onSearchTextChanged(const QString &text);
 
 private:

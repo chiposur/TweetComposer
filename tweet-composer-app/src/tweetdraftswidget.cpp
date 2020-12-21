@@ -17,7 +17,7 @@ TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)
     backBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     navBtnsLayout->addWidget(backBtn);
 
-    connect(backBtn, SIGNAL(clicked()), this, SLOT(onBackPressed()));
+    connect(backBtn, SIGNAL(clicked()), this, SIGNAL(backRequested()));
 
     navBtnsLayout->addStretch();
 
@@ -45,13 +45,8 @@ void TweetDraftsWidget::onTweetDraftAdded(const TweetDraft &tweetDraft)
     TweetDraftsItemWidget *draftItemWidget = new TweetDraftsItemWidget(tweetDraft);
     draftsContainer->appendWidget(draftItemWidget);
 
-    connect(draftItemWidget, SIGNAL(draftItemClicked(int)), this, SLOT(onTweetDraftClicked(int)));
+    connect(draftItemWidget, SIGNAL(draftItemClicked(int)), this, SIGNAL(editDraftRequested(int)));
     idToItemMap.insert(tweetDraft.getId(), draftItemWidget);
-}
-
-void TweetDraftsWidget::onBackPressed()
-{
-    emit backRequested();
 }
 
 void TweetDraftsWidget::onTweetDraftEdited(const TweetDraft &tweetTemplate)
@@ -66,9 +61,4 @@ void TweetDraftsWidget::onTweetDraftDeleted(int draftId)
     TweetDraftsItemWidget *draftItemWidget = idToItemMap[draftId];
     idToItemMap.remove(draftId);
     draftItemWidget->deleteLater();
-}
-
-void TweetDraftsWidget::onTweetDraftClicked(int draftId)
-{
-    emit editDraftRequested(draftId);
 }
