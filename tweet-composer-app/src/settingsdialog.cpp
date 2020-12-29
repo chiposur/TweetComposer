@@ -18,6 +18,31 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
 
+    QGroupBox *twitterApiGroupBox = new QGroupBox("Twitter API");
+    mainLayout->addWidget(twitterApiGroupBox);
+
+    QVBoxLayout *twitterApiLayout = new QVBoxLayout();
+    twitterApiGroupBox->setLayout(twitterApiLayout);
+
+    apiKeyLineEdit = new QLineEdit(Settings::apiKey);
+    apiSecretLineEdit = new QLineEdit(Settings::apiSecret);
+    accessTokenLineEdit = new QLineEdit(Settings::accessToken);
+    accessTokenSecretLineEdit = new QLineEdit(Settings::accessTokenSecret);
+
+    apiKeyLineEdit->setEchoMode(QLineEdit::Password);
+    apiSecretLineEdit->setEchoMode(QLineEdit::Password);
+    accessTokenLineEdit->setEchoMode(QLineEdit::Password);
+    accessTokenSecretLineEdit->setEchoMode(QLineEdit::Password);
+
+    twitterApiLayout->addWidget(new QLabel("API key:"));
+    twitterApiLayout->addWidget(apiKeyLineEdit);
+    twitterApiLayout->addWidget(new QLabel("API key secret:"));
+    twitterApiLayout->addWidget(apiSecretLineEdit);
+    twitterApiLayout->addWidget(new QLabel("Access token:"));
+    twitterApiLayout->addWidget(accessTokenLineEdit);
+    twitterApiLayout->addWidget(new QLabel("Access token secret:"));
+    twitterApiLayout->addWidget(accessTokenSecretLineEdit);
+
     QGroupBox *storageGroupBox = new QGroupBox("Storage");
     mainLayout->addWidget(storageGroupBox);
 
@@ -48,6 +73,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     connect(deleteAllTemplatesBtn, SIGNAL(clicked()), this, SLOT(onDeleteAllTemplatesBtnClicked()));
     deleteBtnsLayout->addWidget(deleteAllDraftsBtn);
     deleteBtnsLayout->addWidget(deleteAllTemplatesBtn);
+    deleteBtnsLayout->addStretch();
 
     mainLayout->addStretch();
 
@@ -96,6 +122,10 @@ void SettingsDialog::onDeleteAllTemplatesBtnClicked()
 
 void SettingsDialog::accept()
 {
+    Settings::apiKey = apiKeyLineEdit->text();
+    Settings::apiSecret = apiSecretLineEdit->text();
+    Settings::accessToken = accessTokenLineEdit->text();
+    Settings::accessTokenSecret = accessTokenSecretLineEdit->text();
     Settings::encryptDraftsOnDisk = encryptDraftsCheck->isChecked();
     Settings::encryptTemplatesOnDisk = encryptTemplatesCheck->isChecked();
     Settings::persistWindowState = persistWindowSizeCheck->isChecked();

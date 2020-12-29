@@ -1,4 +1,4 @@
-QT += core gui widgets
+QT += core gui widgets network
 
 CONFIG += c++17
 
@@ -27,6 +27,7 @@ SOURCES += \
     src/jsonserializer.cpp \
     src/toastwidget.cpp \
     src/scrollablecontainer.cpp \
+    src/twitterapiclient.cpp \
 
 HEADERS += \
     include/settings.h \
@@ -48,6 +49,7 @@ HEADERS += \
     include/toastwidget.h \
     include/twitterbootstrapstyles.h \
     include/scrollablecontainer.h \
+    include/twitterapiclient.h \
 
 RESOURCES += \
     images.qrc

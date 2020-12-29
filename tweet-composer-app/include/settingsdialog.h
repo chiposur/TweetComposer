@@ -3,6 +3,7 @@
 
 #include <QCheckBox>
 #include <QDialog>
+#include <QLineEdit>
 #include <QObject>
 
 #include "customcontrols.h"
@@ -21,6 +22,11 @@ private slots:
     void onDeleteAllTemplatesBtnClicked();
 
 private:
+    QLineEdit *apiKeyLineEdit;
+    QLineEdit *apiSecretLineEdit;
+    QLineEdit *accessTokenLineEdit;
+    QLineEdit *accessTokenSecretLineEdit;
+
     QCheckBox *encryptDraftsCheck;
     QCheckBox *encryptTemplatesCheck;
     QCheckBox *persistWindowSizeCheck;

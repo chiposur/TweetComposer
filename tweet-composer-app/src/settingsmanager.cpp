@@ -5,16 +5,18 @@
 
 #include <QString>
 
-const QString userSettingsPath("settings");
-const QString encryptTweetDraftsPath("settings/encryptTweetDrafts");
-const QString encryptTweetTemplatesPath("settings/encryptTweetTemplates");
-const QString persistWindowSizePath("settings/persistWindowSize");
-const QString storagePath("storage");
-const QString windowGeometryPath("storage/windowGeometry");
-const QString tweetDraftsJsonPath("storage/tweetDraftsJson");
-const QString tweetTemplatesJsonPath("storage/tweetTemplatesJson");
+const QString SettingsManager::encryptTweetDraftsPath("settings/encryptTweetDrafts");
+const QString SettingsManager::encryptTweetTemplatesPath("settings/encryptTweetTemplates");
+const QString SettingsManager::persistWindowSizePath("settings/persistWindowSize");
+const QString SettingsManager::apiKeyPath("twitterApi/apiKey");
+const QString SettingsManager::apiSecretPath("twitterApi/apiSecret");
+const QString SettingsManager::accessTokenPath("twitterApi/accessToken");
+const QString SettingsManager::accessTokenSecretPath("twitterApi/accessTokenSecret");
+const QString SettingsManager::windowGeometryPath("storage/windowGeometry");
+const QString SettingsManager::tweetDraftsJsonPath("storage/tweetDraftsJson");
+const QString SettingsManager::tweetTemplatesJsonPath("storage/tweetTemplatesJson");
 
-SettingsManager::SettingsManager(QObject *parent) : QObject(parent)
+SettingsManager::SettingsManager()
 {
     jsonSerializer = JsonSerializer::getInstance();
     settings = new QSettings("Chip Osur", "TweetComposer");
@@ -28,6 +30,10 @@ SettingsManager *SettingsManager::getInstance()
 
 void SettingsManager::loadSettings()
 {
+    Settings::apiKey = settings->value(apiKeyPath, "").toString();
+    Settings::apiSecret = settings->value(apiSecretPath, "").toString();
+    Settings::accessToken = settings->value(accessTokenPath, "").toString();
+    Settings::accessTokenSecret = settings->value(accessTokenSecretPath, "").toString();
     Settings::encryptDraftsOnDisk = settings->value(encryptTweetDraftsPath, false).toBool();
     Settings::encryptTemplatesOnDisk = settings->value(encryptTweetTemplatesPath, false).toBool();
     Settings::persistWindowState = settings->value(persistWindowSizePath, false).toBool();
@@ -72,6 +78,10 @@ void SettingsManager::loadTweetTemplates()
 
 bool SettingsManager::saveSettings()
 {
+    settings->setValue(apiKeyPath, Settings::apiKey);
+    settings->setValue(apiSecretPath, Settings::apiSecret);
+    settings->setValue(accessTokenPath, Settings::accessToken);
+    settings->setValue(accessTokenSecretPath, Settings::accessTokenSecret);
     settings->setValue(encryptTweetDraftsPath, Settings::encryptDraftsOnDisk);
     settings->setValue(encryptTweetTemplatesPath, Settings::encryptTemplatesOnDisk);
     settings->setValue(persistWindowSizePath, Settings::persistWindowState);

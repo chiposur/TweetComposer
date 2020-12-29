@@ -1,7 +1,5 @@
 #include "mainwindow.h"
-#include "jsonserializer.h"
 #include "settings.h"
-#include "settingsmanager.h"
 #include "toastwidget.h"
 #include "styles.h"
 
@@ -77,6 +75,7 @@ void MainWindow::initAndConnectSingletons()
     dataStore = DataStore::getInstance();
     jsonSerializer = JsonSerializer::getInstance();
     settingsManager = SettingsManager::getInstance();
+    twitterApiClient = TwitterApiClient::getInstance();
 
     // Connect DataStore singleton add/edit/delete signals to JsonSerializer singleton
     connect(

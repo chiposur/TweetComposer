@@ -13,6 +13,7 @@
 #include "datastore.h"
 #include "jsonserializer.h"
 #include "settingsmanager.h"
+#include "twitterapiclient.h"
 
 class MainWindow : public QMainWindow
 {
@@ -56,6 +57,7 @@ private:
     DataStore *dataStore;
     JsonSerializer *jsonSerializer;
     SettingsManager *settingsManager;
+    TwitterApiClient *twitterApiClient;
 
     QVBoxLayout *mainLayout;
     ComposeWidget *composeWidget;
