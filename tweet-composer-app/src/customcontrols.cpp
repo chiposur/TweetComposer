@@ -100,6 +100,19 @@ DeleteButton::DeleteButton(const QString &text, QWidget *parent)
     setCursor(Qt::PointingHandCursor);
 }
 
+TwitterButton::TwitterButton(QWidget *parent) : QPushButton(parent)
+{
+    setStyleSheet(Styles::TWITTER_BUTTON_STYLE_SHEET);
+    setCursor(Qt::PointingHandCursor);
+}
+
+TwitterButton::TwitterButton(const QString &text, QWidget *parent)
+    : QPushButton(text, parent)
+{
+    setStyleSheet(Styles::TWITTER_BUTTON_STYLE_SHEET);
+    setCursor(Qt::PointingHandCursor);
+}
+
 Typeahead::Typeahead(int debounceMs, QWidget *parent) : QLineEdit(parent), debounceMs(debounceMs)
 {
     setStyleSheet(Styles::TYPEAHEAD_STYLE_SHEET);

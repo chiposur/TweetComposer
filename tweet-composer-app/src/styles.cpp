@@ -150,15 +150,35 @@ const QString Styles::BUTTON_STYLE_SHEET =
     "}";
 
 const QString Styles::DELETE_BUTTON_STYLE_SHEET =
-    "QPushButton { "
-    "color: #ff0000; border: none; background-color: transparent; padding: 3px 4px;"
+    "QPushButton {"
+    "color: #ff0000;"
+    "border: none;"
+    "background-color: transparent;"
+    "border-radius: 15px;"
+    "padding: 6px 15px;"
     "font-size: 15px;"
     "} "
     "QPushButton:disabled {"
-    "color: gray;"
+    "color: gray; "
     "}"
     "QPushButton:hover {"
     "color: white; border-width: 2px; border-color: #ff0000; background-color: #ff0000;"
+    "}";
+
+const QString Styles::TWITTER_BUTTON_STYLE_SHEET =
+    "QPushButton {"
+    "color: #1DA1F2;"
+    "border: none;"
+    "background-color: transparent;"
+    "border-radius: 15px;"
+    "padding: 6px 15px;"
+    "font-size: 15px;"
+    "} "
+    "QPushButton:disabled {"
+    "color: gray; "
+    "}"
+    "QPushButton:hover {"
+    "color: white; border-width: 2px; border-color: #1DA1F2; background-color: #1DA1F2;"
     "}";
 
 const QString Styles::CHECKBOX_STYLE_SHEET =

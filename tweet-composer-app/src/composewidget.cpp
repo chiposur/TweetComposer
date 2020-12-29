@@ -1,4 +1,5 @@
 #include <QAction>
+#include <QApplication>
 #include <QClipboard>
 #include <QFont>
 #include <QGuiApplication>
@@ -14,6 +15,13 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     dataStore = DataStore::getInstance();
     tweetDrafts = dataStore->getTweetDrafts();
     tweetTemplates = dataStore->getTweetTemplates();
+
+    twitterApiClient = TwitterApiClient::getInstance();
+    connect(
+        twitterApiClient,
+        SIGNAL(updateStatusFinished(RequestId, TwitterApiClient::ResultType)),
+        this,
+        SLOT(onUpdateStatusFinished(RequestId, TwitterApiClient::ResultType)));
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
@@ -113,16 +121,20 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     saveAsTemplateBtn = new QPushButton("Save as Template");
     saveBtn = new QPushButton();
     deleteBtn = new QPushButton();
+    tweetBtn = new TwitterButton("Tweet");
 
     editorBottomLayout->addWidget(saveAsDraftBtn);
     editorBottomLayout->addWidget(saveAsTemplateBtn);
     editorBottomLayout->addWidget(saveBtn);
     editorBottomLayout->addWidget(deleteBtn);
+    editorBottomLayout->addStretch();
+    editorBottomLayout->addWidget(tweetBtn);
 
     connect(saveAsDraftBtn, SIGNAL(clicked()), this, SLOT(saveAsDraftBtnClicked()));
     connect(saveAsTemplateBtn, SIGNAL(clicked()), this, SLOT(saveAsTemplateBtnClicked()));
     connect(saveBtn, SIGNAL(clicked()), this, SLOT(saveBtnClicked()));
     connect(deleteBtn, SIGNAL(clicked()), this, SLOT(deleteBtnClicked()));
+    connect(tweetBtn, SIGNAL(clicked()), this, SLOT(tweetBtnClicked()));
 
     editorBottomLayout->addStretch();
 
@@ -213,6 +225,8 @@ void ComposeWidget::updateBtnStates()
         saveBtn->setVisible(false);
         deleteBtn->setVisible(false);
     }
+
+    tweetBtn->setEnabled(tweetHasText);
 }
 
 void ComposeWidget::saveAsDraftBtnClicked()
@@ -324,6 +338,35 @@ void ComposeWidget::deleteBtnClicked()
     {
         clearTweetEdit();
     }
+}
+
+void ComposeWidget::tweetBtnClicked()
+{
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    twitterApiClient->updateStatus(tweetTextEdit->toPlainText());
+}
+
+void ComposeWidget::onUpdateStatusFinished(RequestId /*id*/, TwitterApiClient::ResultType result)
+{
+    QApplication::restoreOverrideCursor();
+    \
+    Toast toast;
+    if (result == TwitterApiClient::ResultType::OK)
+    {
+        toast.setText("Tweet posted to Twitter");
+    }
+    else if (result == TwitterApiClient::ResultType::TIMEOUT)
+    {
+        toast.setText("Tweet post timed out");
+        toast.setToastType(Toast::ToastTypes::ERROR);
+    }
+    else
+    {
+        toast.setText("Tweet failed to post to Twitter");
+        toast.setToastType(Toast::ToastTypes::ERROR);
+    }
+
+    emit toastRequested(toast);
 }
 
 void ComposeWidget::clearTweetEdit()

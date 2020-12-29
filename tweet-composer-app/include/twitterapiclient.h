@@ -24,7 +24,7 @@ public:
     RequestId updateStatus(QString tweetText);
 
 signals:
-    void updateStatusFinished(RequestId id, ResultType result);
+    void updateStatusFinished(RequestId id, TwitterApiClient::ResultType result);
 
 private slots:
     void onUpdateStatusFinished();

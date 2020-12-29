@@ -30,6 +30,7 @@ public:
     static const QString COMBOBOX_STYLE_SHEET;
     static const QString BUTTON_STYLE_SHEET;
     static const QString DELETE_BUTTON_STYLE_SHEET;
+    static const QString TWITTER_BUTTON_STYLE_SHEET;
     static const QString CHECKBOX_STYLE_SHEET;
     static const QString TYPEAHEAD_STYLE_SHEET;
 };

@@ -10,11 +10,12 @@
 #include <QTextCharFormat>
 #include <QToolButton>
 
-#include <tweetdraft.h>
-#include <tweettemplate.h>
-#include <customcontrols.h>
-#include <datastore.h>
-#include <toast.h>
+#include "tweetdraft.h"
+#include "tweettemplate.h"
+#include "customcontrols.h"
+#include "datastore.h"
+#include "toast.h"
+#include "twitterapiclient.h"
 
 class ComposeWidget : public QWidget
 {
@@ -29,10 +30,6 @@ public slots:
     void underlineToggled(bool checked);
     void onTextChanged();
     void onCurrentTextChanged(const QString &text);
-    void saveAsDraftBtnClicked();
-    void saveAsTemplateBtnClicked();
-    void saveBtnClicked();
-    void deleteBtnClicked();
     void loadTweetDraft(const TweetDraft &tweetDraft);
     void loadTweetTemplate(const TweetTemplate &tweetTemplate);
     void draftsBtnClicked();
@@ -45,6 +42,12 @@ signals:
 
 private slots:
     void clearTweetEdit();
+    void saveAsDraftBtnClicked();
+    void saveAsTemplateBtnClicked();
+    void saveBtnClicked();
+    void deleteBtnClicked();
+    void tweetBtnClicked();
+    void onUpdateStatusFinished(RequestId id, TwitterApiClient::ResultType result);
 
 private:
     int tweetTextLength();
@@ -67,6 +70,7 @@ private:
     QPushButton *saveAsTemplateBtn;
     QPushButton *saveBtn;
     QPushButton *deleteBtn;
+    QPushButton *tweetBtn;
 
     bool isBold = false;
     bool isItalic = false;
@@ -84,6 +88,7 @@ private:
     QVector<TweetTemplate> *tweetTemplates;
 
     DataStore *dataStore;
+    TwitterApiClient *twitterApiClient;
 };
 
 #endif // COMPOSEWIDGET_H

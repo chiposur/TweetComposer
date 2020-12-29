@@ -78,6 +78,15 @@ private:
     static const QString STYLE_SHEET;
 };
 
+class TwitterButton : public QPushButton
+{
+    Q_OBJECT
+
+public:
+    TwitterButton(const QString &text, QWidget *parent = nullptr);
+    TwitterButton(QWidget *parent = nullptr);
+};
+
 class Typeahead : public QLineEdit
 {
     Q_OBJECT
