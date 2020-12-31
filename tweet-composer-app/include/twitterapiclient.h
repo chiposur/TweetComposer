@@ -19,9 +19,12 @@ public:
         TIMEOUT,
         AUTH_FAILED,
         UNKNOWN_NETWORK_ERROR,
+        PROTOCOL_INVALID_OPERATION_ERROR,
     };
 
     static TwitterApiClient *getInstance();
+
+    void updateCredentials();
 
     RequestId updateStatus(QString tweetText);
 

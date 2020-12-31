@@ -360,6 +360,16 @@ void ComposeWidget::onUpdateStatusFinished(RequestId /*id*/, TwitterApiClient::R
         toast.setText("Tweet post timed out");
         toast.setToastType(Toast::ToastTypes::ERROR);
     }
+    else if (result == TwitterApiClient::ResultType::UNKNOWN_NETWORK_ERROR)
+    {
+        toast.setText("Tweet failed to post to Twitter: unknown network error");
+        toast.setToastType(Toast::ToastTypes::ERROR);
+    }
+    else if (result == TwitterApiClient::ResultType::PROTOCOL_INVALID_OPERATION_ERROR)
+    {
+        toast.setText("Tweet failed to post to Twitter: protocol invalid operation error");
+        toast.setToastType(Toast::ToastTypes::ERROR);
+    }
     else
     {
         toast.setText("Tweet failed to post to Twitter");

@@ -51,6 +51,7 @@ void MainWindow::updateAppStyles()
 void MainWindow::loadSettings()
 {
     settingsManager->loadSettings();
+    twitterApiClient->updateCredentials();
 
     if (Settings::persistWindowState)
     {
@@ -445,6 +446,7 @@ void MainWindow::showSettingsDialogTriggered()
     if (dialog.exec())
     {
         SettingsManager::getInstance()->saveSettings();
+        twitterApiClient->updateCredentials();
     }
 }
 

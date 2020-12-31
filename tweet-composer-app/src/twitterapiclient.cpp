@@ -8,8 +8,9 @@
 TwitterApiClient::TwitterApiClient()
 {
     networkAccessManager = new QNetworkAccessManager(this);
-    oauth1 = new QOAuth1(networkAccessManager, this);
+    oauth1 = new QOAuth1(Settings::apiKey, Settings::apiSecret, networkAccessManager, this);
     oauth1->setSignatureMethod(QOAuth1::SignatureMethod::Hmac_Sha1);
+    oauth1->setTokenCredentials(Settings::accessToken, Settings::accessTokenSecret);
     replyToRequestIdMap = new QMap<QNetworkReply *, RequestId>();
 }
 
@@ -24,12 +25,14 @@ TwitterApiClient *TwitterApiClient::getInstance()
     return &client;
 }
 
-RequestId TwitterApiClient::updateStatus(QString tweetText)
+void TwitterApiClient::updateCredentials()
 {
-    // Update credentials as they may have changed
     oauth1->setClientCredentials(Settings::apiKey, Settings::apiSecret);
     oauth1->setTokenCredentials(Settings::accessToken, Settings::accessTokenSecret);
+}
 
+RequestId TwitterApiClient::updateStatus(QString tweetText)
+{
     QVariantMap parameters;
     parameters.insert("status", tweetText);
     QNetworkReply *reply = oauth1->post(QUrl("https://api.twitter.com/1.1/statuses/update.json"), parameters);
@@ -58,6 +61,10 @@ void TwitterApiClient::onUpdateStatusFinished()
     else if (error == QNetworkReply::UnknownNetworkError)
     {
         result = ResultType::UNKNOWN_NETWORK_ERROR;
+    }
+    else if (error == QNetworkReply::ProtocolInvalidOperationError)
+    {
+        result = ResultType::PROTOCOL_INVALID_OPERATION_ERROR;
     }
 
     RequestId id = replyToRequestIdMap->value(reply);
