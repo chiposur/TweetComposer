@@ -3,6 +3,7 @@
 
 #include <QMap>
 #include <QNetworkAccessManager>
+#include <QOAuth1>
 #include <QObject>
 
 typedef int RequestId;
@@ -17,6 +18,7 @@ public:
         OK,
         TIMEOUT,
         AUTH_FAILED,
+        UNKNOWN_NETWORK_ERROR,
     };
 
     static TwitterApiClient *getInstance();
@@ -38,6 +40,7 @@ private:
     int numRequests = 0;
 
     QNetworkAccessManager *networkAccessManager;
+    QOAuth1 *oauth1;
     QMap<QNetworkReply *, RequestId> *replyToRequestIdMap;
 };
 

@@ -8,6 +8,8 @@
 TwitterApiClient::TwitterApiClient()
 {
     networkAccessManager = new QNetworkAccessManager(this);
+    oauth1 = new QOAuth1(networkAccessManager, this);
+    oauth1->setSignatureMethod(QOAuth1::SignatureMethod::Hmac_Sha1);
     replyToRequestIdMap = new QMap<QNetworkReply *, RequestId>();
 }
 
@@ -24,16 +26,13 @@ TwitterApiClient *TwitterApiClient::getInstance()
 
 RequestId TwitterApiClient::updateStatus(QString tweetText)
 {
-    QUrlQuery query;
-    query.addQueryItem("status", tweetText);
-    QByteArray postData = query.toString(QUrl::FullyEncoded).toUtf8();
-    QNetworkRequest updateStatusRequest(QUrl("https://api.twitter.com/1.1/statuses/update.json"));
-    updateStatusRequest.setRawHeader("oauth_consumer_key", Settings::apiKey.toUtf8());
-    updateStatusRequest.setRawHeader("oauth_consumer_secret", Settings::apiSecret.toUtf8());
-    updateStatusRequest.setRawHeader("oauth_token", Settings::accessToken.toUtf8());
-    updateStatusRequest.setRawHeader("oauth_token_secret", Settings::accessTokenSecret.toUtf8());
+    // Update credentials as they may have changed
+    oauth1->setClientCredentials(Settings::apiKey, Settings::apiSecret);
+    oauth1->setTokenCredentials(Settings::accessToken, Settings::accessTokenSecret);
 
-    QNetworkReply *reply = networkAccessManager->post(updateStatusRequest, postData);
+    QVariantMap parameters;
+    parameters.insert("status", tweetText);
+    QNetworkReply *reply = oauth1->post(QUrl("https://api.twitter.com/1.1/statuses/update.json"), parameters);
     connect(reply, SIGNAL(finished()), this, SLOT(onUpdateStatusFinished()));
 
     RequestId id = getNewRequestId();
@@ -55,6 +54,10 @@ void TwitterApiClient::onUpdateStatusFinished()
     else if (error == QNetworkReply::ContentAccessDenied)
     {
         result = ResultType::AUTH_FAILED;
+    }
+    else if (error == QNetworkReply::UnknownNetworkError)
+    {
+        result = ResultType::UNKNOWN_NETWORK_ERROR;
     }
 
     RequestId id = replyToRequestIdMap->value(reply);
