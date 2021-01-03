@@ -174,8 +174,9 @@ void ComposeWidget::onTweetTextDocumentContentsChange(int position, int charsRem
     {
         QChar currentChar = tweetText[index];
 
-        bool isLetterOrDigit = currentChar.isLetter() || currentChar.isDigit();
-        if (!isLetterOrDigit || currentChar.isSurrogate())
+        bool isLatinOrDigit = (currentChar >= 'a' && currentChar <= 'z') || (currentChar >= 'A' && currentChar <= 'Z')
+            || currentChar.isDigit();
+        if (!isLatinOrDigit || currentChar.isSurrogate())
         {
             replacementText.append(currentChar);
             ++index;
@@ -266,7 +267,6 @@ void ComposeWidget::italicToggled(bool checked)
 
 void ComposeWidget::onTextChanged()
 {
-    // Set chars remaining label
     QString charsRemainingText;
     int charsRemaining = Styles::TWEET_MAX_LENGTH - tweetTextEdit->toPlainText().length();
     if (charsRemaining <=  Styles::TWEET_CHARS_REMAINING_LIMIT)
@@ -276,7 +276,6 @@ void ComposeWidget::onTextChanged()
     }
 
     charsRemainingLabel->setText(charsRemainingText);
-
     updateBtnStates();
 }
 
