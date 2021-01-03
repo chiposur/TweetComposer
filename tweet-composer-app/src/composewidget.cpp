@@ -482,11 +482,23 @@ void ComposeWidget::loadTweetDraft(const TweetDraft &tweetDraft)
         return;
     }
 
+    disconnect(
+        tweetTextEdit->document(),
+        SIGNAL(contentsChange(int, int, int)),
+        this,
+        SLOT(onTweetTextDocumentContentsChange(int, int, int)));
+
     tweetTextEdit->setPlainText(tweetDraft.getText());
     nameLineEdit->setText(tweetDraft.getName());
     draftId = tweetDraft.getId();
     templateId = -1;
     updateBtnStates();
+
+    connect(
+        tweetTextEdit->document(),
+        SIGNAL(contentsChange(int, int, int)),
+        this,
+        SLOT(onTweetTextDocumentContentsChange(int, int, int)));
 }
 
 void ComposeWidget::loadTweetTemplate(const TweetTemplate &tweetTemplate)
@@ -496,11 +508,23 @@ void ComposeWidget::loadTweetTemplate(const TweetTemplate &tweetTemplate)
         return;
     }
 
+    disconnect(
+        tweetTextEdit->document(),
+        SIGNAL(contentsChange(int, int, int)),
+        this,
+        SLOT(onTweetTextDocumentContentsChange(int, int, int)));
+
     tweetTextEdit->setPlainText(tweetTemplate.getText());
     nameLineEdit->setText(tweetTemplate.getName());
     templateId = tweetTemplate.getId();
     draftId = -1;
     updateBtnStates();
+
+    connect(
+        tweetTextEdit->document(),
+        SIGNAL(contentsChange(int, int, int)),
+        this,
+        SLOT(onTweetTextDocumentContentsChange(int, int, int)));
 }
 
 bool ComposeWidget::checkAndPromptIfDirty()
