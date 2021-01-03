@@ -25,15 +25,10 @@ public:
     explicit ComposeWidget(QWidget *parent = nullptr);
 
 public slots:
-    void boldToggled(bool checked);
-    void italicToggled(bool checked);
-    void underlineToggled(bool checked);
     void onTextChanged();
     void onCurrentTextChanged(const QString &text);
     void loadTweetDraft(const TweetDraft &tweetDraft);
     void loadTweetTemplate(const TweetTemplate &tweetTemplate);
-    void draftsBtnClicked();
-    void templatesBtnClicked();
 
 signals:
     void showTweetDrafts();
@@ -41,6 +36,10 @@ signals:
     void toastRequested(const Toast &toast);
 
 private slots:
+    void boldToggled(bool checked);
+    void italicToggled(bool checked);
+    void draftsBtnClicked();
+    void templatesBtnClicked();
     void clearTweetEdit();
     void saveAsDraftBtnClicked();
     void saveAsTemplateBtnClicked();
@@ -48,6 +47,7 @@ private slots:
     void deleteBtnClicked();
     void tweetBtnClicked();
     void onUpdateStatusFinished(RequestId id, TwitterApiClient::ResultType result);
+    void onTweetTextDocumentContentsChange(int position, int charsRemoved, int charsAdded);
 
 private:
     int tweetTextLength();
@@ -58,7 +58,6 @@ private:
 
     BoldToggleButton *boldToggleButton;
     ItalicToggleButton *italicToggleButton;
-    UnderlineToggleButton *underlineToggleButton;
 
     TweetTextEdit *tweetTextEdit;
     QLineEdit *nameLineEdit;
@@ -72,9 +71,15 @@ private:
     QPushButton *deleteBtn;
     QPushButton *tweetBtn;
 
+    static const QString MATH_SANS_BOLD_ALPHABET;
+    static const QString MATH_SANS_ITALIC_ALPHABET;
+    static const QString MATH_SANS_BOLD_ITALIC_ALPHABET;
+    static const QString MATH_SERIF_BOLD_ALPHABET;
+    static const QString MATH_SERIF_ITALIC_ALPHABET;
+    static const QString MATH_SERIF_BOLD_ITALIC_ALPHABET;
+
     bool isBold = false;
     bool isItalic = false;
-    bool isUnderline = false;
 
     int draftId = -1;
     int templateId = -1;

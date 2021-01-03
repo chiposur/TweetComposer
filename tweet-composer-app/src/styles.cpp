@@ -53,7 +53,7 @@ const QString Styles::GROUPBOX_STYLE_SHEET =
     "}";
 
 const QString Styles::TWEET_TEXT_EDIT_STYLE_SHEET =
-    "QTextEdit {"
+    "QPlainTextEdit {"
     "background: transparent;"
     "border: 1px solid #17a81a;"
     "font-size: 15px;"

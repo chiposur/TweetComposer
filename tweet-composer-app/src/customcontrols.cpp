@@ -44,7 +44,7 @@ QSize ComboBoxItemDelegate::sizeHint(const QStyleOptionViewItem &/*option*/, con
     return QSize(comboBox->size().width(), 24);
 }
 
-TweetTextEdit::TweetTextEdit(QWidget *parent) : QTextEdit(parent)
+TweetTextEdit::TweetTextEdit(QWidget *parent) : QPlainTextEdit(parent)
 {
     setStyleSheet(Styles::TWEET_TEXT_EDIT_STYLE_SHEET);
 }
@@ -58,7 +58,7 @@ void TweetTextEdit::keyPressEvent(QKeyEvent *e)
     }
     else
     {
-        QTextEdit::keyPressEvent(e);
+        QPlainTextEdit::keyPressEvent(e);
     }
 }
 

@@ -11,7 +11,7 @@
 #include <QObject>
 #include <QPushButton>
 #include <QStyledItemDelegate>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QTimer>
 #include <QToolButton>
 
@@ -33,7 +33,7 @@ private:
     mutable QLabel itemRenderLabel;
 };
 
-class TweetTextEdit : public QTextEdit
+class TweetTextEdit : public QPlainTextEdit
 {
     Q_OBJECT
 
