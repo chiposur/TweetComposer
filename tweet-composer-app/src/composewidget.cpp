@@ -220,7 +220,6 @@ void ComposeWidget::onTweetTextDocumentContentsChange(int position, int charsRem
         }
 
         QStringRef newChar(&alphabet, newCharIndex, 2);
-        QString newCharString = newChar.toString();
         replacementText.append(newChar);
         ++index;
     }
