@@ -128,16 +128,14 @@ ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
     editorBottomLayout->addStretch();
     editorBottomLayout->addWidget(tweetBtn);
 
+    charsRemainingLabel = new QLabel();
+    editorBottomLayout->addWidget(charsRemainingLabel);
+
     connect(saveAsDraftBtn, SIGNAL(clicked()), this, SLOT(saveAsDraftBtnClicked()));
     connect(saveAsTemplateBtn, SIGNAL(clicked()), this, SLOT(saveAsTemplateBtnClicked()));
     connect(saveBtn, SIGNAL(clicked()), this, SLOT(saveBtnClicked()));
     connect(deleteBtn, SIGNAL(clicked()), this, SLOT(deleteBtnClicked()));
     connect(tweetBtn, SIGNAL(clicked()), this, SLOT(tweetBtnClicked()));
-
-    editorBottomLayout->addStretch();
-
-    charsRemainingLabel = new QLabel();
-    editorBottomLayout->addWidget(charsRemainingLabel);
 
     mainLayout->addStretch();
 
