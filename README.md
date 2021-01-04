@@ -1,5 +1,12 @@
 # TweetComposer
- Create, edit and store Tweet drafts locally.
+ A native desktop application for working with tweet drafts and reusable tweet templates.
+
+Key features include:
+* Creating, editing and deleting drafts and templates on disk
+* Searching for drafts and templates by name or text
+* Creating bold and italic Math sans and Math serif tweets using the tweet editor
+* Exporting and importing drafts and templates through JSON files
+* Posting tweets to Twitter via the TwitterApiClient using TLS 1.3 for speed and security
 
 # Build
  C++:	17<br/>
