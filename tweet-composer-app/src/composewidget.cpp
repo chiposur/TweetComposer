@@ -288,7 +288,8 @@ void ComposeWidget::onCurrentTextChanged(const QString &text)
 
 void ComposeWidget::updateBtnStates()
 {
-    int tweetHasText = tweetTextLength() > 0;
+    int tweetLength = tweetTextLength();
+    int tweetHasText = tweetLength > 0;
     if (isTemplate() || isDraft())
     {
         cancelBtn->setText("Cancel edit");
@@ -313,7 +314,7 @@ void ComposeWidget::updateBtnStates()
         deleteBtn->setVisible(false);
     }
 
-    tweetBtn->setEnabled(tweetHasText);
+    tweetBtn->setEnabled(tweetHasText && tweetLength <= Styles::TWEET_MAX_LENGTH);
 }
 
 void ComposeWidget::saveAsDraftBtnClicked()
