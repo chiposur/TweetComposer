@@ -5,10 +5,13 @@
 #include <QLabel>
 #include <QTimer>
 
-ToastWidget::ToastWidget(const Toast &toast, QWidget *parent) : QLabel(parent)
+ToastWidget::ToastWidget(
+    const Toast &toast,
+    const QString &text,
+    QWidget *parent)
+    : QLabel(text, parent)
 {
     toastId = toast.getId();
-    setText(toast.getText());
 
     QString backgroundColor;
     QString textColor;
@@ -34,7 +37,7 @@ ToastWidget::ToastWidget(const Toast &toast, QWidget *parent) : QLabel(parent)
     QString styleString =
         QString("QLabel {") +
         "background-color: %1; color: %2; border: 1px solid %3;" +
-        "padding: 8;"
+        "padding: 8px;"
         "}";
 
     setStyleSheet(
@@ -43,11 +46,7 @@ ToastWidget::ToastWidget(const Toast &toast, QWidget *parent) : QLabel(parent)
         .arg(textColor)
         .arg(borderColor));
 
-    QFontMetrics fontMetrics(font());
-    int textWidth = fontMetrics.horizontalAdvance(text());
-    int horizontalPaddingsWidth = 8 * 2;
-    int borderWidth = 1 * 2;
-    setFixedWidth(textWidth + horizontalPaddingsWidth + borderWidth + frameWidth());
+    setFixedSize(sizeHint());
     QTimer::singleShot(toast.getDurationMs(), this, SLOT(onDurationExpired()));
 }
 

@@ -432,8 +432,9 @@ void ComposeWidget::tweetBtnClicked()
     twitterApiClient->updateStatus(tweetTextEdit->toPlainText());
 }
 
-void ComposeWidget::onUpdateStatusFinished(RequestId /*id*/, TwitterApiClient::ResultType result)
+void ComposeWidget::onUpdateStatusFinished(RequestId id, TwitterApiClient::ResultType result)
 {
+    Q_UNUSED(id);
     QApplication::restoreOverrideCursor();
     \
     Toast toast;

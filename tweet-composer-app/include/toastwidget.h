@@ -10,7 +10,10 @@ class ToastWidget : public QLabel
     Q_OBJECT
 
 public:
-    ToastWidget(const Toast &toast, QWidget *parent = nullptr);
+    ToastWidget(
+        const Toast &toast,
+        const QString &text,
+        QWidget *parent = nullptr);
 
 signals:
     void toastWidgetExpired(int height);

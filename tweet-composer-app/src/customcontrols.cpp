@@ -39,8 +39,10 @@ void ComboBoxItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     itemRenderLabel.render(painter, option.rect.topLeft());
 }
 
-QSize ComboBoxItemDelegate::sizeHint(const QStyleOptionViewItem &/*option*/, const QModelIndex &/*index*/) const
+QSize ComboBoxItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    Q_UNUSED(option)
+    Q_UNUSED(index)
     return QSize(comboBox->size().width(), 24);
 }
 

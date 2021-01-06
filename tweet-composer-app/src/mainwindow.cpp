@@ -452,7 +452,7 @@ void MainWindow::showSettingsDialogTriggered()
 
 void MainWindow::onToastRequested(const Toast &toast)
 {
-    ToastWidget *toastWidget = new ToastWidget(toast, this);
+    ToastWidget *toastWidget = new ToastWidget(toast, toast.getText(), this);
     connect(toastWidget, SIGNAL(toastWidgetExpired(int)), this, SLOT(onToastWidgetExpired(int)));
     topToastHeight += TOAST_MARGIN_PX + toastWidget->height();
     int toastX = width() - toastWidget->width() - TOAST_MARGIN_PX;
