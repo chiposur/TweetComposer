@@ -436,7 +436,7 @@ void ComposeWidget::onUpdateStatusFinished(RequestId id, TwitterApiClient::Resul
 {
     Q_UNUSED(id);
     QApplication::restoreOverrideCursor();
-    \
+
     Toast toast;
     if (result == TwitterApiClient::ResultType::OK)
     {

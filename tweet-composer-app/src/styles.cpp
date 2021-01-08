@@ -53,7 +53,7 @@ const QString Styles::GROUPBOX_STYLE_SHEET =
     "}";
 
 const QString Styles::TWEET_TEXT_EDIT_STYLE_SHEET =
-    "QPlainTextEdit {"
+    "TweetTextEdit {"
     "background: transparent;"
     "border: 1px solid #17a81a;"
     "font-size: 15px;"
@@ -89,46 +89,31 @@ const QString Styles::COMBOBOX_STYLE_SHEET =
     "}";
 
 const QString Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET =
-    "QPushButton {"
+    "BoldToggleButton {"
     "padding: 4px;"
     "color: #17a81a;"
     "font-size: 15px;"
     "font-weight: bold;"
     "}"
-    "QPushButton:hover {"
+    "BoldToggleButton:hover {"
     "color: white;"
     "}"
-    "QPushButton:checked {"
+    "BoldToggleButton:checked {"
     "color: white;"
     "background: #17a81a;"
     "}";
 
 const QString Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET =
-    "QPushButton {"
+    "ItalicToggleButton {"
     "padding: 4px;"
     "color: #17a81a;"
     "font-size: 15px;"
     "font-style: italic;"
     "}"
-    "QPushButton:hover {"
+    "ItalicToggleButton:hover {"
     "color: white;"
     "}"
-    "QPushButton:checked {"
-    "color: white;"
-    "background: #17a81a;"
-    "}";
-
-const QString Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET =
-    "QPushButton {"
-    "padding: 4px;"
-    "color: #17a81a;"
-    "font-size: 15px; "
-    "text-decoration: underline;"
-    "}"
-    "QPushButton:hover {"
-    "color: white;"
-    "}"
-    "QPushButton:checked {"
+    "ItalicToggleButton:checked {"
     "color: white;"
     "background: #17a81a;"
     "}";
@@ -150,7 +135,7 @@ const QString Styles::BUTTON_STYLE_SHEET =
     "}";
 
 const QString Styles::DELETE_BUTTON_STYLE_SHEET =
-    "QPushButton {"
+    "DeleteButton {"
     "color: #ff0000;"
     "border: none;"
     "background-color: transparent;"
@@ -158,15 +143,15 @@ const QString Styles::DELETE_BUTTON_STYLE_SHEET =
     "padding: 6px 15px;"
     "font-size: 15px;"
     "} "
-    "QPushButton:disabled {"
+    "DeleteButton:disabled {"
     "color: gray; "
     "}"
-    "QPushButton:hover {"
+    "DeleteButton:hover {"
     "color: white; border-width: 2px; border-color: #ff0000; background-color: #ff0000;"
     "}";
 
 const QString Styles::TWITTER_BUTTON_STYLE_SHEET =
-    "QPushButton {"
+    "TwitterButton {"
     "color: #1DA1F2;"
     "border: none;"
     "background-color: transparent;"
@@ -174,10 +159,10 @@ const QString Styles::TWITTER_BUTTON_STYLE_SHEET =
     "padding: 6px 15px;"
     "font-size: 15px;"
     "} "
-    "QPushButton:disabled {"
+    "TwitterButton:disabled {"
     "color: gray; "
     "}"
-    "QPushButton:hover {"
+    "TwitterButton:hover {"
     "color: white; border-width: 2px; border-color: #1DA1F2; background-color: #1DA1F2;"
     "}";
 
@@ -190,7 +175,7 @@ const QString Styles::CHECKBOX_STYLE_SHEET =
     "}";
 
 const QString Styles::TYPEAHEAD_STYLE_SHEET =
-    "QLineEdit {"
+    "Typeahead {"
     "font-size: 15px; border-radius: 10px;"
     "background: transparent; border: 2px solid #17a81a; padding: 3px 5px;"
     "}";

@@ -43,7 +43,13 @@ void MainWindow::updateAppStyles()
         Styles::LINE_EDIT_STYLE_SHEET +
         Styles::COMBOBOX_STYLE_SHEET +
         Styles::BUTTON_STYLE_SHEET +
-        Styles::CHECKBOX_STYLE_SHEET;
+        Styles::CHECKBOX_STYLE_SHEET +
+        Styles::TWEET_TEXT_EDIT_STYLE_SHEET +
+        Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET +
+        Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET +
+        Styles::DELETE_BUTTON_STYLE_SHEET +
+        Styles::TWITTER_BUTTON_STYLE_SHEET +
+        Styles::TYPEAHEAD_STYLE_SHEET;
 
     qApp->setStyleSheet(appStyleSheet);
 }

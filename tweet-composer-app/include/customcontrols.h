@@ -58,14 +58,6 @@ public:
     ItalicToggleButton(QWidget *parent = nullptr);
 };
 
-class UnderlineToggleButton : public QPushButton
-{
-    Q_OBJECT
-
-public:
-    UnderlineToggleButton(QWidget *parent = nullptr);
-};
-
 class DeleteButton : public QPushButton
 {
     Q_OBJECT

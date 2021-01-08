@@ -48,7 +48,7 @@ QSize ComboBoxItemDelegate::sizeHint(const QStyleOptionViewItem &option, const Q
 
 TweetTextEdit::TweetTextEdit(QWidget *parent) : QPlainTextEdit(parent)
 {
-    setStyleSheet(Styles::TWEET_TEXT_EDIT_STYLE_SHEET);
+
 }
 
 void TweetTextEdit::keyPressEvent(QKeyEvent *e)
@@ -69,7 +69,6 @@ BoldToggleButton::BoldToggleButton(QWidget *parent) : QPushButton(parent)
     setText("B");
     setFixedSize(24, 24);
     setCheckable(true);
-    setStyleSheet(Styles::BOLD_TOGGLE_BUTTON_STYLE_SHEET);
 }
 
 ItalicToggleButton::ItalicToggleButton(QWidget *parent) : QPushButton(parent)
@@ -77,48 +76,32 @@ ItalicToggleButton::ItalicToggleButton(QWidget *parent) : QPushButton(parent)
     setText("I");
     setFixedSize(24, 24);
     setCheckable(true);
-    setStyleSheet(Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET);
-}
-
-
-UnderlineToggleButton::UnderlineToggleButton(QWidget *parent) : QPushButton(parent)
-{
-    setText("U");
-    setFixedSize(24, 24);
-    setCheckable(true);
-    setStyleSheet(Styles::UNDERLINE_TOGGLE_BUTTON_STYLE_SHEET);
 }
 
 DeleteButton::DeleteButton(QWidget *parent) : QPushButton(parent)
 {
-    setStyleSheet(Styles::DELETE_BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
 }
 
 DeleteButton::DeleteButton(const QString &text, QWidget *parent)
     : QPushButton(text, parent)
 {
-    setStyleSheet(Styles::DELETE_BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
 }
 
 TwitterButton::TwitterButton(QWidget *parent) : QPushButton(parent)
 {
-    setStyleSheet(Styles::TWITTER_BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
 }
 
 TwitterButton::TwitterButton(const QString &text, QWidget *parent)
     : QPushButton(text, parent)
 {
-    setStyleSheet(Styles::TWITTER_BUTTON_STYLE_SHEET);
     setCursor(Qt::PointingHandCursor);
 }
 
 Typeahead::Typeahead(int debounceMs, QWidget *parent) : QLineEdit(parent), debounceMs(debounceMs)
 {
-    setStyleSheet(Styles::TYPEAHEAD_STYLE_SHEET);
-
     debounceTimer = new QTimer();
     debounceTimer->setSingleShot(true);
     connect(debounceTimer, SIGNAL(timeout()), this, SLOT(onDebounceTimeout()));
