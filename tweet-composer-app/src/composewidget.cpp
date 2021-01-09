@@ -9,6 +9,7 @@
 #include <string>
 
 #include "composewidget.h"
+#include "settings.h"
 #include "settingsmanager.h"
 #include "styles.h"
 
@@ -428,6 +429,19 @@ void ComposeWidget::deleteBtnClicked()
 
 void ComposeWidget::tweetBtnClicked()
 {
+    bool credentialsNotSet = Settings::apiKey.isEmpty()
+        || Settings::apiSecret.isEmpty()
+        || Settings::accessToken.isEmpty()
+        || Settings::accessTokenSecret.isEmpty();
+    if (credentialsNotSet)
+    {
+        QMessageBox::warning(
+            this,
+            "Credentials not set",
+            "Twitter API credentials not set. Set them in the Settings dialog to use this feature.");
+        return;
+    }
+
     QApplication::setOverrideCursor(Qt::WaitCursor);
     twitterApiClient->updateStatus(tweetTextEdit->toPlainText());
 }
