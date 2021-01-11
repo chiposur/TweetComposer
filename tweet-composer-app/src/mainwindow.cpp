@@ -84,6 +84,8 @@ void MainWindow::initAndConnectSingletons()
     settingsManager = SettingsManager::getInstance();
     twitterApiClient = TwitterApiClient::getInstance();
 
+    settingsManager->setDependencies(dataStore, jsonSerializer);
+
     // Connect DataStore singleton add/edit/delete signals to JsonSerializer singleton
     connect(
         dataStore,

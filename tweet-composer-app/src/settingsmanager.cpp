@@ -1,6 +1,4 @@
 #include "settingsmanager.h"
-#include "datastore.h"
-#include "jsonserializer.h"
 #include "settings.h"
 
 #include <QString>
@@ -18,7 +16,6 @@ const QString SettingsManager::tweetTemplatesJsonPath("storage/tweetTemplatesJso
 
 SettingsManager::SettingsManager()
 {
-    jsonSerializer = JsonSerializer::getInstance();
     settings = new QSettings("Chip Osur", "TweetComposer");
 }
 
@@ -26,6 +23,12 @@ SettingsManager *SettingsManager::getInstance()
 {
     static SettingsManager settingsMgr;
     return &settingsMgr;
+}
+
+void SettingsManager::setDependencies(DataStore *dataStore, JsonSerializer *jsonSerializer)
+{
+    this->dataStore = dataStore;
+    this->jsonSerializer = jsonSerializer;
 }
 
 void SettingsManager::loadSettings()
@@ -46,6 +49,11 @@ void SettingsManager::loadWindowGeometry(QByteArray &windowGeometry)
 
 void SettingsManager::loadTweetDrafts()
 {
+    if (!dataStore || !jsonSerializer)
+    {
+        return;
+    }
+
     QVector<TweetDraft> tweetDrafts;
     if (jsonSerializer->deserialize(tweetDrafts, settings->value(tweetDraftsJsonPath).toString()))
     {
@@ -56,12 +64,17 @@ void SettingsManager::loadTweetDrafts()
             ++index;
         }
 
-        DataStore::getInstance()->setTweetDrafts(tweetDrafts);
+        dataStore->setTweetDrafts(tweetDrafts);
     }
 }
 
 void SettingsManager::loadTweetTemplates()
 {
+    if (!dataStore || !jsonSerializer)
+    {
+        return;
+    }
+
     QVector<TweetTemplate> tweetTemplates;
     if (jsonSerializer->deserialize(tweetTemplates, settings->value(tweetTemplatesJsonPath).toString()))
     {
@@ -72,7 +85,7 @@ void SettingsManager::loadTweetTemplates()
             ++index;
         }
 
-        DataStore::getInstance()->setTweetTemplates(tweetTemplates);
+        dataStore->setTweetTemplates(tweetTemplates);
     }
 }
 
@@ -96,6 +109,11 @@ bool SettingsManager::saveWindowGeometry(const QByteArray &windowGeometry)
 
 bool SettingsManager::saveTweetDrafts()
 {
+    if (!jsonSerializer)
+    {
+        return false;
+    }
+
     bool success;
     QString tweetsDraftJson = jsonSerializer->tweetDraftsJson(success);
 
@@ -112,6 +130,11 @@ bool SettingsManager::saveTweetDrafts()
 
 bool SettingsManager::saveTweetTemplates()
 {
+    if (!jsonSerializer)
+    {
+        return false;
+    }
+
     bool success;
     QString tweetsTemplatesJson = jsonSerializer->tweetTemplatesJson(success);
 

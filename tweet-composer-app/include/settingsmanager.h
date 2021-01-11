@@ -5,9 +5,10 @@
 #include <QObject>
 #include <QSettings>
 
+#include "datastore.h"
+#include "jsonserializer.h"
 #include "tweetdraft.h"
 #include "tweettemplate.h"
-#include "jsonserializer.h"
 
 class SettingsManager : public QObject
 {
@@ -17,6 +18,8 @@ public:
     explicit SettingsManager();
 
     static SettingsManager *getInstance();
+
+    void setDependencies(DataStore *dataStore, JsonSerializer *jsonSerializer);
 
     void loadSettings();
     void loadWindowGeometry(QByteArray &windowGeometry);
@@ -42,7 +45,8 @@ private:
     static const QString tweetDraftsJsonPath;
     static const QString tweetTemplatesJsonPath;
 
-    JsonSerializer *jsonSerializer;
+    DataStore *dataStore = nullptr;
+    JsonSerializer *jsonSerializer = nullptr;
     QSettings *settings;
 };
 
