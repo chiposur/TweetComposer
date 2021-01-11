@@ -32,6 +32,7 @@ public:
     static const QString TWITTER_BUTTON_STYLE_SHEET;
     static const QString CHECKBOX_STYLE_SHEET;
     static const QString TYPEAHEAD_STYLE_SHEET;
+    static const QString SCROLLBAR_STYLE_SHEET;
 };
 
 #endif // STYLES_H

@@ -49,7 +49,8 @@ void MainWindow::updateAppStyles()
         Styles::ITALIC_TOGGLE_BUTTON_STYLE_SHEET +
         Styles::DELETE_BUTTON_STYLE_SHEET +
         Styles::TWITTER_BUTTON_STYLE_SHEET +
-        Styles::TYPEAHEAD_STYLE_SHEET;
+        Styles::TYPEAHEAD_STYLE_SHEET +
+        Styles::SCROLLBAR_STYLE_SHEET;
 
     qApp->setStyleSheet(appStyleSheet);
 }
