@@ -12,19 +12,18 @@ class TweetTemplatesItemWidget : public QLabel
 public:
     explicit TweetTemplatesItemWidget(const TweetTemplate &tweetTemplate, QWidget *parent = nullptr);
 
-    void updateText(const QString &text);
-    void updateName(const QString &name);
+    void setName(const QString &name);
 
-    QString getPlainText() const { return plainText; }
     QString getName() const { return name; }
 
     void mouseReleaseEvent(QMouseEvent *event);
+    void enterEvent(QEvent *event);
+    void leaveEvent(QEvent *event);
 
 signals:
     void templateItemClicked(int templateId);
 
 private:
-    QString plainText;
     QString name;
     int templateId;
 };

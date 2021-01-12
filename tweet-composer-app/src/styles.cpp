@@ -158,7 +158,7 @@ const QString Styles::TWITTER_BUTTON_STYLE_SHEET =
     "border-radius: 15px;"
     "padding: 6px 15px;"
     "font-size: 15px;"
-    "} "
+    "}"
     "TwitterButton:disabled {"
     "color: gray; "
     "}"
@@ -208,4 +208,40 @@ const QString Styles::SCROLLBAR_STYLE_SHEET =
     "}"
     "QScrollBar::sub-line:horizontal {"
     "width: 0;"
+    "}";
+
+const QString Styles::TWEET_DRAFTS_ITEM_STYLE_SHEET =
+    "TweetDraftsItemWidget {"
+    "border:no;"
+    "font-size: 15px;"
+    "border-bottom: 1px solid #17a81a;"
+    "padding: 3px 4px;"
+    "}";
+
+const QString Styles::TWEET_DRAFTS_ITEM_HOVER_STYLE_SHEET =
+    "TweetDraftsItemWidget {"
+    "border:no;"
+    "font-size: 15px;"
+    "border-bottom: 1px solid #17a81a;"
+    "padding: 3px 4px;"
+    "color: white;"
+    "background: #17a81a;"
+    "}";
+
+const QString Styles::TWEET_TEMPLATES_ITEM_STYLE_SHEET =
+    "TweetTemplatesItemWidget {"
+    "border:no;"
+    "font-size: 15px;"
+    "border-bottom: 1px solid #17a81a;"
+    "padding: 3px 4px;"
+    "}";
+
+const QString Styles::TWEET_TEMPLATES_ITEM_HOVER_STYLE_SHEET =
+    "TweetTemplatesItemWidget {"
+    "border:no;"
+    "font-size: 15px;"
+    "border-bottom: 1px solid #17a81a;"
+    "padding: 3px 4px;"
+    "color: white;"
+    "background: #17a81a;"
     "}";

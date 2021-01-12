@@ -34,7 +34,7 @@ void TweetDraftsWidget::onSearchTextChanged(const QString &text)
 {
     for (TweetDraftsItemWidget *item : idToItemMap.values())
     {
-        bool match = item->getPlainText().contains(text, Qt::CaseInsensitive)
+        bool match = item->text().contains(text, Qt::CaseInsensitive)
                      || item->getName().contains(text, Qt::CaseInsensitive);
         item->setVisible(match);
     }
@@ -52,8 +52,8 @@ void TweetDraftsWidget::onTweetDraftAdded(const TweetDraft &tweetDraft)
 void TweetDraftsWidget::onTweetDraftEdited(const TweetDraft &tweetTemplate)
 {
     TweetDraftsItemWidget *item = idToItemMap[tweetTemplate.getId()];
-    item->updateText(tweetTemplate.getText());
-    item->updateName(tweetTemplate.getName());
+    item->setText(tweetTemplate.getText());
+    item->setName(tweetTemplate.getName());
 }
 
 void TweetDraftsWidget::onTweetDraftDeleted(int draftId)

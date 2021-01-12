@@ -50,7 +50,9 @@ void MainWindow::updateAppStyles()
         Styles::DELETE_BUTTON_STYLE_SHEET +
         Styles::TWITTER_BUTTON_STYLE_SHEET +
         Styles::TYPEAHEAD_STYLE_SHEET +
-        Styles::SCROLLBAR_STYLE_SHEET;
+        Styles::SCROLLBAR_STYLE_SHEET +
+        Styles::TWEET_DRAFTS_ITEM_STYLE_SHEET +
+        Styles::TWEET_TEMPLATES_ITEM_STYLE_SHEET;
 
     qApp->setStyleSheet(appStyleSheet);
 }

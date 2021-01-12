@@ -33,6 +33,10 @@ public:
     static const QString CHECKBOX_STYLE_SHEET;
     static const QString TYPEAHEAD_STYLE_SHEET;
     static const QString SCROLLBAR_STYLE_SHEET;
+    static const QString TWEET_DRAFTS_ITEM_STYLE_SHEET;
+    static const QString TWEET_DRAFTS_ITEM_HOVER_STYLE_SHEET;
+    static const QString TWEET_TEMPLATES_ITEM_STYLE_SHEET;
+    static const QString TWEET_TEMPLATES_ITEM_HOVER_STYLE_SHEET;
 };
 
 #endif // STYLES_H
