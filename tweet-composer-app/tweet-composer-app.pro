@@ -26,6 +26,7 @@ SOURCES += \
     src/tweettemplateswidget.cpp \
     src/jsonserializer.cpp \
     src/toastwidget.cpp \
+    src/twitterbootstrapstyles.cpp \
     src/scrollablecontainer.cpp \
     src/twitterapiclient.cpp \
 
