@@ -69,17 +69,17 @@ bool DataStore::getTweetTemplateById(int id, TweetTemplate &tweetTemplate)
     return true;
 }
 
-void DataStore::addTweetDraft(const TweetDraft &tweetDraft)
+void DataStore::addTweetDraft(TweetDraft &tweetDraft)
 {
-    assignDraftId();
+    tweetDraft.setId(assignDraftId());
     tweetDrafts->append(tweetDraft);
     draftIdToIndexMap->insert(tweetDraft.getId(), tweetDrafts->count() - 1);
     emit tweetDraftAdded(tweetDraft);
 }
 
-void DataStore::addTweetTemplate(const TweetTemplate &tweetTemplate)
+void DataStore::addTweetTemplate(TweetTemplate &tweetTemplate)
 {
-    assignTemplateId();
+    tweetTemplate.setId(assignTemplateId());
     tweetTemplates->append(tweetTemplate);
     templateIdToIndexMap->insert(tweetTemplate.getId(), tweetTemplates->count() - 1);
     emit tweetTemplateAdded(tweetTemplate);

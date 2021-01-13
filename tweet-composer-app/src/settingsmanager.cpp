@@ -57,13 +57,6 @@ void SettingsManager::loadTweetDrafts()
     QVector<TweetDraft> tweetDrafts;
     if (jsonSerializer->deserialize(tweetDrafts, settings->value(tweetDraftsJsonPath).toString()))
     {
-        int index = 0;
-        while (index < tweetDrafts.count())
-        {
-            tweetDrafts[index].setId(dataStore->assignDraftId());
-            ++index;
-        }
-
         dataStore->setTweetDrafts(tweetDrafts);
     }
 }
@@ -78,13 +71,6 @@ void SettingsManager::loadTweetTemplates()
     QVector<TweetTemplate> tweetTemplates;
     if (jsonSerializer->deserialize(tweetTemplates, settings->value(tweetTemplatesJsonPath).toString()))
     {
-        int index = 0;
-        while (index < tweetTemplates.count())
-        {
-            tweetTemplates[index].setId(dataStore->assignTemplateId());
-            ++index;
-        }
-
         dataStore->setTweetTemplates(tweetTemplates);
     }
 }

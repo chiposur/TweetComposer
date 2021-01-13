@@ -27,8 +27,8 @@ public:
     bool getTweetDraftById(int id, TweetDraft &tweetDraft);
     bool getTweetTemplateById(int id, TweetTemplate &tweetTemplate);
 
-    void addTweetDraft(const TweetDraft &tweetDraft);
-    void addTweetTemplate(const TweetTemplate &tweetTemplate);
+    void addTweetDraft(TweetDraft &tweetDraft);
+    void addTweetTemplate(TweetTemplate &tweetTemplate);
 
     void editTweetDraftById(int id, const TweetDraft &tweetDraft);
     void editTweetTemplateById(int id, const TweetTemplate &tweetTemplate);
