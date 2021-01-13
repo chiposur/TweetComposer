@@ -16,8 +16,6 @@ public:
     void setText(QString text) { this->text = text; }
     void setName(QString name) { this->name = name; }
 
-    static int numDrafts;
-
     bool operator==(const TweetDraft &other) { return id == other.getId(); }
 
     TweetDraft &operator=(const TweetDraft &other)

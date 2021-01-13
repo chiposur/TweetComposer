@@ -321,7 +321,7 @@ void ComposeWidget::updateBtnStates()
 void ComposeWidget::saveAsDraftBtnClicked()
 {
     TweetDraft tweetDraft;
-    tweetDraft.setId(TweetDraft::numDrafts + 1);
+    tweetDraft.setId(dataStore->getNumAssignedDraftIds() + 1);
     tweetDraft.setText(tweetTextEdit->toPlainText());
     tweetDraft.setName(nameLineEdit->text());
     dataStore->addTweetDraft(tweetDraft);
@@ -336,7 +336,7 @@ void ComposeWidget::saveAsDraftBtnClicked()
 void ComposeWidget::saveAsTemplateBtnClicked()
 {
     TweetTemplate tweetTemplate;
-    tweetTemplate.setId(TweetTemplate::numTemplates + 1);
+    tweetTemplate.setId(dataStore->getNumAssignedTemplateIds() + 1);
     tweetTemplate.setText(tweetTextEdit->toPlainText());
     tweetTemplate.setName(nameLineEdit->text());
     dataStore->addTweetTemplate(tweetTemplate);

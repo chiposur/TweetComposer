@@ -42,6 +42,12 @@ public:
     int getDraftIdIndex(int id) { return draftIdToIndexMap->contains(id) ? (*draftIdToIndexMap)[id] : -1; };
     int getTemplateIdIndex(int id) { return templateIdToIndexMap->contains(id) ? (*templateIdToIndexMap)[id] : -1; };
 
+    int assignDraftId() { return ++numAssignedDraftIds; }
+    int assignTemplateId() { return ++numAssignedTemplateIds; }
+
+    int getNumAssignedDraftIds() { return numAssignedDraftIds; }
+    int getNumAssignedTemplateIds() { return numAssignedTemplateIds; }
+
 signals:
     void tweetDraftAdded(const TweetDraft &tweetDraft);
     void tweetDraftEdited(const TweetDraft &tweetDraft);
@@ -51,6 +57,9 @@ signals:
     void tweetTemplateDeleted(int templateId);
 
 private:
+    static int numAssignedDraftIds;
+    static int numAssignedTemplateIds;
+
     QVector<TweetDraft> *tweetDrafts;
     QVector<TweetTemplate> *tweetTemplates;
     QMap<int, int> *draftIdToIndexMap;

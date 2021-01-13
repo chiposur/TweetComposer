@@ -60,7 +60,7 @@ void SettingsManager::loadTweetDrafts()
         int index = 0;
         while (index < tweetDrafts.count())
         {
-            tweetDrafts[index].setId(++TweetDraft::numDrafts);
+            tweetDrafts[index].setId(dataStore->assignDraftId());
             ++index;
         }
 
@@ -81,7 +81,7 @@ void SettingsManager::loadTweetTemplates()
         int index = 0;
         while (index < tweetTemplates.count())
         {
-            tweetTemplates[index].setId(++TweetTemplate::numTemplates);
+            tweetTemplates[index].setId(dataStore->assignTemplateId());
             ++index;
         }
 

@@ -222,14 +222,19 @@ void JsonSerializer::onTweetDraftEdited(const TweetDraft &tweetDraft)
 {
     QJsonObject root = jsonDocument->object();
     QJsonArray draftsArray = root["tweetDrafts"].toArray();
+    int index = 0;
     for (QJsonValue value : draftsArray)
     {
         if (value.toObject()["id"] == tweetDraft.getId())
         {
-            value = QJsonValue(createQJsonObject(tweetDraft));
+            break;
         }
+
+        ++index;
     }
 
+    draftsArray.removeAt(index);
+    draftsArray.insert(index, createQJsonObject(tweetDraft));
     root["tweetDrafts"] = draftsArray;
     jsonDocument->setObject(root);
 }
@@ -266,16 +271,21 @@ void JsonSerializer::onTweetTemplateAdded(const TweetTemplate &tweetTemplate)
 void JsonSerializer::onTweetTemplateEdited(const TweetTemplate &tweetTemplate)
 {
     QJsonObject root = jsonDocument->object();
-    QJsonArray draftsArray = root["tweetTemplates"].toArray();
-    for (QJsonValue value : draftsArray)
+    QJsonArray templatesArray = root["tweetTemplates"].toArray();
+    int index = 0;
+    for (QJsonValue value : templatesArray)
     {
         if (value.toObject()["id"] == tweetTemplate.getId())
         {
-            value = QJsonValue(createQJsonObject(tweetTemplate));
+            break;
         }
+
+        ++index;
     }
 
-    root["tweetTemplates"] = draftsArray;
+    templatesArray.removeAt(index);
+    templatesArray.insert(index, createQJsonObject(tweetTemplate));
+    root["tweetTemplates"] = templatesArray;
     jsonDocument->setObject(root);
 }
 

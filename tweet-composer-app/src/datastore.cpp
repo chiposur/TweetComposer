@@ -1,5 +1,8 @@
 #include "datastore.h"
 
+int DataStore::numAssignedDraftIds = 0;
+int DataStore::numAssignedTemplateIds = 0;
+
 DataStore::DataStore(QObject *parent) : QObject(parent)
 {
     tweetDrafts = new QVector<TweetDraft>();
@@ -68,7 +71,7 @@ bool DataStore::getTweetTemplateById(int id, TweetTemplate &tweetTemplate)
 
 void DataStore::addTweetDraft(const TweetDraft &tweetDraft)
 {
-    ++TweetDraft::numDrafts;
+    assignDraftId();
     tweetDrafts->append(tweetDraft);
     draftIdToIndexMap->insert(tweetDraft.getId(), tweetDrafts->count() - 1);
     emit tweetDraftAdded(tweetDraft);
@@ -76,7 +79,7 @@ void DataStore::addTweetDraft(const TweetDraft &tweetDraft)
 
 void DataStore::addTweetTemplate(const TweetTemplate &tweetTemplate)
 {
-    ++TweetTemplate::numTemplates;
+    assignTemplateId();
     tweetTemplates->append(tweetTemplate);
     templateIdToIndexMap->insert(tweetTemplate.getId(), tweetTemplates->count() - 1);
     emit tweetTemplateAdded(tweetTemplate);
