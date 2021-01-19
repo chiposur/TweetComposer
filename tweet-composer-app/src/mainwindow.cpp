@@ -39,6 +39,7 @@ void MainWindow::updateAppStyles()
         Styles::MAIN_WINDOW_STYLE_SHEET +
         Styles::MENU_BAR_STYLE_SHEET +
         Styles::MENU_STYLE_SHEET +
+        Styles::SETTINGS_DIALOG_STYLE_SHEET +
         Styles::GROUPBOX_STYLE_SHEET +
         Styles::LINE_EDIT_STYLE_SHEET +
         Styles::COMBOBOX_STYLE_SHEET +
