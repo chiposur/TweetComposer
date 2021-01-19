@@ -36,7 +36,7 @@ const QString Styles::MENU_STYLE_SHEET =
     "}";
 
 const QString Styles::SETTINGS_DIALOG_STYLE_SHEET =
-    "QDialog {"
+    "SettingsDialog {"
     "background: white;"
     "}";
 
