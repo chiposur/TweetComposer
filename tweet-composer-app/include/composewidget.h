@@ -25,8 +25,6 @@ public:
     explicit ComposeWidget(QWidget *parent = nullptr);
 
 public slots:
-    void onTextChanged();
-    void onCurrentTextChanged(const QString &text);
     void loadTweetDraft(const TweetDraft &tweetDraft);
     void loadTweetTemplate(const TweetTemplate &tweetTemplate);
 
@@ -48,6 +46,8 @@ private slots:
     void tweetBtnClicked();
     void onUpdateStatusFinished(RequestId id, TwitterApiClient::ResultType result);
     void onTweetTextDocumentContentsChange(int position, int charsRemoved, int charsAdded);
+    void onTextChanged();
+    void onCurrentTextChanged(const QString &text);
 
 private:
     int tweetTextLength();
