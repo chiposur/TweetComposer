@@ -26,7 +26,11 @@ public:
 signals:
     void resized(QResizeEvent *event);
 
-public slots:
+protected:
+    void resizeEvent(QResizeEvent *event);
+    void closeEvent(QCloseEvent *event);
+
+private slots:
     void showComposeWidget();
     void showTweetDraftsWidget();
     void showTweetTemplatesWidget();
@@ -41,10 +45,6 @@ public slots:
     void onEditDraftRequested(int draftId);
     void onEditTemplateRequested(int templateId);
     void onToastWidgetExpired(int height);
-
-protected:
-    void resizeEvent(QResizeEvent *event);
-    void closeEvent(QCloseEvent *event);
 
 private:
     void updateAppStyles();

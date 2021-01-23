@@ -27,6 +27,8 @@ public slots:
     void onTweetTemplateAdded(const TweetTemplate &tweetTemplate);
     void onTweetTemplateEdited(const TweetTemplate &tweetTemplate);
     void onTweetTemplateDeleted(int templateId);
+
+private slots:
     void onSearchTextChanged(const QString &text);
 
 private:

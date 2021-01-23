@@ -31,8 +31,6 @@ public:
     bool saveTweetDrafts();
     bool saveTweetTemplates();
 
-signals:
-
 private:
     static const QString encryptTweetDraftsPath;
     static const QString encryptTweetTemplatesPath;
