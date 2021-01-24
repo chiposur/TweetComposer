@@ -52,6 +52,6 @@ ToastWidget::ToastWidget(
 
 void ToastWidget::onDurationExpired()
 {
-    emit toastWidgetExpired(height());
+    emit toastWidgetExpired(toastId);
     deleteLater();
 }

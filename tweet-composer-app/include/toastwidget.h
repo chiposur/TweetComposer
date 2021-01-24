@@ -16,7 +16,7 @@ public:
         QWidget *parent = nullptr);
 
 signals:
-    void toastWidgetExpired(int height);
+    void toastWidgetExpired(int id);
 
 private slots:
     void onDurationExpired();

@@ -14,6 +14,7 @@
 #include "jsonserializer.h"
 #include "settingsmanager.h"
 #include "twitterapiclient.h"
+#include "toastlayoutmanager.h"
 
 class MainWindow : public QMainWindow
 {
@@ -44,7 +45,6 @@ private slots:
     void onToastRequested(const Toast &toast);
     void onEditDraftRequested(int draftId);
     void onEditTemplateRequested(int templateId);
-    void onToastWidgetExpired(int height);
 
 private:
     void updateAppStyles();
@@ -59,6 +59,8 @@ private:
     SettingsManager *settingsManager;
     TwitterApiClient *twitterApiClient;
 
+    ToastLayoutManager *toastLayoutManager;
+
     QVBoxLayout *mainLayout;
     ComposeWidget *composeWidget;
     TweetDraftsWidget *tweetDraftsWidget;
@@ -68,10 +70,6 @@ private:
     QString lastSelectedTemplatesExportDir;
     QString lastSelectedDraftsImportDir;
     QString lastSelectedTemplatesImportDir;
-
-    int topToastHeight = 0;
-
-    static const int TOAST_MARGIN_PX = 8;
 
     const QIcon APP_ICON = QIcon(QPixmap(":/images/green-twitter-logo.ico"));
 };

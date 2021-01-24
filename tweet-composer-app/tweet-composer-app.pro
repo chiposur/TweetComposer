@@ -29,6 +29,7 @@ SOURCES += \
     src/twitterbootstrapstyles.cpp \
     src/scrollablecontainer.cpp \
     src/twitterapiclient.cpp \
+    src/toastlayoutmanager.cpp \
 
 HEADERS += \
     include/settings.h \
@@ -51,6 +52,7 @@ HEADERS += \
     include/twitterbootstrapstyles.h \
     include/scrollablecontainer.h \
     include/twitterapiclient.h \
+    include/toastlayoutmanager.h \
 
 RESOURCES += \
     images.qrc

@@ -24,8 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     loadSettings();
     loadEntities();
 
-    // Set minimum size to startup size hint
-    setMinimumSize(sizeHint());
+    QSize startupSizeHint = sizeHint();
+    setMinimumSize(startupSizeHint);
+    toastLayoutManager = new ToastLayoutManager(this);
 }
 
 MainWindow::~MainWindow()
@@ -464,23 +465,13 @@ void MainWindow::showSettingsDialogTriggered()
 
 void MainWindow::onToastRequested(const Toast &toast)
 {
-    ToastWidget *toastWidget = new ToastWidget(toast, toast.getText(), this);
-    connect(toastWidget, SIGNAL(toastWidgetExpired(int)), this, SLOT(onToastWidgetExpired(int)));
-    topToastHeight += TOAST_MARGIN_PX + toastWidget->height();
-    int toastX = width() - toastWidget->width() - TOAST_MARGIN_PX;
-    int toastY = height() - topToastHeight;
-    toastWidget->move(toastX, toastY);
-    toastWidget->setVisible(true);
-}
-
-void MainWindow::onToastWidgetExpired(int height)
-{
-    topToastHeight -= height + TOAST_MARGIN_PX;
+    toastLayoutManager->addToast(toast);
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
+    toastLayoutManager->updateAllToastCoordinates();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
