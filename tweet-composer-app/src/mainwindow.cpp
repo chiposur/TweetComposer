@@ -471,7 +471,7 @@ void MainWindow::onToastRequested(const Toast &toast)
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
-    toastLayoutManager->updateAllToastCoordinates();
+    toastLayoutManager->updatePositions();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

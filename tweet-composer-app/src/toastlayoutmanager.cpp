@@ -10,19 +10,19 @@ void ToastLayoutManager::addToast(const Toast &toast)
     ToastWidget *toastWidget = new ToastWidget(toast, toast.getText(), parent);
     idToToastWidgetMap.insert(toast.getId(), toastWidget);
     connect(toastWidget, SIGNAL(toastWidgetExpired(int)), this, SLOT(onToastWidgetExpired(int)));
-    updateToastCoordinates(toastWidget);
+    moveToTop(toastWidget);
 }
 
-void ToastLayoutManager::updateAllToastCoordinates()
+void ToastLayoutManager::updatePositions()
 {
     topToastHeight = 0;
     for (ToastWidget *toastWidget : idToToastWidgetMap.values())
     {
-        updateToastCoordinates(toastWidget);
+        moveToTop(toastWidget);
     }
 }
 
-void ToastLayoutManager::updateToastCoordinates(ToastWidget *toastWidget)
+void ToastLayoutManager::moveToTop(ToastWidget *toastWidget)
 {
     topToastHeight += TOAST_MARGIN_PX + toastWidget->height();
     int toastX = parent->width() - toastWidget->width() - TOAST_MARGIN_PX;
@@ -34,5 +34,5 @@ void ToastLayoutManager::updateToastCoordinates(ToastWidget *toastWidget)
 void ToastLayoutManager::onToastWidgetExpired(int id)
 {
     idToToastWidgetMap.remove(id);
-    updateAllToastCoordinates();
+    updatePositions();
 }

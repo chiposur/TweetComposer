@@ -15,13 +15,14 @@ public:
 
     void addToast(const Toast &toast);
 
-    void updateAllToastCoordinates();
-    void updateToastCoordinates(ToastWidget *toastWidget);
+    void updatePositions();
 
 private slots:
     void onToastWidgetExpired(int id);
 
 private:
+    void moveToTop(ToastWidget *toastWidget);
+
     static const int TOAST_MARGIN_PX = 8;
 
     QWidget *parent;
