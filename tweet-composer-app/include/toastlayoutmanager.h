@@ -10,6 +10,7 @@
 class ToastLayoutManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit ToastLayoutManager(QWidget *parent);
 

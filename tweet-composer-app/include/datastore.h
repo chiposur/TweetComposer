@@ -11,6 +11,7 @@
 class DataStore : public QObject
 {
     Q_OBJECT
+
 public:
     explicit DataStore(QObject *parent = nullptr);
 

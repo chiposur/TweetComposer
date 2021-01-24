@@ -8,6 +8,7 @@
 class TweetDraftsItemWidget : public QLabel
 {
     Q_OBJECT
+
 public:
     explicit TweetDraftsItemWidget(const TweetDraft &tweetDraft, QWidget *parent = nullptr);
 

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "settings.h"
-#include "toastwidget.h"
 #include "styles.h"
 
 #include <QApplication>
