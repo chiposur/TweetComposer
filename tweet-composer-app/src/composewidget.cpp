@@ -1,6 +1,5 @@
 #include <QApplication>
 #include <QFont>
-#include <QGuiApplication>
 #include <QMessageBox>
 #include <QSpacerItem>
 
