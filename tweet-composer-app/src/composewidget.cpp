@@ -1,12 +1,8 @@
-#include <QAction>
 #include <QApplication>
-#include <QClipboard>
 #include <QFont>
 #include <QGuiApplication>
 #include <QMessageBox>
 #include <QSpacerItem>
-
-#include <string>
 
 #include "composewidget.h"
 #include "settings.h"
