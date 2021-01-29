@@ -1,8 +1,6 @@
 #include "toastwidget.h"
 #include "twitterbootstrapstyles.h"
 
-#include <QHBoxLayout>
-#include <QLabel>
 #include <QTimer>
 
 ToastWidget::ToastWidget(

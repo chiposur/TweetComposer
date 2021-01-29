@@ -4,11 +4,8 @@
 #include <QComboBox>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QObject>
 #include <QWidget>
 #include <QVBoxLayout>
-#include <QTextCharFormat>
-#include <QToolButton>
 
 #include "tweetdraft.h"
 #include "tweettemplate.h"

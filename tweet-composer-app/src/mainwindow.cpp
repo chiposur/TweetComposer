@@ -4,7 +4,7 @@
 
 #include <QApplication>
 #include <QFileDialog>
-#include <QGuiApplication>
+#include <QMenuBar>
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)

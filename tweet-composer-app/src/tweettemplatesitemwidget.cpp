@@ -1,8 +1,6 @@
 #include "tweettemplatesitemwidget.h"
 #include "styles.h"
 
-#include <QTextDocument>
-
 TweetTemplatesItemWidget::TweetTemplatesItemWidget(const TweetTemplate &tweetTemplate, QWidget *parent) : QLabel(parent)
 {
     templateId = tweetTemplate.getId();

@@ -5,10 +5,7 @@
 #include <QComboBox>
 #include <QGroupBox>
 #include <QLabel>
-#include <QMenu>
-#include <QMenuBar>
 #include <QLineEdit>
-#include <QObject>
 #include <QPushButton>
 #include <QStyledItemDelegate>
 #include <QPlainTextEdit>

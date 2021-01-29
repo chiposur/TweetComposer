@@ -1,9 +1,7 @@
 #ifndef JSONSERIALIZER_H
 #define JSONSERIALIZER_H
 
-#include <QJsonObject>
 #include <QJsonDocument>
-#include <QMap>
 #include <QObject>
 #include <QString>
 #include <QVector>

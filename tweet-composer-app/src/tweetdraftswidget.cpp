@@ -2,7 +2,6 @@
 #include "customcontrols.h"
 
 #include <QHBoxLayout>
-#include <QScrollArea>
 #include <QVBoxLayout>
 
 TweetDraftsWidget::TweetDraftsWidget(QWidget *parent) : QWidget(parent)

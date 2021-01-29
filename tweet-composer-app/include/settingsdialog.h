@@ -4,7 +4,6 @@
 #include <QCheckBox>
 #include <QDialog>
 #include <QLineEdit>
-#include <QObject>
 
 #include "customcontrols.h"
 

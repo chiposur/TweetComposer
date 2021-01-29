@@ -2,8 +2,6 @@
 #define TWEETDRAFTSWIDGET_H
 
 #include <QMap>
-#include <QObject>
-#include <QVBoxLayout>
 #include <QWidget>
 
 #include "scrollablecontainer.h"

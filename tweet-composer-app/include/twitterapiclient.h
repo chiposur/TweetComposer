@@ -4,7 +4,6 @@
 #include <QMap>
 #include <QNetworkAccessManager>
 #include <QOAuth1>
-#include <QObject>
 
 typedef int RequestId;
 

@@ -3,7 +3,6 @@
 
 #include <QNetworkReply>
 #include <QUrl>
-#include <QUrlQuery>
 
 TwitterApiClient::TwitterApiClient()
 {

@@ -2,7 +2,6 @@
 #define TOASTLAYOUTMANAGER_H
 
 #include <QMap>
-#include <QObject>
 
 #include "toast.h"
 #include "toastwidget.h"

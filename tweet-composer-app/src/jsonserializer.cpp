@@ -1,9 +1,8 @@
+#include "jsonserializer.h"
+
 #include <QJsonArray>
-#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-
-#include "jsonserializer.h"
 
 QJsonObject createQJsonObject(const TweetDraft &tweetDraft)
 {

@@ -1,8 +1,6 @@
 #ifndef SETTINGSMANAGER_H
 #define SETTINGSMANAGER_H
 
-#include <QList>
-#include <QObject>
 #include <QSettings>
 
 #include "datastore.h"

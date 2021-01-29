@@ -1,8 +1,6 @@
 #include "settingsmanager.h"
 #include "settings.h"
 
-#include <QString>
-
 const QString SettingsManager::encryptTweetDraftsPath("settings/encryptTweetDrafts");
 const QString SettingsManager::encryptTweetTemplatesPath("settings/encryptTweetTemplates");
 const QString SettingsManager::persistWindowSizePath("settings/persistWindowSize");

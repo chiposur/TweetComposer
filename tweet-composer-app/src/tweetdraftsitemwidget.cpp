@@ -1,8 +1,6 @@
 #include "tweetdraftsitemwidget.h"
 #include "styles.h"
 
-#include <QTextDocument>
-
 TweetDraftsItemWidget::TweetDraftsItemWidget(const TweetDraft &tweetDraft, QWidget *parent) : QLabel(parent)
 {
     draftId = tweetDraft.getId();
