@@ -3,7 +3,6 @@
 #include "customcontrols.h"
 #include "datastore.h"
 #include "settingsmanager.h"
-#include "styles.h"
 
 #include <QGroupBox>
 #include <QHBoxLayout>

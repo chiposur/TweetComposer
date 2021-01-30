@@ -1,7 +1,9 @@
 #include <QApplication>
 #include <QFont>
+#include <QHBoxLayout>
 #include <QMessageBox>
 #include <QSpacerItem>
+#include <QVBoxLayout>
 
 #include "composewidget.h"
 #include "settings.h"
@@ -18,7 +20,6 @@ const QString ComposeWidget::MATH_SERIF_BOLD_ITALIC_ALPHABET = QString::fromUtf8
 ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 {
     dataStore = DataStore::getInstance();
-
     twitterApiClient = TwitterApiClient::getInstance();
     connect(
         twitterApiClient,

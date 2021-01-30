@@ -1,5 +1,4 @@
 #include "customcontrols.h"
-#include "styles.h"
 
 #include <QLabel>
 #include <QPainter>

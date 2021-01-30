@@ -2,10 +2,8 @@
 #define COMPOSEWIDGET_H
 
 #include <QComboBox>
-#include <QHBoxLayout>
 #include <QLabel>
 #include <QWidget>
-#include <QVBoxLayout>
 
 #include "tweetdraft.h"
 #include "tweettemplate.h"
