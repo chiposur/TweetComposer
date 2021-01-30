@@ -86,9 +86,6 @@ private:
 
     QString fontFamily;
 
-    QVector<TweetDraft> *tweetDrafts;
-    QVector<TweetTemplate> *tweetTemplates;
-
     DataStore *dataStore;
     TwitterApiClient *twitterApiClient;
 };

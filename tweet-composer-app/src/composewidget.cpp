@@ -18,8 +18,6 @@ const QString ComposeWidget::MATH_SERIF_BOLD_ITALIC_ALPHABET = QString::fromUtf8
 ComposeWidget::ComposeWidget(QWidget *parent) : QWidget(parent)
 {
     dataStore = DataStore::getInstance();
-    tweetDrafts = dataStore->getTweetDrafts();
-    tweetTemplates = dataStore->getTweetTemplates();
 
     twitterApiClient = TwitterApiClient::getInstance();
     connect(
