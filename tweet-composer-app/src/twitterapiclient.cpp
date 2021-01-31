@@ -10,12 +10,6 @@ TwitterApiClient::TwitterApiClient()
     oauth1 = new QOAuth1(Settings::apiKey, Settings::apiSecret, networkAccessManager, this);
     oauth1->setSignatureMethod(QOAuth1::SignatureMethod::Hmac_Sha1);
     oauth1->setTokenCredentials(Settings::accessToken, Settings::accessTokenSecret);
-    replyToRequestIdMap = new QMap<QNetworkReply *, RequestId>();
-}
-
-TwitterApiClient::~TwitterApiClient()
-{
-    delete replyToRequestIdMap;
 }
 
 TwitterApiClient *TwitterApiClient::getInstance()
@@ -38,7 +32,7 @@ RequestId TwitterApiClient::updateStatus(QString tweetText)
     connect(reply, SIGNAL(finished()), this, SLOT(onUpdateStatusFinished()));
 
     RequestId id = getNewRequestId();
-    replyToRequestIdMap->insert(reply, id);
+    replyToRequestIdMap.insert(reply, id);
     return id;
 }
 
@@ -66,9 +60,9 @@ void TwitterApiClient::onUpdateStatusFinished()
         result = ResultType::PROTOCOL_INVALID_OPERATION_ERROR;
     }
 
-    RequestId id = replyToRequestIdMap->value(reply);
+    RequestId id = replyToRequestIdMap.value(reply);
     emit updateStatusFinished(id, result);
 
-    replyToRequestIdMap->remove(reply);
+    replyToRequestIdMap.remove(reply);
     reply->deleteLater();
 }

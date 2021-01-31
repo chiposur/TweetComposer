@@ -35,7 +35,6 @@ private slots:
 
 private:
     TwitterApiClient();
-    ~TwitterApiClient();
 
     RequestId getNewRequestId() { return ++numRequests; }
 
@@ -43,7 +42,7 @@ private:
 
     QNetworkAccessManager *networkAccessManager;
     QOAuth1 *oauth1;
-    QMap<QNetworkReply *, RequestId> *replyToRequestIdMap;
+    QMap<QNetworkReply *, RequestId> replyToRequestIdMap;
 };
 
 #endif // TWITTERAPICLIENT_H
